@@ -1,4 +1,5 @@
 module.exports = {
   singleQuote: true,
-  semi: false
+  semi: false,
+  indent: [2, 'tab']
 }
