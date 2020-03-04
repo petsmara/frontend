@@ -1,5 +1,5 @@
 <template>
-  <div class="join">
+  <div class="register">
     <el-form
       :model="ruleForm"
       :rules="rules"
@@ -35,14 +35,29 @@
         <el-button type="primary" @click="submitForm('ruleForm')"
           >가입하기</el-button
         >
-        <el-button @click="resetForm('ruleForm')">모두 지우기</el-button>
+        <!-- <el-button @click="resetForm('ruleForm')">모두 지우기</el-button> -->
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import { createNamespacedHelpers } from 'vuex'
+const { mapState, mapActions } = createNamespacedHelpers('user')
+
 export default {
+  // created() {
+  //   axios
+  //     .get('http://localhost:3000/users') // Does a get request
+  //     .then(response => {
+  //       console.log(response)
+  //       console.log(response.data) // For now, logs out the response
+  //     })
+  //     .catch(error => {
+  //       console.log('There was an error:', error.response) // Logs out the error
+  //     })
+  // },
   data() {
     const validatePass = (rule, value, callback) => {
       if (value === '') {
@@ -105,25 +120,30 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['registerUser']),
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
           alert('submit!')
+          this.registerUser({
+            ...this.ruleForm,
+            id: Math.floor(Math.random() * 100000) // dummy json-server 때문에
+          })
         } else {
           console.log('error submit!!')
           return false
         }
       })
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields()
     }
+    // resetForm(formName) {
+    //   this.$refs[formName].resetFields()
+    // }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.join {
+.register {
   padding: 20px;
 }
 </style>

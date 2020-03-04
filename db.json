@@ -1,0 +1,18 @@
+{
+  "users": [
+    {
+      "email": "test@gmail.com",
+      "nickname": "petsmara",
+      "phone_number": "010-1234-1234",
+      "password": "test1234"
+    },
+    {
+      "email": "asd",
+      "nickname": "asd",
+      "phone": "asd",
+      "password": "asd",
+      "checkPassword": "asd",
+      "id": 19738
+    }
+  ]
+}
