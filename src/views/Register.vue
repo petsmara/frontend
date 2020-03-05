@@ -9,7 +9,7 @@
       status-icon
     >
       <el-form-item label="이메일" prop="email">
-        <el-input v-model="ruleForm.email"></el-input>
+        <el-input type="email" v-model="ruleForm.email"></el-input>
       </el-form-item>
       <el-form-item label="닉네임" prop="nickname">
         <el-input v-model="ruleForm.nickname"></el-input>
@@ -47,21 +47,28 @@ import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions } = createNamespacedHelpers('user')
 
 export default {
-  // created() {
-  //   axios
-  //     .get('http://localhost:3000/users') // Does a get request
-  //     .then(response => {
-  //       console.log(response)
-  //       console.log(response.data) // For now, logs out the response
-  //     })
-  //     .catch(error => {
-  //       console.log('There was an error:', error.response) // Logs out the error
-  //     })
-  // },
   data() {
+    const validateNickname = (rule, value, callback) => {
+      const checkNickname = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]/
+      const checkWhiteSpace = /\s/
+
+      if (!checkNickname.test(value) || checkWhiteSpace.test(value)) {
+        callback(new Error('형식에 맞지 않습니다.'))
+      } else {
+        callback()
+      }
+    }
+    const validateMobileNumber = (rule, value, callback) => {
+      const checkMobileNumber = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/
+      if (!checkMobileNumber.test(value)) {
+        callback(new Error('형식에 맞지 않는 번호입니다.'))
+      } else {
+        callback()
+      }
+    }
     const validatePass = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('Please input the password'))
+        callback(new Error('비밀번호를 입력해주세요.'))
       } else {
         if (this.ruleForm.checkPassword !== '') {
           this.$refs.ruleForm.validateField('checkPassword')
@@ -71,9 +78,9 @@ export default {
     }
     const validatePass2 = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('Please input the password again'))
+        callback(new Error('한번 더 비밀번호를 입력해주세요.'))
       } else if (value !== this.ruleForm.password) {
-        callback(new Error("Two inputs don't match!"))
+        callback(new Error('비밀번호가 일치하지 않습니다.'))
       } else {
         callback()
       }
@@ -94,10 +101,33 @@ export default {
             trigger: 'blur'
           },
           {
-            min: 3,
-            max: 5,
-            message: 'Length should be 3 to 5',
+            type: 'email',
+            message: '이메일을 양식에 맞춰 입력해주세요.',
+            trigger: ['blur', 'change']
+          }
+        ],
+        nickname: [
+          {
+            validator: validateNickname,
+            message: '형식에 맞지 않습니다.',
+            trigger: ['change']
+          },
+          {
+            min: 2,
+            max: 20,
+            message: '2~20 사이 문자를 입력해주세요',
+            trigger: ['blur']
+          }
+        ],
+        phone: [
+          {
+            required: true,
+            message: '핸드폰 번호를 입력해주세요.',
             trigger: 'blur'
+          },
+          {
+            validator: validateMobileNumber,
+            trigger: ['blur', 'change']
           }
         ],
         password: [
@@ -105,6 +135,12 @@ export default {
             required: true,
             message: '비밀번호를 입력해주세요.',
             trigger: 'blur'
+          },
+          {
+            min: 8,
+            max: 20,
+            trigger: 'blur',
+            message: '8~20자로 비밀번호를 입력해주세요.'
           },
           { validator: validatePass, trigger: 'blur' }
         ],
@@ -124,20 +160,17 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert('submit!')
+          alert('회원가입이 완료되었습니다.!')
           this.registerUser({
             ...this.ruleForm,
             id: Math.floor(Math.random() * 100000) // dummy json-server 때문에
           })
         } else {
-          console.log('error submit!!')
+          console.log('회원가입이 실패하였습니다.!!')
           return false
         }
       })
     }
-    // resetForm(formName) {
-    //   this.$refs[formName].resetFields()
-    // }
   }
 }
 </script>
