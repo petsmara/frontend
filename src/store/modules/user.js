@@ -15,7 +15,8 @@ export const mutations = {
 export const actions = {
   registerUser({ commit }, user) {
     return UserService.registerUser(user)
-      .then(() => {
+      .then(res => {
+        console.log(res)
         commit('REGISTER_USER', true)
       })
       .catch(error => {

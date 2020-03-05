@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const apiClient = axios.create({
-  baseURL: `http://localhost:3000`,
+  baseURL: `http://13.125.206.232:8000`,
   withCredentials: false, // This is the default
   headers: {
     Accept: 'application/json',
@@ -18,7 +18,7 @@ export default {
   //   return apiClient.get('/Users/' + id)
   // },
   registerUser(user) {
-    return apiClient.post('/users', user)
+    return apiClient.post('/user/account/signup', user)
   }
   // signIn(user) {}
 }

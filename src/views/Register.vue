@@ -1,11 +1,13 @@
 <template>
   <div class="register">
+    <h2 class="register__title">
+      회원가입
+    </h2>
     <el-form
       :model="ruleForm"
       :rules="rules"
       ref="ruleForm"
-      label-width="120px"
-      class="demo-ruleForm"
+      class="register__form"
       status-icon
     >
       <el-form-item label="이메일" prop="email">
@@ -31,8 +33,11 @@
           autocomplete="off"
         ></el-input>
       </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')"
+      <el-form-item class="register__submit">
+        <el-button
+          :loading="isLoading"
+          type="primary"
+          @click="submitForm('ruleForm')"
           >가입하기</el-button
         >
         <!-- <el-button @click="resetForm('ruleForm')">모두 지우기</el-button> -->
@@ -86,6 +91,7 @@ export default {
       }
     }
     return {
+      isLoading: false,
       ruleForm: {
         email: '',
         nickname: '',
@@ -158,17 +164,21 @@ export default {
   methods: {
     ...mapActions(['registerUser']),
     submitForm(formName) {
+      this.isLoading = true
+      const { email, nickname, password, phone: phone_number } = this.ruleForm
       this.$refs[formName].validate(valid => {
         if (valid) {
           alert('회원가입이 완료되었습니다.!')
           this.registerUser({
-            ...this.ruleForm,
-            id: Math.floor(Math.random() * 100000) // dummy json-server 때문에
+            email,
+            nickname,
+            password,
+            phone_number
           })
         } else {
           console.log('회원가입이 실패하였습니다.!!')
-          return false
         }
+        this.isLoading = false
       })
     }
   }
@@ -178,5 +188,20 @@ export default {
 <style lang="scss" scoped>
 .register {
   padding: 20px;
+  &__title {
+  }
+  &__form {
+    margin: 0 auto;
+    max-width: 360px;
+    .el-form-item {
+      margin-bottom: 10px;
+    }
+    .el-form-item__label {
+      line-height: 30px;
+    }
+  }
+  &__submit {
+    margin-top: 30px;
+  }
 }
 </style>
