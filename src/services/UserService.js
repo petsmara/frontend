@@ -20,4 +20,5 @@ export default {
   registerUser(user) {
     return apiClient.post('/users', user)
   }
+  // signIn(user) {}
 }
