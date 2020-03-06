@@ -161,6 +161,7 @@ export default {
       }
     }
   },
+  mounted() {},
   methods: {
     ...mapActions(['registerUser']),
     submitForm(formName) {
@@ -168,15 +169,32 @@ export default {
       const { email, nickname, password, phone: phone_number } = this.ruleForm
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert('회원가입이 완료되었습니다.!')
           this.registerUser({
             email,
             nickname,
             password,
             phone_number
           })
+          this.$message({
+            message: '회원가입이 완료되었습니다.!',
+            duration: 3000,
+            showClose: true,
+            type: 'success',
+            onClose: () => {
+              alert('다음 경로는 어디로?')
+            }
+          })
         } else {
-          console.log('회원가입이 실패하였습니다.!!')
+          this.$message({
+            dangerouslyUseHTMLString: true,
+            message: `회원가입이 실패했습니다.!<br/>${this.isLoading}`,
+            duration: 3000,
+            showClose: true,
+            type: 'error'
+            // onClose: () => {
+            //   alert('다음 로직은 어디로?')
+            // }
+          })
         }
         this.isLoading = false
       })
