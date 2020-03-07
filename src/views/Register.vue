@@ -26,6 +26,7 @@
           autocomplete="off"
         ></el-input>
       </el-form-item>
+
       <el-form-item label="비밀번호 확인" prop="checkPassword">
         <el-input
           type="password"
@@ -33,6 +34,14 @@
           autocomplete="off"
         ></el-input>
       </el-form-item>
+
+      <el-form-item prop="agree" class="register__agree">
+        <el-checkbox
+          label="만 14세 이상이어야만 가입이 가능합니다."
+          v-model="ruleForm.agree"
+        ></el-checkbox>
+      </el-form-item>
+
       <el-form-item class="register__submit">
         <el-button
           :loading="isLoading"
@@ -55,9 +64,13 @@ export default {
   data() {
     const validateNickname = (rule, value, callback) => {
       const checkNickname = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]/
-      const checkWhiteSpace = /\s/
-
-      if (!checkNickname.test(value) || checkWhiteSpace.test(value)) {
+      const newValue = value.replace(/\s/gi, '')
+      this.nickname = newValue
+      this.ruleForm.nickname = newValue
+      if (newValue === '') {
+        callback()
+      }
+      if (!checkNickname.test(newValue) || newValue.length < 2) {
         callback(new Error('형식에 맞지 않습니다.'))
       } else {
         callback()
@@ -90,6 +103,13 @@ export default {
         callback()
       }
     }
+    const validateAgree = (rule, value, callback) => {
+      if (value !== true) {
+        callback(new Error('동의를 해주십시오.'))
+      } else {
+        callback()
+      }
+    }
     return {
       isLoading: false,
       ruleForm: {
@@ -97,7 +117,8 @@ export default {
         nickname: '',
         phone: '',
         password: '',
-        checkPassword: ''
+        checkPassword: '',
+        agree: ''
       },
       rules: {
         email: [
@@ -116,7 +137,7 @@ export default {
           {
             validator: validateNickname,
             message: '형식에 맞지 않습니다.',
-            trigger: ['change']
+            trigger: ['blur']
           },
           {
             min: 2,
@@ -157,6 +178,17 @@ export default {
             trigger: 'blur'
           },
           { validator: validatePass2, trigger: 'blur' }
+        ],
+        agree: [
+          // {
+          //   required: true,
+          //   message: '동의를 해주세요.',
+          //   trigger: 'blur'
+          // },
+          {
+            validator: validateAgree,
+            trigger: 'change'
+          }
         ]
       }
     }
@@ -175,6 +207,7 @@ export default {
             password,
             phone_number
           })
+          // 여기서 결과값을 받아서 다시 분기처리 성공, 실패
           this.$message({
             message: '회원가입이 완료되었습니다.!',
             duration: 3000,
@@ -187,13 +220,10 @@ export default {
         } else {
           this.$message({
             dangerouslyUseHTMLString: true,
-            message: `회원가입이 실패했습니다.!<br/>${this.isLoading}`,
+            message: `회원가입양식이 올바르지 않습니다. 다시 확인해주세요.`,
             duration: 3000,
             showClose: true,
             type: 'error'
-            // onClose: () => {
-            //   alert('다음 로직은 어디로?')
-            // }
           })
         }
         this.isLoading = false
@@ -220,6 +250,13 @@ export default {
   }
   &__submit {
     margin-top: 30px;
+  }
+  &__agree {
+    margin-top: 30px;
+    text-align: left;
+    & /deep/ .el-form-item__content {
+      line-height: 1;
+    }
   }
 }
 </style>
