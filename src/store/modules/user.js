@@ -13,10 +13,20 @@ export const mutations = {
 }
 
 export const actions = {
-  registerUser({ commit, dispatch }, user) {
+  registerUser({ commit }, user) {
     return UserService.registerUser(user)
-      .then(() => {
+      .then(res => {
+        console.log(res)
         commit('REGISTER_USER', true)
+      })
+      .catch(error => {
+        throw error
+      })
+  },
+  signIn({ commit }, user) {
+    return UserService.signIn(user)
+      .then(() => {
+        commit('SIGN_IN', user)
       })
       .catch(error => {
         throw error
