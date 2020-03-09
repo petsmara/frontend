@@ -20,5 +20,5 @@ export default {
   registerUser(user) {
     return apiClient.post('/user/account/signup', user)
   }
-  // signIn(user) {}
+  // logIn(user) {}
 }
