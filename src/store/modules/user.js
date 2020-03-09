@@ -3,12 +3,16 @@ import UserService from '@/services/UserService.js'
 export const namespaced = true
 
 export const state = {
-  isAuthorization: false
+  user: {
+    email: '',
+    nickname: '',
+    acessToken: ''
+  }
 }
 
 export const mutations = {
-  REGISTER_USER(state, payload) {
-    state.isAuthorization = payload
+  SET_USER_DATA(state, payload) {
+    state.user = payload
   }
 }
 
@@ -17,19 +21,29 @@ export const actions = {
     return UserService.registerUser(user)
       .then(res => {
         console.log(res)
-        commit('REGISTER_USER', true)
+        // 로컬스토리지 등록
+        // axios header token 추가
+        commit('SET_USER_DATA', true)
       })
       .catch(error => {
         throw error
       })
   },
-  signIn({ commit }, user) {
-    return UserService.signIn(user)
+  logIn({ commit }, user) {
+    return UserService.logIn(user)
       .then(() => {
-        commit('SIGN_IN', user)
+        // 로컬스토리지 등록
+        // axios header token 추가
+        commit('SET_USER_DATA', user)
       })
       .catch(error => {
         throw error
       })
+  }
+}
+
+export const getters = {
+  loggedIn(state) {
+    return !!state.user
   }
 }

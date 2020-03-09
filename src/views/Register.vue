@@ -4,25 +4,25 @@
       회원가입
     </h2>
     <el-form
-      :model="ruleForm"
-      :rules="rules"
-      ref="ruleForm"
+      :model="registerRuleForm"
+      :rules="registerRules"
+      ref="registerRuleForm"
       class="register__form"
       status-icon
     >
       <el-form-item label="이메일" prop="email">
-        <el-input type="email" v-model="ruleForm.email"></el-input>
+        <el-input type="email" v-model="registerRuleForm.email"></el-input>
       </el-form-item>
       <el-form-item label="닉네임" prop="nickname">
-        <el-input v-model="ruleForm.nickname"></el-input>
+        <el-input v-model="registerRuleForm.nickname"></el-input>
       </el-form-item>
       <el-form-item label="핸드폰번호" prop="phone">
-        <el-input v-model="ruleForm.phone"></el-input>
+        <el-input v-model="registerRuleForm.phone"></el-input>
       </el-form-item>
       <el-form-item label="비밀번호" prop="password">
         <el-input
           type="password"
-          v-model="ruleForm.password"
+          v-model="registerRuleForm.password"
           autocomplete="off"
         ></el-input>
       </el-form-item>
@@ -30,15 +30,15 @@
       <el-form-item label="비밀번호 확인" prop="checkPassword">
         <el-input
           type="password"
-          v-model="ruleForm.checkPassword"
+          v-model="registerRuleForm.checkPassword"
           autocomplete="off"
         ></el-input>
       </el-form-item>
 
       <el-form-item prop="agree" class="register__agree">
         <el-checkbox
-          label="만 14세 이상이어야만 가입이 가능합니다."
-          v-model="ruleForm.agree"
+          label="만 14세 이상만 가입이 가능합니다."
+          v-model="registerRuleForm.agree"
         ></el-checkbox>
       </el-form-item>
 
@@ -46,10 +46,10 @@
         <el-button
           :loading="isLoading"
           type="primary"
-          @click="submitForm('ruleForm')"
+          @click="submitForm('registerRuleForm')"
           >가입하기</el-button
         >
-        <!-- <el-button @click="resetForm('ruleForm')">모두 지우기</el-button> -->
+        <!-- <el-button @click="resetForm('registerRuleForm')">모두 지우기</el-button> -->
       </el-form-item>
     </el-form>
   </div>
@@ -66,7 +66,7 @@ export default {
       const checkNickname = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]/
       const newValue = value.replace(/\s/gi, '')
       this.nickname = newValue
-      this.ruleForm.nickname = newValue
+      this.registerRuleForm.nickname = newValue
       if (newValue === '') {
         callback()
       }
@@ -88,8 +88,8 @@ export default {
       if (value === '') {
         callback(new Error('비밀번호를 입력해주세요.'))
       } else {
-        if (this.ruleForm.checkPassword !== '') {
-          this.$refs.ruleForm.validateField('checkPassword')
+        if (this.registerRuleForm.checkPassword !== '') {
+          this.$refs.registerRuleForm.validateField('checkPassword')
         }
         callback()
       }
@@ -97,7 +97,7 @@ export default {
     const validatePass2 = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('한번 더 비밀번호를 입력해주세요.'))
-      } else if (value !== this.ruleForm.password) {
+      } else if (value !== this.registerRuleForm.password) {
         callback(new Error('비밀번호가 일치하지 않습니다.'))
       } else {
         callback()
@@ -112,7 +112,7 @@ export default {
     }
     return {
       isLoading: false,
-      ruleForm: {
+      registerRuleForm: {
         email: '',
         nickname: '',
         phone: '',
@@ -120,7 +120,7 @@ export default {
         checkPassword: '',
         agree: ''
       },
-      rules: {
+      registerRules: {
         email: [
           {
             required: true,
@@ -198,7 +198,12 @@ export default {
     ...mapActions(['registerUser']),
     submitForm(formName) {
       this.isLoading = true
-      const { email, nickname, password, phone: phone_number } = this.ruleForm
+      const {
+        email,
+        nickname,
+        password,
+        phone: phone_number
+      } = this.registerRuleForm
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.registerUser({
@@ -236,8 +241,6 @@ export default {
 <style lang="scss" scoped>
 .register {
   padding: 20px;
-  &__title {
-  }
   &__form {
     margin: 0 auto;
     max-width: 360px;

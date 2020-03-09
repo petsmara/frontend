@@ -1,25 +1,30 @@
 <template>
-  <div class="signin">
+  <div class="login">
+    <h2 class="register__title">
+      로그인
+    </h2>
     <el-form
-      :model="ruleForm"
-      :rules="rules"
-      ref="ruleForm"
-      label-width="120px"
-      class="demo-ruleForm"
+      :model="logInRuleForm"
+      :rules="logInRules"
+      ref="logInRuleForm"
+      class="login__form"
       status-icon
     >
       <el-form-item label="이메일" prop="email">
-        <el-input type="email" v-model="ruleForm.email"></el-input>
+        <el-input type="email" v-model="logInRuleForm.email"></el-input>
       </el-form-item>
       <el-form-item label="비밀번호" prop="password">
         <el-input
           type="password"
-          v-model="ruleForm.password"
+          v-model="logInRuleForm.password"
           autocomplete="off"
         ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')"
+        <el-button
+          :loading="isLoading"
+          type="primary"
+          @click="submitForm('logInRuleForm')"
           >로그인</el-button
         >
       </el-form-item>
@@ -38,16 +43,17 @@ export default {
       if (value === '') {
         callback(new Error('비밀번호를 입력해주세요.'))
       } else {
-        console.log('로그인 보내기')
+        console.log('로그인 보내기 성공')
         callback()
       }
     }
     return {
-      ruleForm: {
+      isLoading: false,
+      logInRuleForm: {
         email: '',
         password: ''
       },
-      rules: {
+      logInRules: {
         email: [
           {
             required: true,
@@ -72,19 +78,33 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['signinUser']),
+    ...mapActions(['logIn']),
     submitForm(formName) {
+      this.isLoading = true
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert('회원가입이 완료되었습니다.!')
-          this.signinUser({
-            ...this.ruleForm,
-            id: Math.floor(Math.random() * 100000) // dummy json-server 때문에
+          this.logIn({
+            ...this.logInRuleForm
+          })
+          this.$message({
+            message: '로그인이 완료되었습니다.!',
+            duration: 3000,
+            showClose: true,
+            type: 'success',
+            onClose: () => {
+              alert('다음 경로는 어디로?')
+            }
           })
         } else {
-          console.log('회원가입이 실패하였습니다.!!')
-          return false
+          this.$message({
+            dangerouslyUseHTMLString: true,
+            message: `로그인양식이 올바르지 않습니다. 다시 확인해주세요.`,
+            duration: 3000,
+            showClose: true,
+            type: 'error'
+          })
         }
+        this.isLoading = false
       })
     }
   }
@@ -92,7 +112,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.signin {
+.login {
   padding: 20px;
+  &__form {
+    margin: 0 auto;
+    max-width: 360px;
+    .el-form-item {
+      margin-bottom: 10px;
+    }
+    .el-form-item__label {
+      line-height: 30px;
+    }
+  }
+  &__submit {
+    margin-top: 30px;
+  }
+  &__agree {
+    margin-top: 30px;
+    text-align: left;
+    & /deep/ .el-form-item__content {
+      line-height: 1;
+    }
+  }
 }
 </style>
