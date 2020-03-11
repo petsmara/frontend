@@ -23,6 +23,12 @@ export const actions = {
         console.log(res)
         // 로컬스토리지 등록
         // axios header token 추가
+        // axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
+        // axios.defaults.headers.common['Authorization'] = 'AUTH_TOKEN';
+        // axios.defaults.headers.common['Authorization'] = `Bearer ${
+        //   userData.token
+        // }`
+
         commit('SET_USER_DATA', true)
       })
       .catch(error => {

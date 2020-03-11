@@ -1,28 +1,28 @@
 <template>
-  <div class="register">
-    <h2 class="register__title">
+  <div class="register-user">
+    <h2 class="register-user__title">
       회원가입
     </h2>
     <el-form
-      :model="registerRuleForm"
-      :rules="registerRules"
-      ref="registerRuleForm"
-      class="register__form"
+      :model="registerUserRuleForm"
+      :rules="registerUserRules"
+      ref="registerUserRuleForm"
+      class="register-user__form"
       status-icon
     >
       <el-form-item label="이메일" prop="email">
-        <el-input type="email" v-model="registerRuleForm.email"></el-input>
+        <el-input type="email" v-model="registerUserRuleForm.email"></el-input>
       </el-form-item>
       <el-form-item label="닉네임" prop="nickname">
-        <el-input v-model="registerRuleForm.nickname"></el-input>
+        <el-input v-model="registerUserRuleForm.nickname"></el-input>
       </el-form-item>
       <el-form-item label="핸드폰번호" prop="phone">
-        <el-input v-model="registerRuleForm.phone"></el-input>
+        <el-input v-model="registerUserRuleForm.phone"></el-input>
       </el-form-item>
       <el-form-item label="비밀번호" prop="password">
         <el-input
           type="password"
-          v-model="registerRuleForm.password"
+          v-model="registerUserRuleForm.password"
           autocomplete="off"
         ></el-input>
       </el-form-item>
@@ -30,26 +30,26 @@
       <el-form-item label="비밀번호 확인" prop="checkPassword">
         <el-input
           type="password"
-          v-model="registerRuleForm.checkPassword"
+          v-model="registerUserRuleForm.checkPassword"
           autocomplete="off"
         ></el-input>
       </el-form-item>
 
-      <el-form-item prop="agree" class="register__agree">
+      <el-form-item prop="agree" class="register-user__agree">
         <el-checkbox
           label="만 14세 이상만 가입이 가능합니다."
-          v-model="registerRuleForm.agree"
+          v-model="registerUserRuleForm.agree"
         ></el-checkbox>
       </el-form-item>
 
-      <el-form-item class="register__submit">
+      <el-form-item class="register-user__submit">
         <el-button
           :loading="isLoading"
           type="primary"
-          @click="submitForm('registerRuleForm')"
+          @click="submitForm('registerUserRuleForm')"
           >가입하기</el-button
         >
-        <!-- <el-button @click="resetForm('registerRuleForm')">모두 지우기</el-button> -->
+        <!-- <el-button @click="resetForm('registerUserRuleForm')">모두 지우기</el-button> -->
       </el-form-item>
     </el-form>
   </div>
@@ -66,7 +66,7 @@ export default {
       const checkNickname = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]/
       const newValue = value.replace(/\s/gi, '')
       this.nickname = newValue
-      this.registerRuleForm.nickname = newValue
+      this.registerUserRuleForm.nickname = newValue
       if (newValue === '') {
         callback()
       }
@@ -88,8 +88,8 @@ export default {
       if (value === '') {
         callback(new Error('비밀번호를 입력해주세요.'))
       } else {
-        if (this.registerRuleForm.checkPassword !== '') {
-          this.$refs.registerRuleForm.validateField('checkPassword')
+        if (this.registerUserRuleForm.checkPassword !== '') {
+          this.$refs.registerUserRuleForm.validateField('checkPassword')
         }
         callback()
       }
@@ -97,7 +97,7 @@ export default {
     const validatePass2 = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('한번 더 비밀번호를 입력해주세요.'))
-      } else if (value !== this.registerRuleForm.password) {
+      } else if (value !== this.registerUserRuleForm.password) {
         callback(new Error('비밀번호가 일치하지 않습니다.'))
       } else {
         callback()
@@ -112,7 +112,7 @@ export default {
     }
     return {
       isLoading: false,
-      registerRuleForm: {
+      registerUserRuleForm: {
         email: '',
         nickname: '',
         phone: '',
@@ -120,7 +120,7 @@ export default {
         checkPassword: '',
         agree: ''
       },
-      registerRules: {
+      registerUserRules: {
         email: [
           {
             required: true,
@@ -203,7 +203,7 @@ export default {
         nickname,
         password,
         phone: phone_number
-      } = this.registerRuleForm
+      } = this.registerUserRuleForm
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.registerUser({
@@ -239,7 +239,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.register {
+.register-user {
   padding: 20px;
   &__form {
     margin: 0 auto;
