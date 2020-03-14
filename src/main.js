@@ -7,7 +7,6 @@ import 'element-ui/lib/theme-chalk/index.css'
 // import '@/assets/css/reset.css'
 
 // import { Button, Input, Form, FormItem } from 'element-ui'
-
 Vue.use(ElementUI)
 // Vue.component(Button)
 // Vue.component(Select)

@@ -10,10 +10,24 @@
       class="register-product__form"
       status-icon
     >
+      <div class="register-product__images">
+        <!-- <p>{{ $route.parmas.id }}번째 상품</p> -->
+        <el-upload
+          class="register-product__image"
+          action="http://localhost:3000/posts/"
+          list-type="picture-card"
+          :on-success="handleSucess"
+          multiple
+        >
+          <i class="el-icon-plus"></i>
+        </el-upload>
+      </div>
+
       <el-form-item label="제목" prop="title">
         <el-input
           type="title"
           v-model="registerProductRuleForm.title"
+          placeholder="제목을 입력해주세요"
         ></el-input>
       </el-form-item>
       <el-form-item label="내용" prop="content">
@@ -23,6 +37,7 @@
           maxlength="600"
           show-word-limit
           v-model="registerProductRuleForm.content"
+          placeholder="내용을 입력해주세요"
         ></el-input>
       </el-form-item>
       <el-form-item label="카테고리" prop="category">
@@ -32,15 +47,17 @@
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="100g당 가격" prop="price">
-        <el-input v-model="registerProductRuleForm.price"></el-input>
+        <el-input
+          placeholder="예) 3000원"
+          v-model="registerProductRuleForm.price"
+        ></el-input>
       </el-form-item>
 
       <el-form-item label="장소" prop="places">
-        <el-input v-model="registerProductRuleForm.places"></el-input>
-      </el-form-item>
-
-      <el-form-item label="이미지" prop="images">
-        <el-input v-model="registerProductRuleForm.images"></el-input>
+        <el-input
+          placeholder="예) 서울 강남구, 서울 동작구"
+          v-model="registerProductRuleForm.places"
+        ></el-input>
       </el-form-item>
 
       <el-form-item class="register-product__submit">
@@ -59,7 +76,7 @@
 <script>
 import axios from 'axios'
 import { createNamespacedHelpers } from 'vuex'
-const { mapState, mapActions } = createNamespacedHelpers('user')
+const { mapState, mapActions } = createNamespacedHelpers('product')
 
 export default {
   data() {
@@ -112,14 +129,15 @@ export default {
       }
     }
     return {
+      dialogImageUrl: '',
+      dialogVisible: false,
       isLoading: false,
       registerProductRuleForm: {
         title: '',
         content: '',
         category: [],
-        password: '',
-        checkPassword: '',
-        agree: ''
+        price: '',
+        places: ''
       },
       registerProductRules: {
         title: [
@@ -142,26 +160,14 @@ export default {
             message: '가격을 입력해주세요.',
             trigger: 'blur'
           }
-          // { 숫자만? }
         ],
-        // places: [
-        //   {
-        //     required: true,
-        //     message: '장소를 입력해주세요.',
-        //     trigger: 'blur'
-        //   }
-        //   // { validator: validatePass2, trigger: 'blur' }
-        // ],
-        images: [
+        places: [
           // {
           //   required: true,
-          //   message: '동의를 해주세요.',
+          //   message: '장소를 입력해주세요.',
           //   trigger: 'blur'
-          // },
-          // {
-          //   validator: validateAgree,
-          //   trigger: 'change'
           // }
+          // { validator: validatePass2, trigger: 'blur' }
         ]
       }
     }
@@ -171,22 +177,24 @@ export default {
     submitForm(formName) {
       this.isLoading = true
       const {
-        email,
-        nickname,
-        password,
-        phone: phone_number
+        title,
+        content,
+        category,
+        price,
+        places
       } = this.registerProductRuleForm
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.registerProduct({
-            email,
-            nickname,
-            password,
-            phone_number
+            title,
+            content,
+            category,
+            price,
+            places
           })
           // 여기서 결과값을 받아서 다시 분기처리 성공, 실패
           this.$message({
-            message: '회원가입이 완료되었습니다.!',
+            message: '상품등록이 완료되었습니다.!',
             duration: 3000,
             showClose: true,
             type: 'success',
@@ -197,7 +205,7 @@ export default {
         } else {
           this.$message({
             dangerouslyUseHTMLString: true,
-            message: `회원가입양식이 올바르지 않습니다. 다시 확인해주세요.`,
+            message: `상품등록양식이 올바르지 않습니다. 다시 확인해주세요.`,
             duration: 3000,
             showClose: true,
             type: 'error'
@@ -205,6 +213,13 @@ export default {
         }
         this.isLoading = false
       })
+    },
+
+    handleSucess(res, file, fileList) {
+      console.log('suc')
+      console.log(res)
+      console.log(file)
+      console.log(fileList)
     }
   }
 }
@@ -222,6 +237,13 @@ export default {
     .el-form-item__label {
       line-height: 30px;
     }
+  }
+  &__image {
+    color: black;
+    // & /deep/ .el-upload--picture-card {
+    //   width: 100px;
+    //   height: 100px;
+    // }
   }
   &__submit {
     margin-top: 30px;
