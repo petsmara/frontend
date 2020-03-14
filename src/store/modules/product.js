@@ -1,13 +1,13 @@
-import UserService from '@/services/UserService.js'
+import ProductService from '@/services/ProductService.js'
 
 export const namespaced = true
 
 export const state = {
-  user: {
-    email: '',
-    nickname: '',
-    acessToken: ''
-  }
+  // product: {
+  //   email: '',
+  //   nickname: '',
+  //   acessToken: ''
+  // }
 }
 
 export const mutations = {
