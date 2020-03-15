@@ -1,18 +1,26 @@
 import UserService from '@/services/UserService.js'
+import axios from 'axios'
 
 export const namespaced = true
 
 export const state = {
   user: {
-    email: '',
-    nickname: '',
-    acessToken: ''
+    email: null,
+    nickname: null,
+    accessToken: null
   }
 }
 
 export const mutations = {
   SET_USER_DATA(state, payload) {
-    state.user = payload
+    const userData = {
+      email: payload.email,
+      nickname: payload.nickname,
+      accessToken: payload.access_token
+    }
+    state.user = userData
+    localStorage.setItem('petsmaraUser', JSON.stringify(userData))
+    axios.defaults.headers.common['Authorization'] = userData.accessToken
   }
 }
 
@@ -20,12 +28,8 @@ export const actions = {
   registerUser({ commit }, user) {
     return UserService.registerUser(user)
       .then(res => {
-        console.log(res)
-        // 로컬스토리지 등록
-        // axios header token 추가
-        // axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
-        // axios.defaults.headers.common['Authorization'] = userData.token
-        commit('SET_USER_DATA', true)
+        // commit('SET_USER_DATA', true)
+        return res
       })
       .catch(error => {
         throw error
@@ -33,19 +37,20 @@ export const actions = {
   },
   logIn({ commit }, user) {
     return UserService.logIn(user)
-      .then(() => {
-        // 로컬스토리지 등록
-        // axios header token 추가
-        commit('SET_USER_DATA', user)
+      .then(res => {
+        console.log(res)
+        commit('SET_USER_DATA', res.data)
+        return res
       })
       .catch(error => {
-        throw error
+        console.error(error)
+        return error
       })
   }
 }
 
 export const getters = {
   loggedIn(state) {
-    return !!state.user
+    return !!state.user.accessToken
   }
 }

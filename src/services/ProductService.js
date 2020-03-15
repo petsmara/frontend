@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const apiClient = axios.create({
-  baseURL: `http://13.125.206.232:8000`,
+  baseURL: `http://52.78.166.10:8000`,
   withCredentials: false, // This is the default
   headers: {
     Accept: 'application/json',
@@ -17,8 +17,8 @@ export default {
   // getUser(id) {
   //   return apiClient.get('/Users/' + id)
   // },
-  registerProduct(product) {
-    return apiClient.post('/product/', product)
+  uploadImages(images) {
+    return apiClient.post('/product/image/', images)
   }
   // logIn(user) {}
 }

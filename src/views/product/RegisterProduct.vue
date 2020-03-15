@@ -10,17 +10,32 @@
       class="register-product__form"
       status-icon
     >
-      <div class="register-product__images">
-        <!-- <p>{{ $route.parmas.id }}번째 상품</p> -->
-        <el-upload
-          class="register-product__image"
-          action="http://localhost:3000/posts/"
-          list-type="picture-card"
-          :on-success="handleSucess"
+      <div>
+        <input
+          ref="imageInput"
+          type="file"
           multiple
+          hidden
+          @change="onChangeImages"
+        />
+        <button
+          class="register-product__image-upload-btn"
+          type="button"
+          @click="onClickImageUpload"
         >
-          <i class="el-icon-plus"></i>
-        </el-upload>
+          이미지 업로드
+        </button>
+        <div
+          class="list"
+          v-for="(p, i) in imagePaths"
+          :key="p"
+          style="display: inline-block"
+        >
+          <img :src="p" :alt="p" style="width: 200px" />
+          <div>
+            <button @click="onRemoveImage(i)" type="button">제거</button>
+          </div>
+        </div>
       </div>
 
       <el-form-item label="제목" prop="title">
@@ -129,8 +144,8 @@ export default {
       }
     }
     return {
-      dialogImageUrl: '',
-      dialogVisible: false,
+      // dialogImageUrl: '',
+      // dialogVisible: false,
       isLoading: false,
       registerProductRuleForm: {
         title: '',
@@ -172,8 +187,11 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapState(['imagePaths'])
+  },
   methods: {
-    ...mapActions(['registerProduct']),
+    ...mapActions(['uploadImages']),
     submitForm(formName) {
       this.isLoading = true
       const {
@@ -214,12 +232,27 @@ export default {
         this.isLoading = false
       })
     },
-
-    handleSucess(res, file, fileList) {
-      console.log('suc')
-      console.log(res)
-      console.log(file)
-      console.log(fileList)
+    // handleSucess(res, file, fileList) {
+    //   console.log('suc')
+    //   console.log(res)
+    //   console.log(file)
+    //   console.log(fileList)
+    // },
+    onChangeImages(e) {
+      const imageFormData = new FormData()
+      Array.from(e.target.files).forEach(f => {
+        imageFormData.append('image', f) // { image: [file1, file2] }
+      })
+      console.log(imageFormData)
+      this.uploadImages(imageFormData)
+      // this.imagePaths.concat(imageFormData)
+    },
+    onClickImageUpload() {
+      this.$refs.imageInput.click()
+    },
+    onRemoveImage(index) {
+      // this.imagePaths.splice(index, 1)
+      this.$store.commit('posts/removeImagePath', index)
     }
   }
 }
@@ -238,8 +271,14 @@ export default {
       line-height: 30px;
     }
   }
+  &__image-upload-btn {
+    cursor: pointer;
+    padding: 10px 20px;
+    background-color: gray;
+    color: white;
+  }
   &__image {
-    color: black;
+    // color: black;
     // & /deep/ .el-upload--picture-card {
     //   width: 100px;
     //   height: 100px;
@@ -248,6 +287,7 @@ export default {
   &__submit {
     margin-top: 30px;
   }
+
   &__agree {
     margin-top: 30px;
     text-align: left;
