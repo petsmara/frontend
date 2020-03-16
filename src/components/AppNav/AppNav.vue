@@ -23,14 +23,14 @@ export default {}
 <style lang="scss" scoped>
 .app-nav {
   @include respond-to('mobile-portrait-only') {
-    background-color: lavender;
+    // background-color: lavender;
   }
   @include respond-to('tablet-portrait-only') {
-    background-color: red;
+    // background-color: red;
   }
   position: relative;
   height: 85px;
-  background-color: green;
+  background-color: #c4c4c4;
   padding: 0 60px;
   width: 100%;
   display: flex;

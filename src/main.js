@@ -6,7 +6,7 @@ import axios from 'axios'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/element-variables.scss'
-// import '@/assets/css/reset.css'
+import '@/assets/css/style.scss'
 // import { Button, Input, Form, FormItem } from 'element-ui'
 Vue.use(ElementUI)
 // Vue.component(Button)
