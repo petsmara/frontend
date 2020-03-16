@@ -22,11 +22,17 @@ export default {}
 
 <style lang="scss" scoped>
 .app-nav {
+  @include respond-to('mobile-portrait-only') {
+    background-color: lavender;
+  }
+  @include respond-to('tablet-portrait-only') {
+    background-color: red;
+  }
   position: relative;
   height: 85px;
-  background-color: floralwhite;
-  padding: 0 16px;
-  width: 400px;
+  background-color: green;
+  padding: 0 60px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
