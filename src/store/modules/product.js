@@ -9,6 +9,9 @@ export const state = {
 export const mutations = {
   CONCAT_IMAGE_PATHS(state, payload) {
     state.imagePaths = state.imagePaths.concat(payload)
+  },
+  REMOVE_IMAGE_PATH(state, index) {
+    state.imagePaths.splice(index, 1)
   }
 }
 
@@ -17,11 +20,15 @@ export const actions = {
     return ProductService.uploadImages(images)
       .then(res => {
         console.log(res)
-        commit('CONCAT_IMAGE_PATHS', res.data)
+        commit('CONCAT_IMAGE_PATHS', res.data.image)
       })
       .catch(error => {
         console.error(error)
       })
+  },
+  removeImagePath({ commit }, index) {
+    console.log(index, 'store')
+    commit('REMOVE_IMAGE_PATH', index)
   },
   registerProduct({ commit }, product) {
     return ProductService.registerProduct(product)

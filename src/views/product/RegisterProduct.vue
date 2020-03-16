@@ -26,13 +26,18 @@
           이미지 업로드
         </button>
         <div
-          class="list"
+          class="register-product__image-list"
           v-for="(p, i) in imagePaths"
           :key="p"
           style="display: inline-block"
         >
-          <img :src="p" :alt="p" style="width: 200px" />
-          <div>
+          <img
+            class="register-product__image"
+            :src="p"
+            :alt="p"
+            style="width: 200px"
+          />
+          <div class="register-product__remove-btn">
             <button @click="onRemoveImage(i)" type="button">제거</button>
           </div>
         </div>
@@ -191,7 +196,7 @@ export default {
     ...mapState(['imagePaths'])
   },
   methods: {
-    ...mapActions(['uploadImages', 'registerProduct']),
+    ...mapActions(['uploadImages', 'registerProduct', 'removeImagePath']),
     submitForm(formName) {
       this.isLoading = true
       const {
@@ -232,18 +237,11 @@ export default {
         this.isLoading = false
       })
     },
-    // handleSucess(res, file, fileList) {
-    //   console.log('suc')
-    //   console.log(res)
-    //   console.log(file)
-    //   console.log(fileList)
-    // },
     onChangeImages(e) {
       const imageFormData = new FormData()
       Array.from(e.target.files).forEach(f => {
-        imageFormData.append('image', f) // { image: [file1, file2] }
+        imageFormData.append('filename', f) // { image: [file1, file2] }
       })
-      console.log(imageFormData)
       this.uploadImages(imageFormData)
       // this.imagePaths.concat(imageFormData)
     },
@@ -252,7 +250,8 @@ export default {
     },
     onRemoveImage(index) {
       // this.imagePaths.splice(index, 1)
-      this.$store.commit('posts/removeImagePath', index)
+      console.log(index, 'vue')
+      this.removeImagePath('posts/removeImagePath', index)
     }
   }
 }
@@ -283,6 +282,8 @@ export default {
     //   width: 100px;
     //   height: 100px;
     // }
+
+    // src/assets/images/icons/close.png
   }
   &__submit {
     margin-top: 30px;

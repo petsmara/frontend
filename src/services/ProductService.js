@@ -18,7 +18,7 @@ export default {
   //   return apiClient.get('/Users/' + id)
   // },
   uploadImages(images) {
-    return apiClient.post('/product/image', images)
+    return apiClient.post('/image', images)
   },
   registerProduct(product) {
     return apiClient.post('/product', product)
