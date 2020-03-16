@@ -22,6 +22,15 @@ export const actions = {
       .catch(error => {
         console.error(error)
       })
+  },
+  registerProduct({ commit }, product) {
+    return ProductService.registerProduct(product)
+      .then(res => {
+        console.log(res)
+      })
+      .catch(error => {
+        console.error(error)
+      })
   }
 }
 

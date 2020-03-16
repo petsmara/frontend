@@ -191,7 +191,7 @@ export default {
     ...mapState(['imagePaths'])
   },
   methods: {
-    ...mapActions(['uploadImages']),
+    ...mapActions(['uploadImages', 'registerProduct']),
     submitForm(formName) {
       this.isLoading = true
       const {

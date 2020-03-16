@@ -1,9 +1,18 @@
 <template>
   <div class="app-nav">
     <h1 class="app-nav__logo">
-      <img src="@/assets/images/icons/logo.png" alt="petsmara" />
+      <router-link to="/">
+        <img src="@/assets/images/icons/logo.png" alt="petsmara" />
+      </router-link>
     </h1>
-    <button class="app-nav__mypage"></button>
+    <div class="app-nav__right">
+      <router-link to="/">
+        <button class="app-nav__mypage"></button>
+      </router-link>
+      <router-link to="/">
+        <button class="app-nav__menu"></button>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -16,26 +25,34 @@ export default {}
   position: relative;
   height: 85px;
   background-color: floralwhite;
-  // width: 100%;
-  width: 480px;
+  padding: 0 16px;
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   &__logo {
-    line-height: 85px;
-    text-align: center;
-    // position: absolute;
-    // top: 0;
-    // left: 50%;
-    // transform: translateY(-50%);
     img {
       width: 32px;
     }
   }
+  &__right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60px;
+  }
   &__mypage {
-    position: absolute;
-    right: 0;
-    top: 0;
+    display: inline-block;
     width: 22px;
     height: 27px;
-    background: url('~@/assets/images/icons/mypage.png') center / 50px no-repeat;
+    background: url('~@/assets/images/icons/mypage.png') center / 100% no-repeat;
+  }
+  &__menu {
+    display: inline-block;
+    width: 25px;
+    height: 16px;
+    background: url('~@/assets/images/icons/menu.png') center / 100% no-repeat;
   }
 }
 </style>
