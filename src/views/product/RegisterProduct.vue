@@ -23,10 +23,10 @@
           type="button"
           @click="onClickImageUpload"
         >
-          이미지 업로드
+          <i>{{ imagePaths.length }}/5</i>
         </button>
         <div
-          class="register-product__image-list"
+          class="register-product__image-wrap"
           v-for="(p, i) in imagePaths"
           :key="p"
           style="display: inline-block"
@@ -37,9 +37,11 @@
             :alt="p"
             style="width: 200px"
           />
-          <div class="register-product__remove-btn">
-            <button @click="onRemoveImage(i)" type="button">제거</button>
-          </div>
+          <button
+            class="register-product__remove-btn"
+            @click="onRemoveImage(i)"
+            type="button"
+          ></button>
         </div>
       </div>
 
@@ -272,18 +274,43 @@ export default {
   }
   &__image-upload-btn {
     cursor: pointer;
-    padding: 10px 20px;
-    background-color: gray;
-    color: white;
+    width: 200px;
+    height: 200px;
+    border: 1px solid #c4c4c4;
+    border-radius: 8px;
+    background: url('~@/assets/images/icons/camera.png') center / 30px no-repeat;
+    position: relative;
+    i {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 70px;
+    }
+  }
+  &__image-wrap {
+    cursor: pointer;
+    width: 200px;
+    height: 200px;
+    border: 1px solid #c4c4c4;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
   }
   &__image {
-    // color: black;
-    // & /deep/ .el-upload--picture-card {
-    //   width: 100px;
-    //   height: 100px;
-    // }
-
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     // src/assets/images/icons/close.png
+    // src/assets/images/icons/camera.png
+  }
+  &__remove-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    background: url('~@/assets/images/icons/close.png') center / 100% no-repeat;
   }
   &__submit {
     margin-top: 30px;
