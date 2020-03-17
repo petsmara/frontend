@@ -14,9 +14,12 @@
  * Zero out margin and padding on most elements as base style
  */
 html, body, div, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, ol, ul, li, form, legend, label, table, header, footer, nav, section, figure {
-	margin: 0;
+		margin: 0;
     padding: 0;
-    // overflow-x: hidden;
+}
+
+body {
+	margin: 0 auto;
 }
 
 /**
@@ -28,10 +31,4 @@ header, footer, nav, section, article, hgroup, figure {
 
 .video-js {
     outline: 0;
-}
-
-button {
-	padding: 0;
-	border: none;
-	outline: none;
 }

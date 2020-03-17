@@ -23,7 +23,10 @@
           type="button"
           @click="onClickImageUpload"
         >
-          <i>{{ imagePaths.length }}/5</i>
+          <span>
+            <i class="font-bold">{{ imagePaths.length }}</i
+            >/<i>5</i>
+          </span>
         </button>
         <div
           class="register-product__image-wrap"
@@ -52,6 +55,14 @@
           placeholder="제목을 입력해주세요"
         ></el-input>
       </el-form-item>
+      <el-form-item label="카테고리" prop="category">
+        <el-radio-group v-model="registerProductRuleForm.category">
+          <el-radio-button label="1">강아지</el-radio-button>
+          <el-radio-button label="2">고양이</el-radio-button>
+          <el-radio-button label="3">공통</el-radio-button>
+          <el-radio-button label="4">기타</el-radio-button>
+        </el-radio-group>
+      </el-form-item>
       <el-form-item label="내용" prop="content">
         <el-input
           type="textarea"
@@ -62,12 +73,7 @@
           placeholder="내용을 입력해주세요"
         ></el-input>
       </el-form-item>
-      <el-form-item label="카테고리" prop="category">
-        <el-checkbox-group v-model="registerProductRuleForm.category">
-          <el-checkbox label="강아지"></el-checkbox>
-          <el-checkbox label="고양이"></el-checkbox>
-        </el-checkbox-group>
-      </el-form-item>
+
       <el-form-item label="100g당 가격" prop="price">
         <el-input
           placeholder="예) 3000원"
@@ -280,11 +286,20 @@ export default {
     border-radius: 8px;
     background: url('~@/assets/images/icons/camera.png') center / 30px no-repeat;
     position: relative;
-    i {
+    span {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      bottom: 70px;
+      bottom: 60px;
+      color: #6c6c6c;
+      i {
+        font-style: normal;
+        font-size: 14px;
+      }
+      .font-bold {
+        color: #000000;
+        font-weight: bold;
+      }
     }
   }
   &__image-wrap {
@@ -300,8 +315,6 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    // src/assets/images/icons/close.png
-    // src/assets/images/icons/camera.png
   }
   &__remove-btn {
     cursor: pointer;
