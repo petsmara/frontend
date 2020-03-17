@@ -23,7 +23,10 @@
           type="button"
           @click="onClickImageUpload"
         >
-          <i>{{ imagePaths.length }}/5</i>
+          <span>
+            <i class="font-bold">{{ imagePaths.length }}</i
+            >/<i>5</i>
+          </span>
         </button>
         <div
           class="register-product__image-wrap"
@@ -52,6 +55,33 @@
           placeholder="제목을 입력해주세요"
         ></el-input>
       </el-form-item>
+      <el-form-item label="카테고리" prop="category">
+        <el-radio-group v-model="registerProductRuleForm.category">
+          <el-radio-button label="1">강아지</el-radio-button>
+          <el-radio-button label="2">고양이</el-radio-button>
+          <el-radio-button label="3">공통</el-radio-button>
+          <el-radio-button label="4">기타</el-radio-button>
+        </el-radio-group>
+      </el-form-item>
+
+      <el-form-item label="장소" prop="places">
+        <el-input
+          placeholder="예) 서울 강남구, 서울 동작구"
+          v-model="registerProductRuleForm.places"
+        ></el-input>
+      </el-form-item>
+
+      <el-form-item
+        label="가격(100g 당)"
+        prop="price"
+        class="register-product__price"
+      >
+        <el-input
+          placeholder="예) 3000원"
+          v-model="registerProductRuleForm.price"
+        ></el-input>
+      </el-form-item>
+
       <el-form-item label="내용" prop="content">
         <el-input
           type="textarea"
@@ -62,32 +92,13 @@
           placeholder="내용을 입력해주세요"
         ></el-input>
       </el-form-item>
-      <el-form-item label="카테고리" prop="category">
-        <el-checkbox-group v-model="registerProductRuleForm.category">
-          <el-checkbox label="강아지"></el-checkbox>
-          <el-checkbox label="고양이"></el-checkbox>
-        </el-checkbox-group>
-      </el-form-item>
-      <el-form-item label="100g당 가격" prop="price">
-        <el-input
-          placeholder="예) 3000원"
-          v-model="registerProductRuleForm.price"
-        ></el-input>
-      </el-form-item>
-
-      <el-form-item label="장소" prop="places">
-        <el-input
-          placeholder="예) 서울 강남구, 서울 동작구"
-          v-model="registerProductRuleForm.places"
-        ></el-input>
-      </el-form-item>
 
       <el-form-item class="register-product__submit">
         <el-button
           :loading="isLoading"
           type="primary"
           @click="submitForm('registerProductRuleForm')"
-          >등록하기</el-button
+          >작성완료</el-button
         >
         <!-- <el-button @click="resetForm('registerProductRuleForm')">모두 지우기</el-button> -->
       </el-form-item>
@@ -280,11 +291,20 @@ export default {
     border-radius: 8px;
     background: url('~@/assets/images/icons/camera.png') center / 30px no-repeat;
     position: relative;
-    i {
+    span {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      bottom: 70px;
+      bottom: 60px;
+      color: #6c6c6c;
+      i {
+        font-style: normal;
+        font-size: 14px;
+      }
+      .font-bold {
+        color: #000000;
+        font-weight: bold;
+      }
     }
   }
   &__image-wrap {
@@ -300,8 +320,6 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    // src/assets/images/icons/close.png
-    // src/assets/images/icons/camera.png
   }
   &__remove-btn {
     cursor: pointer;
@@ -314,6 +332,14 @@ export default {
   }
   &__submit {
     margin-top: 30px;
+    .el-button {
+      padding: 16px 0;
+      display: block;
+      width: 100%;
+      font-size: 20px;
+      color: #000000;
+      background-color: #8fb5ff;
+    }
   }
 
   &__agree {
@@ -321,6 +347,21 @@ export default {
     text-align: left;
     & /deep/ .el-form-item__content {
       line-height: 1;
+    }
+  }
+
+  .el-radio-group {
+    width: 100%;
+    text-align: left;
+  }
+
+  &__price {
+    & /deep/ .el-form-item__content {
+      text-align: left;
+    }
+    .el-input {
+      width: 130px;
+      display: inline-block;
     }
   }
 }
