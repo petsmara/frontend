@@ -3,7 +3,7 @@
     <div>
       <!-- <p>{{ $route.parmas.id }}번째 상품</p> -->
       <el-upload
-        action="http://52.78.166.10:8000/image"
+        action="http://localhost:3000/posts/"
         list-type="picture-card"
         :on-preview="handlePictureCardPreview"
         :on-remove="handleRemove"

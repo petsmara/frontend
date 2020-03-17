@@ -10,17 +10,42 @@
       class="register-product__form"
       status-icon
     >
-      <div class="register-product__images">
-        <!-- <p>{{ $route.parmas.id }}번째 상품</p> -->
-        <el-upload
-          class="register-product__image"
-          action="http://localhost:3000/posts/"
-          list-type="picture-card"
-          :on-success="handleSucess"
+      <div>
+        <input
+          ref="imageInput"
+          type="file"
           multiple
+          hidden
+          @change="onChangeImages"
+        />
+        <button
+          class="register-product__image-upload-btn"
+          type="button"
+          @click="onClickImageUpload"
         >
-          <i class="el-icon-plus"></i>
-        </el-upload>
+          <span>
+            <i class="font-bold">{{ imagePaths.length }}</i
+            >/<i>5</i>
+          </span>
+        </button>
+        <div
+          class="register-product__image-wrap"
+          v-for="(p, i) in imagePaths"
+          :key="p"
+          style="display: inline-block"
+        >
+          <img
+            class="register-product__image"
+            :src="p"
+            :alt="p"
+            style="width: 200px"
+          />
+          <button
+            class="register-product__remove-btn"
+            @click="onRemoveImage(i)"
+            type="button"
+          ></button>
+        </div>
       </div>
 
       <el-form-item label="제목" prop="title">
@@ -29,6 +54,14 @@
           v-model="registerProductRuleForm.title"
           placeholder="제목을 입력해주세요"
         ></el-input>
+      </el-form-item>
+      <el-form-item label="카테고리" prop="category">
+        <el-radio-group v-model="registerProductRuleForm.category">
+          <el-radio-button label="1">강아지</el-radio-button>
+          <el-radio-button label="2">고양이</el-radio-button>
+          <el-radio-button label="3">공통</el-radio-button>
+          <el-radio-button label="4">기타</el-radio-button>
+        </el-radio-group>
       </el-form-item>
       <el-form-item label="내용" prop="content">
         <el-input
@@ -40,12 +73,7 @@
           placeholder="내용을 입력해주세요"
         ></el-input>
       </el-form-item>
-      <el-form-item label="카테고리" prop="category">
-        <el-checkbox-group v-model="registerProductRuleForm.category">
-          <el-checkbox label="강아지"></el-checkbox>
-          <el-checkbox label="고양이"></el-checkbox>
-        </el-checkbox-group>
-      </el-form-item>
+
       <el-form-item label="100g당 가격" prop="price">
         <el-input
           placeholder="예) 3000원"
@@ -129,8 +157,8 @@ export default {
       }
     }
     return {
-      dialogImageUrl: '',
-      dialogVisible: false,
+      // dialogImageUrl: '',
+      // dialogVisible: false,
       isLoading: false,
       registerProductRuleForm: {
         title: '',
@@ -172,8 +200,11 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapState(['imagePaths'])
+  },
   methods: {
-    ...mapActions(['registerProduct']),
+    ...mapActions(['uploadImages', 'registerProduct', 'removeImagePath']),
     submitForm(formName) {
       this.isLoading = true
       const {
@@ -214,12 +245,21 @@ export default {
         this.isLoading = false
       })
     },
-
-    handleSucess(res, file, fileList) {
-      console.log('suc')
-      console.log(res)
-      console.log(file)
-      console.log(fileList)
+    onChangeImages(e) {
+      const imageFormData = new FormData()
+      Array.from(e.target.files).forEach(f => {
+        imageFormData.append('filename', f) // { image: [file1, file2] }
+      })
+      this.uploadImages(imageFormData)
+      // this.imagePaths.concat(imageFormData)
+    },
+    onClickImageUpload() {
+      this.$refs.imageInput.click()
+    },
+    onRemoveImage(index) {
+      // this.imagePaths.splice(index, 1)
+      console.log(index, 'vue')
+      this.removeImagePath('posts/removeImagePath', index)
     }
   }
 }
@@ -238,16 +278,57 @@ export default {
       line-height: 30px;
     }
   }
+  &__image-upload-btn {
+    cursor: pointer;
+    width: 200px;
+    height: 200px;
+    border: 1px solid #c4c4c4;
+    border-radius: 8px;
+    background: url('~@/assets/images/icons/camera.png') center / 30px no-repeat;
+    position: relative;
+    span {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 60px;
+      color: #6c6c6c;
+      i {
+        font-style: normal;
+        font-size: 14px;
+      }
+      .font-bold {
+        color: #000000;
+        font-weight: bold;
+      }
+    }
+  }
+  &__image-wrap {
+    cursor: pointer;
+    width: 200px;
+    height: 200px;
+    border: 1px solid #c4c4c4;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+  }
   &__image {
-    color: black;
-    // & /deep/ .el-upload--picture-card {
-    //   width: 100px;
-    //   height: 100px;
-    // }
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  &__remove-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    background: url('~@/assets/images/icons/close.png') center / 100% no-repeat;
   }
   &__submit {
     margin-top: 30px;
   }
+
   &__agree {
     margin-top: 30px;
     text-align: left;

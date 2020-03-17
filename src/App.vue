@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <AppNav />
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/user/register">Register</router-link> |
@@ -12,8 +13,16 @@
   </div>
 </template>
 
+<script>
+import { AppNav } from '@/components/AppNav'
+export default {
+  components: {
+    AppNav
+  }
+}
+</script>
+
 <style lang="scss">
-@import './assets/css/style.scss';
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

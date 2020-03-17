@@ -85,14 +85,26 @@ export default {
         if (valid) {
           this.logIn({
             ...this.logInRuleForm
-          })
-          this.$message({
-            message: '로그인이 완료되었습니다.!',
-            duration: 3000,
-            showClose: true,
-            type: 'success',
-            onClose: () => {
-              alert('다음 경로는 어디로?')
+          }).then(result => {
+            if (result.status === 200) {
+              this.$message({
+                message: '로그인이 완료되었습니다.!',
+                duration: 3000,
+                showClose: true,
+                type: 'success',
+                onClose: () => {
+                  alert(
+                    '다음 경로는 어디로? 리다이렉트? 리플레이스로 방금전 URL로 가게하기'
+                  )
+                }
+              })
+            } else {
+              this.$message({
+                message: `로그인이 실패했습니다..! 다시 시도해주세요. ${result}`,
+                duration: 3000,
+                showClose: true,
+                type: 'error'
+              })
             }
           })
         } else {

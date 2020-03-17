@@ -3,49 +3,45 @@ import ProductService from '@/services/ProductService.js'
 export const namespaced = true
 
 export const state = {
-  // product: {
-  //   email: '',
-  //   nickname: '',
-  //   acessToken: ''
-  // }
+  imagePaths: []
 }
 
 export const mutations = {
-  SET_USER_DATA(state, payload) {
-    state.user = payload
+  CONCAT_IMAGE_PATHS(state, payload) {
+    state.imagePaths = state.imagePaths.concat(payload)
+  },
+  REMOVE_IMAGE_PATH(state, index) {
+    state.imagePaths.splice(index, 1)
   }
 }
 
 export const actions = {
-  registerUser({ commit }, user) {
-    return UserService.registerUser(user)
+  uploadImages({ commit }, images) {
+    return ProductService.uploadImages(images)
       .then(res => {
-        console.log(res)
-        // 로컬스토리지 등록
-        // axios header token 추가
-        // axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
-        // axios.defaults.headers.common['Authorization'] = userData.token
-        commit('SET_USER_DATA', true)
+        commit('CONCAT_IMAGE_PATHS', res.data.images)
       })
       .catch(error => {
-        throw error
+        console.error(error)
       })
   },
-  logIn({ commit }, user) {
-    return UserService.logIn(user)
-      .then(() => {
-        // 로컬스토리지 등록
-        // axios header token 추가
-        commit('SET_USER_DATA', user)
+  removeImagePath({ commit }, index) {
+    console.log(index, 'store')
+    commit('REMOVE_IMAGE_PATH', index)
+  },
+  registerProduct({ commit }, product) {
+    return ProductService.registerProduct(product)
+      .then(res => {
+        console.log(res)
       })
       .catch(error => {
-        throw error
+        console.error(error)
       })
   }
 }
 
 export const getters = {
-  loggedIn(state) {
-    return !!state.user
-  }
+  // loggedIn(state) {
+  //   return !!state.user
+  // }
 }

@@ -3,6 +3,7 @@
     <h2 class="register-user__title">
       회원가입
     </h2>
+    <button class="app-nav__mypage"></button>
     <el-form
       :model="registerUserRuleForm"
       :rules="registerUserRules"
@@ -10,28 +11,55 @@
       class="register-user__form"
       status-icon
     >
-      <el-form-item label="이메일" prop="email">
-        <el-input type="email" v-model="registerUserRuleForm.email"></el-input>
+      <el-form-item
+        label="반려동물(중복 선택 가능합니다.)"
+        prop="category"
+        class="register-user__category"
+      >
+        <el-checkbox-group v-model="registerUserRuleForm.categoryList">
+          <el-checkbox
+            class="register-user__category__dog"
+            label="강아지"
+          ></el-checkbox>
+          <el-checkbox
+            class="register-user__category__cat"
+            label="고양이"
+          ></el-checkbox>
+        </el-checkbox-group>
+      </el-form-item>
+      <el-form-item label="아이디" prop="email">
+        <el-input
+          type="email"
+          placeholder="이메일을 입력해주세요."
+          v-model="registerUserRuleForm.email"
+        ></el-input>
       </el-form-item>
       <el-form-item label="닉네임" prop="nickname">
-        <el-input v-model="registerUserRuleForm.nickname"></el-input>
-      </el-form-item>
-      <el-form-item label="핸드폰번호" prop="phone">
-        <el-input v-model="registerUserRuleForm.phone"></el-input>
+        <el-input
+          placeholder="한글 2글자, 영문 4글자 이상. 20자리 이내 조합해주세요."
+          v-model="registerUserRuleForm.nickname"
+        ></el-input>
       </el-form-item>
       <el-form-item label="비밀번호" prop="password">
         <el-input
           type="password"
+          placeholder="8~20자 이내의 영문과 숫자의 조합해주세요."
           v-model="registerUserRuleForm.password"
           autocomplete="off"
         ></el-input>
       </el-form-item>
-
       <el-form-item label="비밀번호 확인" prop="checkPassword">
         <el-input
           type="password"
+          placeholder="비밀번호 확인을 입력해주세요."
           v-model="registerUserRuleForm.checkPassword"
           autocomplete="off"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="핸드폰번호" prop="phone">
+        <el-input
+          placeholder="- 없이 입력해주세요."
+          v-model="registerUserRuleForm.phone"
         ></el-input>
       </el-form-item>
 
@@ -118,7 +146,8 @@ export default {
         phone: '',
         password: '',
         checkPassword: '',
-        agree: ''
+        agree: '',
+        categoryList: []
       },
       registerUserRules: {
         email: [
@@ -189,11 +218,17 @@ export default {
             validator: validateAgree,
             trigger: 'change'
           }
+        ],
+        categoryList: [
+          {
+            required: true,
+            message: '반려동물을 선택해주세요.',
+            trigger: 'blur'
+          }
         ]
       }
     }
   },
-  mounted() {},
   methods: {
     ...mapActions(['registerUser']),
     submitForm(formName) {
@@ -202,7 +237,8 @@ export default {
         email,
         nickname,
         password,
-        phone: phone_number
+        phone: phone_number,
+        categoryList
       } = this.registerUserRuleForm
       this.$refs[formName].validate(valid => {
         if (valid) {
@@ -210,16 +246,27 @@ export default {
             email,
             nickname,
             password,
-            phone_number
-          })
-          // 여기서 결과값을 받아서 다시 분기처리 성공, 실패
-          this.$message({
-            message: '회원가입이 완료되었습니다.!',
-            duration: 3000,
-            showClose: true,
-            type: 'success',
-            onClose: () => {
-              alert('다음 경로는 어디로?')
+            phone_number,
+            categoryList
+          }).then(result => {
+            // 여기서 결과값을 받아서 다시 분기처리 성공, 실패
+            if (result.status === 200) {
+              this.$message({
+                message: '회원가입이 완료되었습니다.!',
+                duration: 3000,
+                showClose: true,
+                type: 'success',
+                onClose: () => {
+                  this.$router.replace('/user/login')
+                }
+              })
+            } else {
+              this.$message({
+                message: '회원가입이 실패했습니다...! 다시 시도해주세요',
+                duration: 3000,
+                showClose: true,
+                type: 'error'
+              })
             }
           })
         } else {
@@ -253,6 +300,41 @@ export default {
   }
   &__submit {
     margin-top: 30px;
+    & /deep/ .el-button {
+      width: 100%;
+      display: block;
+      padding: 14px 20px;
+      color: #000000;
+      font-size: 16px;
+    }
+  }
+  &__category {
+    & /deep/ .el-form-item__label {
+      float: none;
+      text-align: left;
+      display: block;
+    }
+    & /deep/ .el-checkbox__label {
+      display: block;
+      padding-left: 0;
+    }
+    & /deep/ .el-checkbox__inner {
+      width: 70px;
+      height: 70px;
+      border: 1px solid #cbcbcb;
+      border-radius: 50%;
+      background: url('~@/assets/images/icons/dog.png') center / 50px no-repeat;
+    }
+    &__cat {
+      & /deep/ .el-checkbox__inner {
+        background: url('~@/assets/images/icons/cat.png') center / 50px
+          no-repeat;
+      }
+    }
+    & /deep/ .el-checkbox__input.is-checked .el-checkbox__inner {
+      background-color: #8fb5ff;
+      // border-color: #409EFF;
+    }
   }
   &__agree {
     margin-top: 30px;
