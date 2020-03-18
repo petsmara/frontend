@@ -11,41 +11,45 @@
       status-icon
     >
       <div>
-        <input
-          ref="imageInput"
-          type="file"
-          multiple
-          hidden
-          @change="onChangeImages"
-        />
-        <button
-          class="register-product__image-upload-btn"
-          type="button"
-          @click="onClickImageUpload"
-        >
-          <span>
-            <i class="font-bold">{{ imagePaths.length }}</i
-            >/<i>5</i>
-          </span>
-        </button>
-        <div
-          class="register-product__image-wrap"
-          v-for="(p, i) in imagePaths"
-          :key="p"
-          style="display: inline-block"
-        >
-          <img
-            class="register-product__image"
-            :src="p"
-            :alt="p"
-            style="width: 200px"
-          />
-          <button
-            class="register-product__remove-btn"
-            @click="onRemoveImage(i)"
-            type="button"
-          ></button>
-        </div>
+        <swiper ref="mySwiper" :options="swiperOption">
+          <swiper-slide>
+            <input
+              ref="imageInput"
+              type="file"
+              multiple
+              hidden
+              @change="onChangeImages"
+            />
+            <button
+              class="register-product__image-upload-btn"
+              type="button"
+              @click="onClickImageUpload"
+            >
+              <span>
+                <i class="font-bold">{{ imagePaths.length }}</i
+                >/<i>5</i>
+              </span>
+            </button>
+          </swiper-slide>
+          <swiper-slide
+            class="register-product__image-wrap"
+            v-for="(p, i) in imagePaths"
+            :key="p"
+            style="display: inline-block"
+          >
+            <img
+              class="register-product__image"
+              :src="p"
+              :alt="p"
+              style="width: 200px"
+            />
+            <button
+              class="register-product__remove-btn"
+              @click="onRemoveImage(i)"
+              type="button"
+            ></button>
+          </swiper-slide>
+        </swiper>
       </div>
 
       <el-form-item label="제목" prop="title">
@@ -63,6 +67,25 @@
           <el-radio-button label="4">기타</el-radio-button>
         </el-radio-group>
       </el-form-item>
+
+      <el-form-item label="장소" prop="places">
+        <el-input
+          placeholder="예) 서울 강남구, 서울 동작구"
+          v-model="registerProductRuleForm.places"
+        ></el-input>
+      </el-form-item>
+
+      <el-form-item
+        label="가격(100g 당)"
+        prop="price"
+        class="register-product__price"
+      >
+        <el-input
+          placeholder="예) 3000원"
+          v-model="registerProductRuleForm.price"
+        ></el-input>
+      </el-form-item>
+
       <el-form-item label="내용" prop="content">
         <el-input
           type="textarea"
@@ -74,28 +97,13 @@
         ></el-input>
       </el-form-item>
 
-      <el-form-item label="100g당 가격" prop="price">
-        <el-input
-          placeholder="예) 3000원"
-          v-model="registerProductRuleForm.price"
-        ></el-input>
-      </el-form-item>
-
-      <el-form-item label="장소" prop="places">
-        <el-input
-          placeholder="예) 서울 강남구, 서울 동작구"
-          v-model="registerProductRuleForm.places"
-        ></el-input>
-      </el-form-item>
-
       <el-form-item class="register-product__submit">
         <el-button
           :loading="isLoading"
           type="primary"
           @click="submitForm('registerProductRuleForm')"
-          >등록하기</el-button
+          >작성완료</el-button
         >
-        <!-- <el-button @click="resetForm('registerProductRuleForm')">모두 지우기</el-button> -->
       </el-form-item>
     </el-form>
   </div>
@@ -157,13 +165,15 @@ export default {
       }
     }
     return {
-      // dialogImageUrl: '',
-      // dialogVisible: false,
+      swiperOption: {
+        spaceBetween: 20,
+        slidesPerView: 'auto'
+      },
       isLoading: false,
       registerProductRuleForm: {
         title: '',
         content: '',
-        category: [],
+        category: '',
         price: '',
         places: ''
       },
@@ -172,21 +182,28 @@ export default {
           {
             required: true,
             message: '제목을 입력해주세요.',
-            trigger: 'blur'
+            trigger: 'change'
           }
         ],
         content: [
           {
             required: true,
             message: '내용을 입력해주세요.',
-            trigger: 'blur'
+            trigger: 'change'
+          }
+        ],
+        category: [
+          {
+            required: true,
+            message: '카테고리를 선택해주세요.',
+            trigger: 'change'
           }
         ],
         price: [
           {
             required: true,
             message: '가격을 입력해주세요.',
-            trigger: 'blur'
+            trigger: 'change'
           }
         ],
         places: [
@@ -251,14 +268,11 @@ export default {
         imageFormData.append('filename', f) // { image: [file1, file2] }
       })
       this.uploadImages(imageFormData)
-      // this.imagePaths.concat(imageFormData)
     },
     onClickImageUpload() {
       this.$refs.imageInput.click()
     },
     onRemoveImage(index) {
-      // this.imagePaths.splice(index, 1)
-      console.log(index, 'vue')
       this.removeImagePath('posts/removeImagePath', index)
     }
   }
@@ -270,7 +284,7 @@ export default {
   padding: 20px;
   &__form {
     margin: 0 auto;
-    max-width: 360px;
+    max-width: 420px;
     .el-form-item {
       margin-bottom: 10px;
     }
@@ -319,6 +333,7 @@ export default {
   &__remove-btn {
     cursor: pointer;
     position: absolute;
+    border: none;
     top: 10px;
     right: 10px;
     width: 20px;
@@ -327,6 +342,14 @@ export default {
   }
   &__submit {
     margin-top: 30px;
+    .el-button {
+      padding: 16px 0;
+      display: block;
+      width: 100%;
+      font-size: 20px;
+      color: #000000;
+      background-color: #8fb5ff;
+    }
   }
 
   &__agree {
@@ -335,6 +358,24 @@ export default {
     & /deep/ .el-form-item__content {
       line-height: 1;
     }
+  }
+
+  .el-radio-group {
+    width: 100%;
+    text-align: left;
+  }
+
+  &__price {
+    & /deep/ .el-form-item__content {
+      text-align: left;
+    }
+    .el-input {
+      width: 130px;
+      display: inline-block;
+    }
+  }
+  .swiper-slide {
+    width: 200px !important;
   }
 }
 </style>
