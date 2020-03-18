@@ -11,41 +11,45 @@
       status-icon
     >
       <div>
-        <input
-          ref="imageInput"
-          type="file"
-          multiple
-          hidden
-          @change="onChangeImages"
-        />
-        <button
-          class="register-product__image-upload-btn"
-          type="button"
-          @click="onClickImageUpload"
-        >
-          <span>
-            <i class="font-bold">{{ imagePaths.length }}</i
-            >/<i>5</i>
-          </span>
-        </button>
-        <div
-          class="register-product__image-wrap"
-          v-for="(p, i) in imagePaths"
-          :key="p"
-          style="display: inline-block"
-        >
-          <img
-            class="register-product__image"
-            :src="p"
-            :alt="p"
-            style="width: 200px"
-          />
-          <button
-            class="register-product__remove-btn"
-            @click="onRemoveImage(i)"
-            type="button"
-          ></button>
-        </div>
+        <swiper ref="mySwiper" :options="swiperOption">
+          <swiper-slide>
+            <input
+              ref="imageInput"
+              type="file"
+              multiple
+              hidden
+              @change="onChangeImages"
+            />
+            <button
+              class="register-product__image-upload-btn"
+              type="button"
+              @click="onClickImageUpload"
+            >
+              <span>
+                <i class="font-bold">{{ imagePaths.length }}</i
+                >/<i>5</i>
+              </span>
+            </button>
+          </swiper-slide>
+          <swiper-slide
+            class="register-product__image-wrap"
+            v-for="(p, i) in imagePaths"
+            :key="p"
+            style="display: inline-block"
+          >
+            <img
+              class="register-product__image"
+              :src="p"
+              :alt="p"
+              style="width: 200px"
+            />
+            <button
+              class="register-product__remove-btn"
+              @click="onRemoveImage(i)"
+              type="button"
+            ></button>
+          </swiper-slide>
+        </swiper>
       </div>
 
       <el-form-item label="제목" prop="title">
@@ -100,7 +104,6 @@
           @click="submitForm('registerProductRuleForm')"
           >작성완료</el-button
         >
-        <!-- <el-button @click="resetForm('registerProductRuleForm')">모두 지우기</el-button> -->
       </el-form-item>
     </el-form>
   </div>
@@ -162,13 +165,15 @@ export default {
       }
     }
     return {
-      // dialogImageUrl: '',
-      // dialogVisible: false,
+      swiperOption: {
+        spaceBetween: 20,
+        slidesPerView: 'auto'
+      },
       isLoading: false,
       registerProductRuleForm: {
         title: '',
         content: '',
-        category: [],
+        category: '',
         price: '',
         places: ''
       },
@@ -177,21 +182,28 @@ export default {
           {
             required: true,
             message: '제목을 입력해주세요.',
-            trigger: 'blur'
+            trigger: 'change'
           }
         ],
         content: [
           {
             required: true,
             message: '내용을 입력해주세요.',
-            trigger: 'blur'
+            trigger: 'change'
+          }
+        ],
+        category: [
+          {
+            required: true,
+            message: '카테고리를 선택해주세요.',
+            trigger: 'change'
           }
         ],
         price: [
           {
             required: true,
             message: '가격을 입력해주세요.',
-            trigger: 'blur'
+            trigger: 'change'
           }
         ],
         places: [
@@ -256,14 +268,11 @@ export default {
         imageFormData.append('filename', f) // { image: [file1, file2] }
       })
       this.uploadImages(imageFormData)
-      // this.imagePaths.concat(imageFormData)
     },
     onClickImageUpload() {
       this.$refs.imageInput.click()
     },
     onRemoveImage(index) {
-      // this.imagePaths.splice(index, 1)
-      console.log(index, 'vue')
       this.removeImagePath('posts/removeImagePath', index)
     }
   }
@@ -275,7 +284,7 @@ export default {
   padding: 20px;
   &__form {
     margin: 0 auto;
-    max-width: 360px;
+    max-width: 420px;
     .el-form-item {
       margin-bottom: 10px;
     }
@@ -324,6 +333,7 @@ export default {
   &__remove-btn {
     cursor: pointer;
     position: absolute;
+    border: none;
     top: 10px;
     right: 10px;
     width: 20px;
@@ -363,6 +373,9 @@ export default {
       width: 130px;
       display: inline-block;
     }
+  }
+  .swiper-slide {
+    width: 200px !important;
   }
 }
 </style>

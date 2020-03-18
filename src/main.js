@@ -4,15 +4,15 @@ import router from './router'
 import store from './store/store'
 import axios from 'axios'
 import ElementUI from 'element-ui'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'
 import 'element-ui/lib/theme-chalk/index.css'
-// import '@/assets/css/element-variables.scss'
-// import '@/assets/css/style.scss'
-// import { Button, Input, Form, FormItem } from 'element-ui'
-Vue.use(ElementUI)
-// Vue.component(Button)
-// Vue.component(Select)
 
 Vue.use(ElementUI)
+
+Vue.use(ElementUI)
+Vue.use(VueAwesomeSwiper /* { default global options } */)
+
 Vue.config.productionTip = false
 
 axios.defaults.baseURL = 'http://52.78.166.10:8000'
