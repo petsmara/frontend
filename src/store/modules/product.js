@@ -19,8 +19,7 @@ export const actions = {
   uploadImages({ commit }, images) {
     return ProductService.uploadImages(images)
       .then(res => {
-        console.log(res)
-        commit('CONCAT_IMAGE_PATHS', res.data.image)
+        commit('CONCAT_IMAGE_PATHS', res.data.images)
       })
       .catch(error => {
         console.error(error)

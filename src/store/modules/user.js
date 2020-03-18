@@ -16,7 +16,7 @@ export const mutations = {
     const userData = {
       email: payload.email,
       nickname: payload.nickname,
-      accessToken: payload.access_token
+      accessToken: payload.access_token || payload.accessToken
     }
     state.user = userData
     localStorage.setItem('petsmaraUser', JSON.stringify(userData))
