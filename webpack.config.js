@@ -27,6 +27,12 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.stories\.jsx?$/,
+        loader: require.resolve('@storybook/source-loader'),
+        include: [path.resolve(__dirname, '../src/components')],
+        enforce: 'pre'
       }
     ]
   },

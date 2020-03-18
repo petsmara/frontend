@@ -2,7 +2,6 @@ import { addParameters, addDecorator } from '@storybook/vue'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { withA11y } from '@storybook/addon-a11y'
-// import centered from '@storybook/addon-centered/vue'
 import { withKnobs } from '@storybook/addon-knobs'
 import '../src/assets/css/style.scss';
 
