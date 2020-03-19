@@ -9,6 +9,9 @@
 </template>
 
 <script>
+/**
+ * SummaryCard component description
+ */
 export default {
   props: {
     imgLink: {
