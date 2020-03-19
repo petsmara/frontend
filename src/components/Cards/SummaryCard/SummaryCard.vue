@@ -41,10 +41,12 @@ export default {
 
 <style lang="scss" scoped>
 .card {
+  width: 340px;
   text-align: center;
   &__img {
-    width: 340px;
-    height: 340px;
+    width: 100%;
+    max-width: 340px;
+    max-height: 340px;
   }
   &__title {
     font-size: 16px;
@@ -56,11 +58,23 @@ export default {
     font-size: 14px;
   }
   &__places {
-    display: block;
+    // display: block;
     margin-bottom: 10px;
     font-size: 14px;
+    position: relative;
+    &:after {
+      content: '';
+      width: 8px;
+      height: 12px;
+      position: absolute;
+      left: -12px;
+      top: 2px;
+      background: url('~@/assets/images/icons/location.png') center / 100%
+        no-repeat;
+    }
   }
   &__price {
+    margin-top: 2px;
     display: block;
     font-family: Roboto;
     font-size: 20px;

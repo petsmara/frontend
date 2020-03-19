@@ -9,7 +9,7 @@ export default {
 export const ActionOnly = () => ({
   components: { AppNav },
   template: `
-      <div style="max-width: 1280px; width: 100%;">
+      <div style="max-width: 1200px; width: 100%;">
         <AppNav />
       </div>  
     `,
