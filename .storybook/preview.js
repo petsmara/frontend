@@ -5,8 +5,11 @@ import { withA11y } from '@storybook/addon-a11y'
 import { withKnobs } from '@storybook/addon-knobs'
 import '../src/assets/css/style.scss';
 
+Vue.use(Vuex)
+
 // addDecorator(centered)
 addDecorator(withKnobs)
+addDecorator(withA11y)
 addParameters({
   backgrounds: [
     {
@@ -20,13 +23,6 @@ addParameters({
     }
   ]
 })
-
-import MyButton from '../src/components/Button/Button.vue'
-
-addDecorator(withA11y)
-Vue.component('my-button', MyButton)
-Vue.use(Vuex)
-
 addParameters({
   docs: {
     inlineStories: true,

@@ -2,12 +2,9 @@ import { text, number } from '@storybook/addon-knobs'
 import SummaryCard from './SummaryCard.vue'
 
 export default {
-  title: 'Addon/SummaryCard'
+  title: 'Addon/SummaryCard',
+  component: SummaryCard
 }
-
-// Cards.story = {
-//   name: 'Action only'
-// }
 
 export const Cards = () => ({
   components: { SummaryCard },

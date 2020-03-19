@@ -3,22 +3,16 @@ const rootPath = path.resolve(__dirname, '../src')
 module.exports = {
   stories: ['../src/components/**/*.stories.(js|mdx)'],
   addons: [
-    {
-      name: '@storybook/addon-docs',
-      options: {
-        vueDocgenOptions: { alias: { '@': path.resolve(__dirname, '../src') }}
-      }
-    },
+    '@storybook/addon-docs',
     '@storybook/addon-storysource',
     '@storybook/addon-actions',
     '@storybook/addon-links',
-    '@storybook/addon-notes',
     '@storybook/addon-knobs',
     '@storybook/addon-viewport',
     '@storybook/addon-options',
     '@storybook/addon-backgrounds',
     '@storybook/addon-a11y',
-    '@storybook/addon-contexts'
+    '@storybook/addon-contexts',
   ],
   webpackFinal: async (config, { configType }) => {
     config.resolve.alias = Object.assign({}, config.resolve.alias, {
