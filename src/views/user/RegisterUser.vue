@@ -3,7 +3,6 @@
     <h2 class="register-user__title">
       회원가입
     </h2>
-    <button class="app-nav__mypage"></button>
     <el-form
       :model="registerUserRuleForm"
       :rules="registerUserRules"
@@ -253,7 +252,7 @@ export default {
             if (result.status === 200) {
               this.$message({
                 message: '회원가입이 완료되었습니다.!',
-                duration: 3000,
+                duration: 1000,
                 showClose: true,
                 type: 'success',
                 onClose: () => {
@@ -326,6 +325,7 @@ export default {
       background: url('~@/assets/images/icons/dog.png') center / 50px no-repeat;
     }
     &__cat {
+      margin-left: 20px;
       & /deep/ .el-checkbox__inner {
         background: url('~@/assets/images/icons/cat.png') center / 50px
           no-repeat;

@@ -214,7 +214,8 @@ export default {
           // }
           // { validator: validatePass2, trigger: 'blur' }
         ]
-      }
+      },
+      imagesLimitCount: 5
     }
   },
   computed: {
@@ -264,6 +265,24 @@ export default {
     },
     onChangeImages(e) {
       const imageFormData = new FormData()
+      if (
+        this.imagesLimitCount <
+        this.imagePaths.length + e.target.files.length
+      ) {
+        this.$message({
+          message: '총 이미지 5개이하로만 업로드 가능합니다.',
+          duration: 3000,
+          showClose: true,
+          type: 'warning'
+          // onClose: () => {
+          //   alert(
+          //     '다음 경로는 어디로? 리다이렉트? 리플레이스로 방금전 URL로 가게하기'
+          //   )
+          // }
+        })
+        console.log('총 이미지 길이가 5개 이상입니다.')
+        return false
+      }
       Array.from(e.target.files).forEach(f => {
         imageFormData.append('filename', f) // { image: [file1, file2] }
       })
@@ -273,6 +292,7 @@ export default {
       this.$refs.imageInput.click()
     },
     onRemoveImage(index) {
+      console.log(this.imagePaths)
       this.removeImagePath('posts/removeImagePath', index)
     }
   }
