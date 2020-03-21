@@ -1,6 +1,8 @@
 <template>
   <div class="card">
-    <img class="card__img" :src="imgLink" :alt="title" />
+    <div class="card__img-wrap">
+      <img class="card__img" :src="imgLink" :alt="title" />
+    </div>
     <h3 class="card__title">{{ title }}</h3>
     <span class="card__category">{{ category }}</span>
     <span class="card__places">{{ places }}</span>
@@ -41,13 +43,23 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-  width: 340px;
   text-align: center;
-  &__img {
+  &__img-wrap {
+    overflow: hidden;
     width: 100%;
     max-width: 340px;
-    max-height: 340px;
+    position: relative;
+    padding-bottom: 100%;
   }
+
+  &__img {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+  }
+
   &__title {
     font-size: 16px;
     margin: 10px 0;

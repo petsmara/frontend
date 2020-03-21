@@ -38,6 +38,9 @@ export default {}
   align-items: center;
   justify-content: space-between;
   &__logo {
+    a {
+      padding: 10px 20px;
+    }
     img {
       width: 32px;
     }
