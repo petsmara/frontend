@@ -224,7 +224,6 @@ export default {
   methods: {
     ...mapActions(['uploadImages', 'registerProduct', 'removeImagePath']),
     submitForm(formName) {
-      this.isLoading = true
       const {
         title,
         content,
@@ -234,24 +233,43 @@ export default {
       } = this.registerProductRuleForm
       this.$refs[formName].validate(valid => {
         if (valid) {
+          this.isLoading = true
+
           this.registerProduct({
             title,
             content,
             category,
             price,
-            places
-          })
-          // 여기서 결과값을 받아서 다시 분기처리 성공, 실패
-          this.$message({
-            message: '상품등록이 완료되었습니다.!',
-            duration: 3000,
-            showClose: true,
-            type: 'success',
-            onClose: () => {
-              alert('다음 경로는 어디로?')
+            places,
+            images: this.imagePaths
+          }).then(result => {
+            if (result.status === 200) {
+              this.$message({
+                message: '상품등록이 완료되었습니다.!',
+                duration: 1000,
+                showClose: true,
+                type: 'success',
+                onClose: () => {
+                  this.isLoading = false
+                  alert('다음 경로는 어디로? 아마도 상품 상세 페이지?')
+                }
+              })
+            } else {
+              this.$message({
+                message: `상품등록이 실패했습니다..! 다시 시도해주세요. ${result.data.message}`,
+                duration: 3000,
+                showClose: true,
+                type: 'error',
+                onClose: () => {
+                  this.isLoading = false
+                  // alert('다음 경로는 어디로?')
+                }
+              })
             }
           })
+          // 여기서 결과값을 받아서 다시 분기처리 성공, 실패
         } else {
+          this.isLoading = false
           this.$message({
             dangerouslyUseHTMLString: true,
             message: `상품등록양식이 올바르지 않습니다. 다시 확인해주세요.`,
