@@ -6,7 +6,7 @@
       <router-link to="/user/register">Register</router-link> |
       <router-link to="/user/login">Login</router-link> |
       <router-link to="/user/mypage">Mypage</router-link> |
-      <router-link to="/product/list/:id">Product/list/:id</router-link> |
+      <router-link to="/product/list/1">Product/1</router-link> |
       <router-link to="/product/register">Product/register</router-link>
     </div>
     <router-view />

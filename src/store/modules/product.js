@@ -38,6 +38,17 @@ export const actions = {
         console.log(error.response)
         return error.response
       })
+  },
+  getProduct({ commit }, productId) {
+    return ProductService.getProduct(productId)
+      .then(res => {
+        console.log(res)
+        return res
+      })
+      .catch(error => {
+        console.log(error.response)
+        return error.response
+      })
   }
 }
 

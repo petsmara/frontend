@@ -5,5 +5,8 @@ export default {
   },
   registerProduct(product) {
     return axios.post('/product', product)
+  },
+  getProduct(productId) {
+    return axios.get(`/product/${productId}`)
   }
 }
