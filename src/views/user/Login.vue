@@ -43,7 +43,6 @@ export default {
       if (value === '') {
         callback(new Error('비밀번호를 입력해주세요.'))
       } else {
-        console.log('로그인 보내기 성공')
         callback()
       }
     }
@@ -79,28 +78,28 @@ export default {
   },
   methods: {
     ...mapActions(['logIn']),
-    submitForm(formName) {
-      this.isLoading = true
-      this.$refs[formName].validate(valid => {
+    async submitForm(formName) {
+      await this.$refs[formName].validate(valid => {
         if (valid) {
+          this.isLoading = true
           this.logIn({
             ...this.logInRuleForm
           }).then(result => {
             if (result.status === 200) {
+              this.isLoading = false
               this.$message({
                 message: '로그인이 완료되었습니다.!',
-                duration: 3000,
+                duration: 1000,
                 showClose: true,
                 type: 'success',
                 onClose: () => {
-                  alert(
-                    '다음 경로는 어디로? 리다이렉트? 리플레이스로 방금전 URL로 가게하기'
-                  )
+                  this.$router.push('/user/mypage')
                 }
               })
             } else {
+              this.isLoading = false
               this.$message({
-                message: `로그인이 실패했습니다..! 다시 시도해주세요. ${result}`,
+                message: `로그인이 실패했습니다..! 다시 시도해주세요. ${result.data.message}`,
                 duration: 3000,
                 showClose: true,
                 type: 'error'
@@ -116,7 +115,6 @@ export default {
             type: 'error'
           })
         }
-        this.isLoading = false
       })
     }
   }

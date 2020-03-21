@@ -29,10 +29,10 @@
       </Box>
       <div class="products">
         <SummaryCard v-for="n in 9" :key="n" />
-        <button class="products__write">
-          글쓰기
-        </button>
       </div>
+      <button class="products__write">
+        글쓰기
+      </button>
     </section>
   </div>
 </template>
@@ -90,6 +90,7 @@ export default {
     margin-bottom: 40px;
   }
   &__btn {
+    cursor: pointer;
     font-size: 20px;
     color: #000000;
     padding: 16px 70px;
@@ -113,6 +114,14 @@ export default {
     padding: 0 10px;
     flex-basis: 33.3%;
     margin-bottom: 26px;
+    @include respond-to('mobile-portrait-only') {
+      // flex-basis: 50%;
+      // background-color: lavender;
+    }
+    @include respond-to('tablet-portrait-only') {
+      flex-basis: 50%;
+      // background-color: red;
+    }
   }
   &__write {
     cursor: pointer;

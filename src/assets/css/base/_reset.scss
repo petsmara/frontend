@@ -32,3 +32,12 @@ header, footer, nav, section, article, hgroup, figure {
 .video-js {
     outline: 0;
 }
+
+button {
+	outline: none;
+	border: none;
+}
+
+img {
+	vertical-align: top;
+}

@@ -28,23 +28,22 @@ export const actions = {
   registerUser({ commit }, user) {
     return UserService.registerUser(user)
       .then(res => {
-        // commit('SET_USER_DATA', true)
         return res
       })
       .catch(error => {
-        throw error
+        console.log(error.response)
+        return error.response
       })
   },
   logIn({ commit }, user) {
     return UserService.logIn(user)
       .then(res => {
-        console.log(res)
         commit('SET_USER_DATA', res.data)
         return res
       })
       .catch(error => {
-        console.error(error)
-        return error
+        console.log(error.response)
+        return error.response
       })
   }
 }
