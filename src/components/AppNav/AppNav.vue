@@ -26,7 +26,7 @@ export default {}
     // background-color: lavender;
   }
   @include respond-to('tablet-portrait-only') {
-    // background-color: red;
+    padding: 0 20px 0 30px;
   }
   position: relative;
   height: 85px;

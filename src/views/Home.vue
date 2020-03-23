@@ -106,6 +106,7 @@ export default {
   }
 }
 .products {
+  padding: 20px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

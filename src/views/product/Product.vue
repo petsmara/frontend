@@ -91,11 +91,15 @@ export default {
     getCurrentProduct(routeTo, next)
   },
   async created() {
-    const getProducts = await this.getProducts({
-      offset: 0,
-      limit: 3
-    })
-    this.products = getProducts.data.result
+    // const getProducts = await this.getProducts({
+    //   offset: 0,
+    //   limit: 3
+    // })
+    this.getProducts({ offset: 0, limit: 3 })
+      .then(response => {
+        this.products = response.data.result
+      })
+      .catch(e => console.error(e))
   },
   data() {
     return {
@@ -137,19 +141,22 @@ export default {
 
 <style lang="scss" scoped>
 .product {
+  padding: 20px;
   &__swiper {
     margin: 0 auto;
-    width: 600px;
+    max-width: 600px;
+    width: 100%;
   }
   &__slide {
   }
   &__img {
-    width: 500px;
+    max-width: 500px;
+    width: 100%;
   }
   &__detail {
     margin: 0 auto;
-    width: 100%;
     max-width: 500px;
+    width: 100%;
     text-align: center;
   }
   &__seller {
