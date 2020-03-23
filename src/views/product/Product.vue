@@ -21,7 +21,7 @@
     <div class="product__detail">
       <p class="product__seller">{{ product.seller }}</p>
       <p class="product__title">{{ product.title }}</p>
-      <p class="product__category">{{ '강아지' || product.category }}</p>
+      <p class="product__category">{{ convertCategory(product.category) }}</p>
       <p class="product__places">{{ product.places || '구룡/개포동' }}</p>
       <p class="product__price">
         {{ Number(parseInt(product.price)).toLocaleString()
@@ -77,7 +77,25 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getProduct'])
+    ...mapActions(['getProduct']),
+    convertCategory(value) {
+      switch (value) {
+        case 1:
+          return '강아지'
+          break
+        case 2:
+          return '고양이'
+          break
+        case 3:
+          return '공통'
+          break
+        case 4:
+          return '기타'
+          break
+        default:
+          return ''
+      }
+    }
   }
 }
 </script>

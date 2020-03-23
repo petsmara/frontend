@@ -31,13 +31,13 @@ const routes = [
     component: () => import('../views/product/ProductList.vue')
   },
   {
-    path: '/product/list/:id',
-    component: () => import('../views/product/Product.vue')
-  },
-  {
     path: '/product/register',
     name: 'RegisterProduct',
     component: () => import('../views/product/RegisterProduct.vue')
+  },
+  {
+    path: '/product/:id',
+    component: () => import('../views/product/Product.vue')
   }
 ]
 
