@@ -8,7 +8,7 @@
       >
         <swiper-slide
           class="banner__slide"
-          v-for="(banner, index) in list"
+          v-for="(banner, index) in bannerList"
           :key="`${banner.title}-${index}`"
         >
           <h2 class="banner__title">{{ banner.title }}</h2>
@@ -28,7 +28,20 @@
         </template>
       </Box>
       <div class="products">
-        <SummaryCard v-for="n in 9" :key="n" />
+        <router-link
+          class="products__link"
+          v-for="item in products"
+          :key="item.title"
+          :to="`/product/${item.id}`"
+        >
+          <SummaryCard
+            :imgLink="item.images[0]"
+            :title="item.title"
+            :category="convertCategory(item.category)"
+            :places="item.places"
+            :price="Number(parseInt(item.price)).toLocaleString()"
+          />
+        </router-link>
       </div>
       <button class="products__write">
         글쓰기
@@ -40,11 +53,22 @@
 <script>
 import { Box } from '@/components/Box'
 import { SummaryCard } from '@/components/Cards'
+import { createNamespacedHelpers } from 'vuex'
+const { mapActions } = createNamespacedHelpers('product')
+
 export default {
+  created() {
+    this.getProducts({ offset: 0, limit: 9 })
+      .then(response => {
+        this.products = response.data.result
+      })
+      .catch(e => console.error(e))
+  },
   components: { Box, SummaryCard },
   data() {
     return {
-      list: [
+      products: [],
+      bannerList: [
         {
           title: '반려동물사료를 공유해보세요',
           content: '흠냐흠냐'
@@ -58,6 +82,29 @@ export default {
         pagination: {
           el: '.swiper-pagination'
         }
+      }
+    }
+  },
+  methods: {
+    ...mapActions([
+      'getProducts' //also supports payload `this.nameOfAction(amount)`
+    ]),
+    convertCategory(value) {
+      switch (value) {
+        case 1:
+          return '강아지'
+          break
+        case 2:
+          return '고양이'
+          break
+        case 3:
+          return '공통'
+          break
+        case 4:
+          return '기타'
+          break
+        default:
+          return ''
       }
     }
   }
@@ -106,12 +153,12 @@ export default {
   }
 }
 .products {
-  padding: 20px;
+  padding: 16px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
-  .card {
+  justify-content: flex-start;
+  &__link {
     padding: 0 10px;
     flex-basis: 33.3%;
     margin-bottom: 26px;
