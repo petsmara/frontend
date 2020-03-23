@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import NProgress from 'nprogress'
+import store from '@/store/store'
 
 Vue.use(VueRouter)
 
@@ -37,14 +39,34 @@ const routes = [
   },
   {
     path: '/product/:id',
-    component: () => import('../views/product/Product.vue')
+    component: () => import('../views/product/Product.vue'),
+    props: true
+    // beforeEnter(routeTo, routeFrom, next) {
+    //   // before this route is loaded
+    //   store.dispatch('product/getProduct', routeTo.params.id).then(product => {
+    //     routeTo.params.product = product
+    //     next()
+    //   })
+    // }
   }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior() {
+    document.getElementById('app').scrollIntoView()
+  }
+})
+
+router.beforeEach((routeTo, routeFrom, next) => {
+  NProgress.start()
+  next()
+})
+
+router.afterEach(() => {
+  NProgress.done()
 })
 
 export default router

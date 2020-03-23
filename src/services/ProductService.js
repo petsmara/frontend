@@ -8,5 +8,8 @@ export default {
   },
   getProduct(productId) {
     return axios.get(`/product/${productId}`)
+  },
+  getProducts({ offset = 0, limit = 9 }) {
+    return axios.get(`/product?offset=${offset}&limit=${limit}`)
   }
 }

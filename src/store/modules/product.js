@@ -3,10 +3,15 @@ import ProductService from '@/services/ProductService.js'
 export const namespaced = true
 
 export const state = {
-  imagePaths: []
+  imagePaths: [],
+  product: {},
+  id: null
 }
 
 export const mutations = {
+  SET_PRODUCT(state, payload) {
+    state.product = payload
+  },
   CONCAT_IMAGE_PATHS(state, payload) {
     state.imagePaths = state.imagePaths.concat(payload)
   },
@@ -26,7 +31,6 @@ export const actions = {
       })
   },
   removeImagePath({ commit }, index) {
-    console.log(index, 'store')
     commit('REMOVE_IMAGE_PATH', index)
   },
   registerProduct({ commit }, product) {
@@ -39,10 +43,21 @@ export const actions = {
         return error.response
       })
   },
-  getProduct({ commit }, productId) {
-    return ProductService.getProduct(productId)
+  getProduct({ commit }, id) {
+    return ProductService.getProduct(id)
       .then(res => {
-        console.log(res)
+        commit('SET_PRODUCT', res.data.result)
+        return res.data.result
+      })
+      .catch(error => {
+        console.log(error.response)
+        return error.response
+      })
+  },
+
+  getProducts({ commit }, payload) {
+    return ProductService.getProducts(payload)
+      .then(res => {
         return res
       })
       .catch(error => {

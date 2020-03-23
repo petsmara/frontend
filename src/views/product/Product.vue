@@ -43,7 +43,19 @@
         </template>
       </Box>
       <div class="products">
-        <SummaryCard v-for="n in 3" :key="n" />
+        <router-link
+          v-for="item in products"
+          :key="item.title"
+          :to="`/product/${item.id}`"
+        >
+          <SummaryCard
+            :imgLink="item.images[0]"
+            :title="item.title"
+            :category="convertCategory(item.category)"
+            :places="item.places"
+            :price="Number(parseInt(item.price)).toLocaleString()"
+          />
+        </router-link>
       </div>
     </section>
   </div>
@@ -53,18 +65,41 @@
 import { Box } from '@/components/Box'
 import { SummaryCard } from '@/components/Cards'
 import { createNamespacedHelpers } from 'vuex'
-const { mapActions } = createNamespacedHelpers('product')
+const { mapState, mapActions } = createNamespacedHelpers('product')
+import store from '@/store/store'
+
+const getCurrentProduct = (routeTo, next) => {
+  const currentId = parseInt(routeTo.params.id) || 1
+  store.dispatch('product/getProduct', currentId).then(product => {
+    routeTo.params.product = product
+    next()
+  })
+}
 
 export default {
   components: { Box, SummaryCard },
-  async mounted() {
-    // 예외처리
-    const response = await this.getProduct(this.$route.params.id)
-    this.product = response.data.result
+  props: {
+    product: {
+      type: Object,
+      required: true
+    }
+  },
+  beforeRouteEnter(routeTo, routeFrom, next) {
+    getCurrentProduct(routeTo, next)
+  },
+  beforeRouteUpdate(routeTo, routeFrom, next) {
+    getCurrentProduct(routeTo, next)
+  },
+  async created() {
+    const getProducts = await this.getProducts({
+      offset: 0,
+      limit: 3
+    })
+    this.products = getProducts.data.result
   },
   data() {
     return {
-      product: {},
+      products: [],
       productSwiperOption: {
         navigation: {
           nextEl: '.swiper-button-next',
@@ -77,7 +112,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getProduct']),
+    ...mapActions(['getProduct', 'getProducts']),
     convertCategory(value) {
       switch (value) {
         case 1:
