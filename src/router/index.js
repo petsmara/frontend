@@ -61,6 +61,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((routeTo, routeFrom, next) => {
+  store.dispatch('drawer/closeDrawer', false)
   NProgress.start()
   next()
 })
