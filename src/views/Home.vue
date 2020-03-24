@@ -117,7 +117,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .home {
-  padding: 60px 0;
+  padding: 0 0 60px;
 }
 .banner {
   width: 100%;
@@ -164,6 +164,7 @@ export default {
     @include respond-to('mobile-portrait-only') {
       z-index: 5;
       position: fixed;
+      top: auto;
       bottom: 40px;
       left: 50%;
       transform: translateX(-50%);

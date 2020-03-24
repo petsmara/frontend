@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <AppNav />
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/user/register">Register</router-link> |
       <router-link to="/user/login">Login</router-link> |
@@ -9,7 +9,7 @@
       <router-link to="/product/1">Product/1</router-link> |
       <router-link to="/product/register">Product/register</router-link> |
       <router-link to="/product/list">Product/list</router-link>
-    </div>
+    </div> -->
     <router-view />
   </div>
 </template>

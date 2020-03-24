@@ -11,7 +11,7 @@
       </router-link>
       <button class="app-nav__menu" @click="openMenu"></button>
     </div>
-    <el-drawer title="메뉴메뉴메뉴" :visible.sync="isOpenedDrawer">
+    <el-drawer title="메뉴메뉴메뉴" :visible.sync="drawer" size="40%">
       <nav>
         <ul>
           <li>
@@ -33,7 +33,7 @@
             <router-link to="/product/register">상품판매하기</router-link>
           </li>
           <li>
-            <router-link to="/proudct/list">상품판매리스트</router-link>
+            <router-link to="/product/list">상품판매리스트</router-link>
           </li>
         </ul>
       </nav>
@@ -45,6 +45,11 @@
 import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions } = createNamespacedHelpers('drawer')
 export default {
+  data() {
+    return {
+      drawer: false
+    }
+  },
   computed: {
     ...mapState(['isOpenedDrawer'])
   },
@@ -52,6 +57,12 @@ export default {
     ...mapActions(['openDrawer']),
     openMenu() {
       this.openDrawer(true)
+      this.drawer = this.isOpenedDrawer
+    }
+  },
+  watch: {
+    isOpenedDrawer(newValue, oldValue) {
+      this.drawer = this.isOpenedDrawer
     }
   }
 }

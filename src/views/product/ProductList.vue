@@ -91,7 +91,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .product-list {
-  padding: 60px 0;
+  padding: 0 0 60px;
   &__banner {
     &__img {
       width: 100%;
