@@ -207,6 +207,10 @@ export default {
     }
     &__right {
       margin-left: auto;
+      a {
+        display: inline-block;
+        padding: 14px;
+      }
     }
     &__nickname {
       font-family: Roboto;
@@ -227,9 +231,21 @@ export default {
       width: 32px;
     }
     &__icon {
-      width: 48px;
-      padding: 14px;
+      width: 20px;
     }
+  }
+
+  &__nav {
+  }
+  &__list {
+  }
+  &__item {
+    border-bottom: 1px solid rgba(196, 196, 196, 0.6);
+  }
+  &__link {
+    text-align: left;
+    display: block;
+    padding: 16px 16px 16px 60px;
   }
 }
 </style>
