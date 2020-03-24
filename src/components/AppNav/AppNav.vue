@@ -20,29 +20,68 @@
         <span>메뉴</span>
       </div>
     </div>
-    <el-drawer title="메뉴메뉴메뉴" :visible.sync="drawer" size="40%">
-      <nav>
-        <ul>
-          <li>
-            <router-link to="/">홈</router-link>
+    <el-drawer
+      :visible.sync="drawer"
+      size="40%"
+      :show-close="false"
+      :withHeader="false"
+      class="drawer"
+    >
+      <div class="drawer__header">
+        <div class="drawer__header__left">
+          <img
+            class="drawer__header__avatar"
+            src="@/assets/images/icons/logo.png"
+            alt="petsmara"
+          />
+        </div>
+        <div class="drawer__header__center">
+          <p class="drawer__header__nickname">비회원</p>
+          <p class="drawer__header__paragraph">로그인해주세요.</p>
+        </div>
+        <div class="drawer__header__right">
+          <router-link to="/user/login">
+            <img
+              class="drawer__header__icon"
+              src="@/assets/images/icons/login.png"
+              alt="login"
+          /></router-link>
+        </div>
+      </div>
+      <nav class="drawer__nav">
+        <ul class="drawer__list">
+          <li class="drawer__item">
+            <router-link class="drawer__link" to="/">홈</router-link>
           </li>
-          <li>
-            <router-link to="/user/register">회원가입</router-link>
+          <li class="drawer__item">
+            <router-link class="drawer__link" to="/user/register"
+              >회원가입</router-link
+            >
           </li>
-          <li>
-            <router-link to="/user/login">로그인</router-link>
+          <li class="drawer__item">
+            <router-link class="drawer__link" to="/user/login"
+              >로그인</router-link
+            >
           </li>
-          <li>
-            <router-link to="/user/logout">로그아웃</router-link>
+          <li class="drawer__item">
+            <router-link class="drawer__link" to="/user/logout"
+              >로그아웃</router-link
+            >
           </li>
-          <li>
-            <router-link to="/user/mypage">마이페이지</router-link>
+          <li class="drawer__item">
+            <router-link class="drawer__link" to="/user/mypage"
+              >마이페이지</router-link
+            >
           </li>
-          <li>
-            <router-link to="/product/register">상품판매하기</router-link>
+          <li class="drawer__item">
+            <router-link class="drawer__link" to="/product/register"
+              >상품판매하기</router-link
+            >
           </li>
-          <li>
-            <router-link to="/product/list">상품판매리스트</router-link>
+          <li class="drawer__item">
+            <router-link class="drawer__link" to="/product/list"
+              >상품판매리스트</router-link
+            >
           </li>
         </ul>
       </nav>
@@ -145,6 +184,51 @@ export default {
       font-size: 12px;
       line-height: 14px;
       color: #000000;
+    }
+  }
+}
+
+.drawer {
+  &__header {
+    padding: 30px 16px 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 2px solid #c4c4c4;
+    &__left {
+      width: 60px;
+      height: 60px;
+      border: 1px solid #000000;
+      border-radius: 50%;
+      margin-right: 14px;
+      position: relative;
+    }
+    &__center {
+    }
+    &__right {
+      margin-left: auto;
+    }
+    &__nickname {
+      font-family: Roboto;
+      font-weight: bold;
+      font-size: 20px;
+      color: #000000;
+    }
+    &__paragraph {
+      font-weight: 500;
+      font-size: 14px;
+      color: #000000;
+    }
+    &__avatar {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 32px;
+    }
+    &__icon {
+      width: 48px;
+      padding: 14px;
     }
   }
 }
