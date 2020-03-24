@@ -3,13 +3,22 @@
     <h1 class="app-nav__logo">
       <router-link to="/">
         <img src="@/assets/images/icons/logo.png" alt="petsmara" />
+        <span>PETS MARA</span>
       </router-link>
     </h1>
     <div class="app-nav__right">
-      <router-link to="/user/mypage">
-        <button class="app-nav__mypage"></button>
+      <router-link class="app-nav__link" to="/user/register">
+        <img src="@/assets/images/icons/register.png" alt="resgister" />
+        <span>회원가입</span>
       </router-link>
-      <button class="app-nav__menu" @click="openMenu"></button>
+      <router-link class="app-nav__link" to="/user/login">
+        <img src="@/assets/images/icons/login.png" alt="login" />
+        <span>로그인</span>
+      </router-link>
+      <div class="app-nav__menu" @click="openMenu">
+        <img src="@/assets/images/icons/menu.png" alt="menu" />
+        <span>메뉴</span>
+      </div>
     </div>
     <el-drawer title="메뉴메뉴메뉴" :visible.sync="drawer" size="40%">
       <nav>
@@ -71,14 +80,12 @@ export default {
 <style lang="scss" scoped>
 .app-nav {
   @include respond-to('mobile-portrait-only') {
-    // background-color: lavender;
   }
   @include respond-to('tablet-portrait-only') {
     padding: 0 20px 0 30px;
   }
   position: relative;
   height: 85px;
-  background-color: #c4c4c4;
   padding: 0 40px 0 60px;
   width: 100%;
   display: flex;
@@ -92,32 +99,53 @@ export default {
     img {
       width: 32px;
     }
+    span {
+      padding-left: 10px;
+      font-weight: 900;
+      font-size: 30px;
+      color: #000000;
+    }
   }
   &__right {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
     a {
-      padding: 20px;
+      padding: 12px;
     }
   }
-  &__mypage {
-    cursor: pointer;
-    border: none;
-    outline: none;
-    display: inline-block;
-    width: 22px;
-    height: 27px;
-    background: url('~@/assets/images/icons/mypage.png') center / 100% no-repeat;
+  &__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img {
+      // width: 30px;
+      height: 30px;
+    }
+    span {
+      margin-top: 8px;
+      display: inline-block;
+      font-size: 12px;
+      line-height: 14px;
+      color: #000000;
+    }
   }
   &__menu {
     cursor: pointer;
-    border: none;
-    outline: none;
-    display: inline-block;
-    width: 25px;
-    height: 16px;
-    background: url('~@/assets/images/icons/menu.png') center / 100% no-repeat;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img {
+      width: 30px;
+    }
+    span {
+      margin-top: 14px;
+      display: inline-block;
+      font-size: 12px;
+      line-height: 14px;
+      color: #000000;
+    }
   }
 }
 </style>

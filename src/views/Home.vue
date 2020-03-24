@@ -162,14 +162,14 @@ export default {
   }
   &__write {
     @include respond-to('mobile-portrait-only') {
+    }
+    @include respond-to('tablet-portrait-only') {
       z-index: 5;
       position: fixed;
       top: auto;
       bottom: 40px;
       left: 50%;
       transform: translateX(-50%);
-    }
-    @include respond-to('tablet-portrait-only') {
     }
     cursor: pointer;
     font-size: 16px;
@@ -189,9 +189,9 @@ export default {
       left: 30px;
       top: 50%;
       transform: translateY(-50%);
-      width: 26px;
+      width: 28px;
       height: 20px;
-      background: url('~@/assets/images/icons/close.png') center / 100%
+      background: url('~@/assets/images/icons/write.png') center / 100%
         no-repeat;
     }
   }
