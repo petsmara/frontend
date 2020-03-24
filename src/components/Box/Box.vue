@@ -18,9 +18,7 @@ export default {}
 
 <style lang="scss" scoped>
 .box {
-  width: 300px;
   text-align: center;
-  background-color: #c4c4c4;
   &__title {
     font-weight: 500;
     font-size: 20px;

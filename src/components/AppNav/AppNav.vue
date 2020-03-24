@@ -9,15 +9,63 @@
       <router-link to="/user/mypage">
         <button class="app-nav__mypage"></button>
       </router-link>
-      <router-link to="/menu">
-        <button class="app-nav__menu"></button>
-      </router-link>
+      <button class="app-nav__menu" @click="openMenu"></button>
     </div>
+    <el-drawer title="메뉴메뉴메뉴" :visible.sync="drawer" size="40%">
+      <nav>
+        <ul>
+          <li>
+            <router-link to="/">홈</router-link>
+          </li>
+          <li>
+            <router-link to="/user/register">회원가입</router-link>
+          </li>
+          <li>
+            <router-link to="/user/login">로그인</router-link>
+          </li>
+          <li>
+            <router-link to="/user/logout">로그아웃</router-link>
+          </li>
+          <li>
+            <router-link to="/user/mypage">마이페이지</router-link>
+          </li>
+          <li>
+            <router-link to="/product/register">상품판매하기</router-link>
+          </li>
+          <li>
+            <router-link to="/product/list">상품판매리스트</router-link>
+          </li>
+        </ul>
+      </nav>
+    </el-drawer>
   </div>
 </template>
 
 <script>
-export default {}
+import { createNamespacedHelpers } from 'vuex'
+const { mapState, mapActions } = createNamespacedHelpers('drawer')
+export default {
+  data() {
+    return {
+      drawer: false
+    }
+  },
+  computed: {
+    ...mapState(['isOpenedDrawer'])
+  },
+  methods: {
+    ...mapActions(['openDrawer']),
+    openMenu() {
+      this.openDrawer(true)
+      this.drawer = this.isOpenedDrawer
+    }
+  },
+  watch: {
+    isOpenedDrawer(newValue, oldValue) {
+      this.drawer = this.isOpenedDrawer
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -26,7 +74,7 @@ export default {}
     // background-color: lavender;
   }
   @include respond-to('tablet-portrait-only') {
-    // background-color: red;
+    padding: 0 20px 0 30px;
   }
   position: relative;
   height: 85px;

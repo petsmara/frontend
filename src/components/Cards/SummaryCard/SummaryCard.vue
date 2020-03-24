@@ -34,8 +34,20 @@ export default {
       default: '서울'
     },
     price: {
-      type: Number,
+      type: [String, Number],
       default: 200
+    },
+    id: {
+      type: Number,
+      default: 0
+    },
+    content: {
+      type: String,
+      deafult: ''
+    },
+    image: {
+      type: String,
+      default: ''
     }
   }
 }
