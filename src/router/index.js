@@ -62,11 +62,15 @@ const router = new VueRouter({
 
 router.beforeEach((routeTo, routeFrom, next) => {
   store.dispatch('drawer/closeDrawer', false)
+  console.log('start router')
   NProgress.start()
   next()
 })
 
-router.afterEach(() => {
+router.afterEach((routeTo, routeFrom, next) => {
+  if (routeTo.name === 'ProductList') {
+    return false
+  }
   NProgress.done()
 })
 

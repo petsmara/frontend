@@ -48,6 +48,7 @@
 import { Box } from '@/components/Box'
 import { SummaryCard } from '@/components/Cards'
 import { createNamespacedHelpers } from 'vuex'
+import NProgress from 'nprogress'
 const { mapActions } = createNamespacedHelpers('product')
 
 export default {
@@ -55,6 +56,7 @@ export default {
     this.getProducts({ offset: 0, limit: 3 })
       .then(response => {
         this.products = response.data.result
+        NProgress.done()
       })
       .catch(e => console.error(e))
   },
