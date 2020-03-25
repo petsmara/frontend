@@ -11,10 +11,14 @@
         <img src="@/assets/images/icons/register.png" alt="resgister" />
         <span>회원가입</span>
       </router-link>
-      <router-link class="app-nav__link" to="/user/login">
+      <router-link v-if="!loggedIn" class="app-nav__link" to="/user/login">
         <img src="@/assets/images/icons/login.png" alt="login" />
         <span>로그인</span>
       </router-link>
+      <button v-else class="app-nav__link" @click="handlelogOut">
+        <img src="@/assets/images/icons/logout.png" alt="logout" />
+        <span>로그아웃</span>
+      </button>
       <div class="app-nav__menu" @click="openMenu">
         <img src="@/assets/images/icons/menu.png" alt="menu" />
         <span>메뉴</span>
@@ -92,6 +96,8 @@
 <script>
 import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions } = createNamespacedHelpers('drawer')
+const { mapActions: userMapActions } = createNamespacedHelpers('user')
+import { authComputed } from '@/store/helpers.js'
 export default {
   data() {
     return {
@@ -99,13 +105,25 @@ export default {
     }
   },
   computed: {
+    ...authComputed,
     ...mapState(['isOpenedDrawer'])
   },
   methods: {
     ...mapActions(['openDrawer']),
+    ...userMapActions(['logOut']),
     openMenu() {
       this.openDrawer(true)
       this.drawer = this.isOpenedDrawer
+    },
+    handlelogOut() {
+      this.logOut().then(res => {
+        this.$message({
+          message: '로그아웃이 완료되었습니다.!',
+          duration: 1000,
+          showClose: true,
+          type: 'success'
+        })
+      })
     }
   },
   watch: {
@@ -149,7 +167,9 @@ export default {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    a {
+    a,
+    button {
+      cursor: pointer;
       padding: 12px;
     }
   }

@@ -48,6 +48,11 @@ const routes = [
     //     next()
     //   })
     // }
+  },
+  {
+    path: '/user/welcome',
+    name: 'Welcome',
+    component: () => import('../views/user/Welcome.vue')
   }
 ]
 
@@ -61,8 +66,8 @@ const router = new VueRouter({
 })
 
 router.beforeEach((routeTo, routeFrom, next) => {
+  store.dispatch('path/setRedirectPath', routeFrom.fullPath)
   store.dispatch('drawer/closeDrawer', false)
-  console.log('start router')
   NProgress.start()
   next()
 })
