@@ -7,14 +7,16 @@
       </router-link>
     </h1>
     <div class="app-nav__right">
-      <router-link class="app-nav__link" to="/user/register">
-        <img src="@/assets/images/icons/register.png" alt="resgister" />
-        <span>회원가입</span>
-      </router-link>
-      <router-link v-if="!loggedIn" class="app-nav__link" to="/user/login">
-        <img src="@/assets/images/icons/login.png" alt="login" />
-        <span>로그인</span>
-      </router-link>
+      <template v-if="!loggedIn">
+        <router-link class="app-nav__link" to="/user/register">
+          <img src="@/assets/images/icons/register.png" alt="resgister" />
+          <span>회원가입</span>
+        </router-link>
+        <router-link class="app-nav__link" to="/user/login">
+          <img src="@/assets/images/icons/login.png" alt="login" />
+          <span>로그인</span>
+        </router-link>
+      </template>
       <button v-else class="app-nav__link" @click="handlelogOut">
         <img src="@/assets/images/icons/logout.png" alt="logout" />
         <span>로그아웃</span>
@@ -26,7 +28,7 @@
     </div>
     <el-drawer
       :visible.sync="drawer"
-      size="40%"
+      size="50%"
       :show-close="false"
       :withHeader="false"
       class="drawer"

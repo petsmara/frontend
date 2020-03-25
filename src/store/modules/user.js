@@ -24,8 +24,9 @@ export const mutations = {
   },
   REMOVE_USER_DATA(state) {
     localStorage.removeItem('petsmaraUser')
-    state.user = null
-    axios.defaults.headers.common['Authorization'] = null
+    location.reload()
+    // state.user = null
+    // axios.defaults.headers.common['Authorization'] = null
   }
 }
 
