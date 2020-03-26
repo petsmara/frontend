@@ -256,12 +256,12 @@ export default {
                 showClose: true,
                 type: 'success',
                 onClose: () => {
-                  this.$router.replace('/user/login')
+                  this.$router.replace('/user/welcome')
                 }
               })
             } else {
               this.$message({
-                message: '회원가입이 실패했습니다...! 다시 시도해주세요',
+                message: `회원가입이 실패했습니다...! 다시 시도해주세요 ${result.data.message}`,
                 duration: 3000,
                 showClose: true,
                 type: 'error'

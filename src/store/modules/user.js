@@ -21,6 +21,12 @@ export const mutations = {
     state.user = userData
     localStorage.setItem('petsmaraUser', JSON.stringify(userData))
     axios.defaults.headers.common['Authorization'] = userData.accessToken
+  },
+  REMOVE_USER_DATA(state) {
+    localStorage.removeItem('petsmaraUser')
+    location.reload()
+    // state.user = null
+    // axios.defaults.headers.common['Authorization'] = null
   }
 }
 
@@ -28,10 +34,10 @@ export const actions = {
   registerUser({ commit }, user) {
     return UserService.registerUser(user)
       .then(res => {
+        commit('SET_USER_DATA', res.data)
         return res
       })
       .catch(error => {
-        console.log(error.response)
         return error.response
       })
   },
@@ -42,14 +48,17 @@ export const actions = {
         return res
       })
       .catch(error => {
-        console.log(error.response)
         return error.response
       })
+  },
+  logOut({ commit }) {
+    commit('REMOVE_USER_DATA')
+    return true
   }
 }
 
 export const getters = {
   loggedIn(state) {
-    return !!state.user.accessToken
+    return !!state.user && !!state.user.accessToken
   }
 }

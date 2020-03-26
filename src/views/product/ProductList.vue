@@ -3,7 +3,7 @@
     <section class="product-list__banner">
       <img
         class="product-list__banner__img"
-        src="@/assets/images/backgrounds/list_bg.png"
+        src="@/assets/images/backgrounds/list_bg.jpg"
         alt="background"
       />
     </section>
@@ -48,6 +48,7 @@
 import { Box } from '@/components/Box'
 import { SummaryCard } from '@/components/Cards'
 import { createNamespacedHelpers } from 'vuex'
+import NProgress from 'nprogress'
 const { mapActions } = createNamespacedHelpers('product')
 
 export default {
@@ -55,6 +56,7 @@ export default {
     this.getProducts({ offset: 0, limit: 3 })
       .then(response => {
         this.products = response.data.result
+        NProgress.done()
       })
       .catch(e => console.error(e))
   },
@@ -93,6 +95,8 @@ export default {
 .product-list {
   padding: 0 0 60px;
   &__banner {
+    // height: 500px;
+    // overflow: hidden;
     &__img {
       width: 100%;
     }
@@ -109,13 +113,14 @@ export default {
   }
   &__write {
     @include respond-to('mobile-portrait-only') {
+    }
+    @include respond-to('tablet-portrait-only') {
       z-index: 5;
       position: fixed;
+      top: auto;
       bottom: 40px;
       left: 50%;
       transform: translateX(-50%);
-    }
-    @include respond-to('tablet-portrait-only') {
     }
     cursor: pointer;
     font-size: 16px;
@@ -137,7 +142,7 @@ export default {
       transform: translateY(-50%);
       width: 26px;
       height: 20px;
-      background: url('~@/assets/images/icons/close.png') center / 100%
+      background: url('~@/assets/images/icons/write.png') center / 100%
         no-repeat;
     }
   }

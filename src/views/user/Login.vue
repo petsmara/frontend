@@ -35,7 +35,8 @@
 <script>
 import axios from 'axios'
 import { createNamespacedHelpers } from 'vuex'
-const { mapState, mapActions } = createNamespacedHelpers('user')
+const { mapActions } = createNamespacedHelpers('user')
+const { mapState } = createNamespacedHelpers('path')
 
 export default {
   data() {
@@ -76,6 +77,9 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapState(['redirectPath'])
+  },
   methods: {
     ...mapActions(['logIn']),
     async submitForm(formName) {
@@ -93,7 +97,7 @@ export default {
                 showClose: true,
                 type: 'success',
                 onClose: () => {
-                  this.$router.push('/user/mypage')
+                  this.$router.replace(this.redirectPath)
                 }
               })
             } else {
