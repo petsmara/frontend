@@ -36,7 +36,7 @@
         <router-link
           class="products__link"
           v-for="item in products"
-          :key="item.title"
+          :key="item.id"
           :to="`/product/${item.id}`"
         >
           <SummaryCard

@@ -59,20 +59,20 @@
           <li class="drawer__item">
             <router-link class="drawer__link" to="/">홈</router-link>
           </li>
-          <li class="drawer__item">
-            <router-link class="drawer__link" to="/user/register"
-              >회원가입</router-link
-            >
-          </li>
-          <li class="drawer__item">
-            <router-link class="drawer__link" to="/user/login"
-              >로그인</router-link
-            >
-          </li>
-          <li class="drawer__item">
-            <router-link class="drawer__link" to="/user/logout"
-              >로그아웃</router-link
-            >
+          <template v-if="!loggedIn">
+            <li class="drawer__item">
+              <router-link class="drawer__link" to="/user/register"
+                >회원가입</router-link
+              >
+            </li>
+            <li class="drawer__item">
+              <router-link class="drawer__link" to="/user/login"
+                >로그인</router-link
+              >
+            </li>
+          </template>
+          <li v-else class="drawer__item">
+            <button class="drawer__link" @click="handlelogOut">로그아웃</button>
           </li>
           <li class="drawer__item">
             <router-link class="drawer__link" to="/user/mypage"
@@ -123,6 +123,7 @@ export default {
           message: '로그아웃이 완료되었습니다.!',
           duration: 1000,
           showClose: true,
+          offset: 60,
           type: 'success'
         })
       })
@@ -265,6 +266,9 @@ export default {
     border-bottom: 1px solid rgba(196, 196, 196, 0.6);
   }
   &__link {
+    width: 100%;
+    cursor: pointer;
+    font-size: 16px;
     text-align: left;
     display: block;
     padding: 16px 16px 16px 60px;
