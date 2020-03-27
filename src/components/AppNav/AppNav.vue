@@ -62,8 +62,8 @@
           />
         </div>
         <div class="drawer__header__center">
-          <p class="drawer__header__nickname">비회원</p>
-          <p class="drawer__header__paragraph">로그인해주세요.</p>
+          <p class="drawer__header__nickname">{{ user.nickname }}</p>
+          <p v-if="!user" class="drawer__header__paragraph">로그인해주세요.</p>
         </div>
         <div class="drawer__header__right">
           <router-link to="/user/login">
@@ -118,7 +118,10 @@
 <script>
 import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions } = createNamespacedHelpers('drawer')
-const { mapActions: userMapActions } = createNamespacedHelpers('user')
+const {
+  mapState: userMapState,
+  mapActions: userMapActions
+} = createNamespacedHelpers('user')
 import { authComputed } from '@/store/helpers.js'
 export default {
   data() {
@@ -128,7 +131,8 @@ export default {
   },
   computed: {
     ...authComputed,
-    ...mapState(['isOpenedDrawer'])
+    ...mapState(['isOpenedDrawer']),
+    ...userMapState(['user'])
   },
   methods: {
     ...mapActions(['openDrawer']),

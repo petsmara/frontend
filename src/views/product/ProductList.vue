@@ -88,7 +88,23 @@ export default {
           return ''
       }
     },
-    goToRegister() {}
+    goToRegister() {
+      if (this.loggedIn) {
+        this.$router.push('/product/register')
+      } else {
+        this.$confirm('회원가입 또는 로그인을 하시겠습니까?', '알림', {
+          confirmButtonText: '예',
+          cancelButtonText: '아니요',
+          type: 'info'
+        })
+          .then(() => {
+            this.$router.push('/user/login')
+          })
+          .catch(() => {
+            return
+          })
+      }
+    }
   }
 }
 </script>
