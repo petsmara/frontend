@@ -15,10 +15,14 @@
             <picture class="banner__slide__bg">
               <source
                 media="(min-width: 768px)"
-                srcset="@/assets/images/backgrounds/main_banner01-pc.png"
+                :srcset="
+                  require(`@/assets/images/backgrounds/${banner.imgUrl}-pc.png`)
+                "
               />
               <img
-                src="@/assets/images/backgrounds/main_banner01-mobile.png"
+                :srcset="
+                  require(`@/assets/images/backgrounds/${banner.imgUrl}-mobile.png`)
+                "
                 alt=""
               />
             </picture>
@@ -92,12 +96,14 @@ export default {
         {
           firstText: '반려동물의',
           secondText: '사료를 공유해보세요.',
-          content: '모든상품보기'
+          content: '모든상품보기',
+          imgUrl: 'main_banner01'
         },
         {
           firstText: '반려동물의',
           secondText: '사료를 공유해보세요.',
-          content: '모든상품보기'
+          content: '모든상품보기',
+          imgUrl: 'main_banner02'
         }
       ],
       bannerSwiperOption: {
@@ -139,12 +145,8 @@ export default {
 .banner {
   width: 100%;
   &__swiper {
-    // height: 700px;
   }
   &__slide {
-    // background-color: #3d62e2;
-    border: 1px solid firebrick;
-    // height: 100%;
     text-align: center;
     font-size: 18px;
 
@@ -156,16 +158,9 @@ export default {
 
     &__content {
       width: 100%;
-      // height: 100%;
       position: relative;
-      // background: url(~@/assets/images/backgrounds/main_banner01-pc.png);
     }
     &__bg {
-      // position: absolute;
-      // top: 0;
-      // left: 0;
-      // width: 100%;
-      // height: 100%;
       img {
         width: 100%;
       }
