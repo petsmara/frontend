@@ -2,7 +2,6 @@
 // assets/css/style.scss
 
 @import "./abs";
-
 @import "./base/body";
 @import "./base/breakpoints";
 @import "./base/fonts";
@@ -13,23 +12,5 @@
 @import "./base/reset";
 @import "./base/typography";
 @import "./base/keyframes";
-
-// @import "./layout/layout";
 @import "./layout/grid";
 
-/* theme color */
-$--color-primary: #8FB5FF;
-
-.el-backtop {
-  background: rgba(255, 220, 220, 0.8);
-  box-shadow: none;
-}
-
-.el-icon-caret-top {
-  &::before {
-    content: none !important;
-  }
-  width: 16px;
-  height: 8px;
-  background: url('~@/assets/images/icons/up_arrow.png') center / 100% no-repeat;
-}

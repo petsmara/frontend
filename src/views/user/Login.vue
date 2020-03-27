@@ -29,6 +29,9 @@
         >
       </el-form-item>
     </el-form>
+    <router-link to="/user/register"
+      >회원이 아니신가요? 회원가입 하러 가기</router-link
+    >
   </div>
 </template>
 

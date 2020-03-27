@@ -29,7 +29,9 @@
             <div class="banner__slide__text-wrap">
               <h2 class="banner__title">{{ banner.firstText }}</h2>
               <h2 class="banner__paragraph">{{ banner.secondText }}</h2>
-              <button class="banner__btn">{{ banner.content }}</button>
+              <button @click="moveToProductList" class="banner__btn">
+                {{ banner.content }}
+              </button>
             </div>
           </div>
         </swiper-slide>
@@ -47,7 +49,7 @@
             새로운 사료를 만나보세요
           </template>
         </Box>
-        <button class="content__write">
+        <button class="content__write" @click="goToRegister">
           글쓰기
         </button>
       </div>
@@ -79,6 +81,7 @@ import { Box } from '@/components/Box'
 import { SummaryCard } from '@/components/Cards'
 import { createNamespacedHelpers } from 'vuex'
 const { mapActions } = createNamespacedHelpers('product')
+const { mapGetters } = createNamespacedHelpers('user')
 
 export default {
   created() {
@@ -117,6 +120,9 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters(['loggedIn'])
+  },
   methods: {
     ...mapActions([
       'getProducts' //also supports payload `this.nameOfAction(amount)`
@@ -138,6 +144,26 @@ export default {
         default:
           return ''
       }
+    },
+    moveToProductList() {
+      this.$router.push('/product/list')
+    },
+    goToRegister() {
+      if (this.loggedIn) {
+        this.$router.push('/product/register')
+      } else {
+        this.$confirm('회원가입 또는 로그인을 하시겠습니까?', '알림', {
+          confirmButtonText: '예',
+          cancelButtonText: '아니요',
+          type: 'info'
+        })
+          .then(() => {
+            this.$router.push('/user/login')
+          })
+          .catch(() => {
+            return
+          })
+      }
     }
   }
 }
@@ -148,8 +174,6 @@ export default {
 }
 .banner {
   width: 100%;
-  &__swiper {
-  }
   &__slide {
     text-align: center;
     font-size: 18px;
@@ -302,12 +326,9 @@ export default {
     flex-basis: 33.3%;
     margin-bottom: 26px;
     @include respond-to('mobile-portrait-only') {
-      // flex-basis: 50%;
-      // background-color: lavender;
     }
     @include respond-to('tablet-portrait-only') {
       flex-basis: 50%;
-      // background-color: red;
     }
   }
 }

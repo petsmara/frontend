@@ -17,7 +17,7 @@
             새로운 사료를 만나보세요
           </template>
         </Box>
-        <button class="content__write">
+        <button class="content__write" @click="goToRegister">
           글쓰기
         </button>
       </div>
@@ -87,7 +87,8 @@ export default {
         default:
           return ''
       }
-    }
+    },
+    goToRegister() {}
   }
 }
 </script>
