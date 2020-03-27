@@ -6,7 +6,27 @@
         <span>PETS MARA</span>
       </router-link>
     </h1>
-    <div class="app-nav__right">
+    <div class="app-nav__right app-nav__right--pc">
+      <template v-if="!loggedIn">
+        <router-link class="app-nav__link" to="/user/register">
+          <img src="@/assets/images/icons/register.png" alt="resgister" />
+          <span>회원가입</span>
+        </router-link>
+        <router-link class="app-nav__link" to="/user/login">
+          <img src="@/assets/images/icons/login.png" alt="login" />
+          <span>로그인</span>
+        </router-link>
+      </template>
+      <button v-else class="app-nav__link" @click="handlelogOut">
+        <img src="@/assets/images/icons/logout.png" alt="logout" />
+        <span>로그아웃</span>
+      </button>
+      <div class="app-nav__menu" @click="openMenu">
+        <img src="@/assets/images/icons/menu.png" alt="menu" />
+        <span>PC 메뉴</span>
+      </div>
+    </div>
+    <div class="app-nav__right app-nav__right--mobile">
       <template v-if="!loggedIn">
         <router-link class="app-nav__link" to="/user/register">
           <img src="@/assets/images/icons/register.png" alt="resgister" />
@@ -28,7 +48,7 @@
     </div>
     <el-drawer
       :visible.sync="drawer"
-      size="50%"
+      size="80%"
       :show-close="false"
       :withHeader="false"
       class="drawer"
@@ -139,10 +159,10 @@ export default {
 
 <style lang="scss" scoped>
 .app-nav {
-  @include respond-to('mobile-portrait-only') {
-  }
   @include respond-to('tablet-portrait-only') {
-    // padding: 0 20px 0 30px;
+    height: auto;
+    padding: 12px 0;
+    display: block;
   }
   position: relative;
   height: 85px;
@@ -153,6 +173,9 @@ export default {
   align-items: center;
   justify-content: space-between;
   &__logo {
+    @include respond-to('tablet-portrait-only') {
+      width: 100%;
+    }
     a {
       padding: 10px 20px;
     }
@@ -160,6 +183,9 @@ export default {
       width: 32px;
     }
     span {
+      @include respond-to('tablet-portrait-only') {
+        display: none;
+      }
       padding-left: 10px;
       font-weight: 900;
       font-size: 30px;
@@ -170,16 +196,39 @@ export default {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
+    @include respond-to('tablet-portrait-only') {
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
     a,
     button {
       cursor: pointer;
       padding: 12px;
+    }
+    &--pc {
+      display: flex;
+      @include respond-to('tablet-portrait-only') {
+        display: none;
+      }
+    }
+    &--mobile {
+      display: none;
+      @include respond-to('tablet-portrait-only') {
+        display: block;
+      }
     }
   }
   &__link {
     display: flex;
     flex-direction: column;
     align-items: center;
+    @include respond-to('tablet-portrait-only') {
+      display: none;
+    }
+
     img {
       // width: 30px;
       height: 30px;
@@ -202,6 +251,9 @@ export default {
       width: 30px;
     }
     span {
+      @include respond-to('tablet-portrait-only') {
+        display: none;
+      }
       margin-top: 14px;
       display: inline-block;
       font-size: 12px;
