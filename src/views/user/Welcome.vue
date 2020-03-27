@@ -4,8 +4,8 @@
       <LogoCard class="welcome__logo" />
       <h2 class="welcome__title">환영합니다 :)</h2>
       <p class="welcome__paragraph">
-        <span class="welcome__nickname">닉네임</span> 님 사료 공유 플랫폼을
-        즐겨보세요!
+        <span class="welcome__nickname">{{ user.nickname }}</span> 님 사료 공유
+        플랫폼을 즐겨보세요!
       </p>
     </header>
 
@@ -25,10 +25,15 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex'
+const { mapState } = createNamespacedHelpers('user')
 import { LogoCard } from '@/components/Cards'
 export default {
   components: {
     LogoCard
+  },
+  computed: {
+    ...mapState(['user'])
   }
 }
 </script>

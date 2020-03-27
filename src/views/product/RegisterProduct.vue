@@ -81,8 +81,8 @@
         class="register-product__price"
       >
         <el-input
-          placeholder="예) 3000원"
-          v-model="registerProductRuleForm.price"
+          placeholder="예) 3000"
+          v-model.number="registerProductRuleForm.price"
         ></el-input>
       </el-form-item>
 
@@ -174,7 +174,7 @@ export default {
         title: '',
         content: '',
         category: '',
-        price: '',
+        price: null,
         places: ''
       },
       registerProductRules: {
@@ -204,7 +204,8 @@ export default {
             required: true,
             message: '가격을 입력해주세요.',
             trigger: 'change'
-          }
+          },
+          { type: 'number', message: '가격은 숫자만 입력해주세요.' }
         ],
         places: [
           // {
@@ -231,10 +232,10 @@ export default {
         price,
         places
       } = this.registerProductRuleForm
+      console.log(price)
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.isLoading = true
-
           this.registerProduct({
             title,
             content,
@@ -243,6 +244,7 @@ export default {
             places,
             images: this.imagePaths
           }).then(result => {
+            console.log(result)
             if (result.status === 200) {
               this.$message({
                 message: '상품등록이 완료되었습니다.!',

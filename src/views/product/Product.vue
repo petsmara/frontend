@@ -28,9 +28,9 @@
         }}<span>원 (100g)</span>
       </p>
       <p class="product__content">{{ product.content }}</p>
-      <button class="product__deal">
+      <!-- <button class="product__deal">
         거래하기
-      </button>
+      </button> -->
     </div>
 
     <section class="product__list">
@@ -223,13 +223,13 @@ export default {
     line-height: 18px;
     margin-bottom: 44px;
   }
-  &__deal {
-    font-size: 20px;
-    color: #000000;
-    background: #fd9f9f;
-    border-radius: 8px;
-    padding: 16px 70px;
-  }
+  // &__deal {
+  //   font-size: 20px;
+  //   color: #000000;
+  //   background: #fd9f9f;
+  //   border-radius: 8px;
+  //   padding: 16px 70px;
+  // }
   &__list {
     border-top: 1px solid #c4c4c4;
     margin-top: 72px;

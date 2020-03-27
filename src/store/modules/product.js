@@ -37,6 +37,7 @@ export const actions = {
     return ProductService.registerProduct(product)
       .then(res => {
         console.log(res)
+        return res
       })
       .catch(error => {
         console.log(error.response)
