@@ -11,7 +11,7 @@
           v-for="(banner, index) in bannerList"
           :key="`${banner.title}-${index}`"
         >
-          <div class="banner__slide__content">
+          <div class="banner__slide__content" :class="[`banner-${index}`]">
             <picture class="banner__slide__bg">
               <source
                 media="(min-width: 768px)"
@@ -107,6 +107,10 @@ export default {
         }
       ],
       bannerSwiperOption: {
+        autoplay: {
+          delay: 3000
+        },
+        loop: true,
         pagination: {
           el: '.swiper-pagination'
         }
@@ -167,29 +171,56 @@ export default {
     }
     &__text-wrap {
       position: absolute;
-      top: 0;
-      left: 0;
+      top: 106px;
+      left: 52px;
       z-index: 1;
+      @include respond-to('tablet-portrait-only') {
+        width: 100%;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
     }
   }
   &__title {
     font-style: normal;
     font-weight: 900;
     font-size: 40px;
-    line-height: 55px;
     letter-spacing: -0.05em;
     color: #000000;
     text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+    @include respond-to('tablet-portrait-only') {
+      font-weight: 900;
+      font-size: 28px;
+      text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+    }
+    @include respond-to('mobile-portrait-only') {
+      font-weight: 900;
+      font-size: 20px;
+      text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+    }
   }
   &__paragraph {
     font-style: normal;
     font-weight: 900;
     font-size: 40px;
-    line-height: 55px;
     letter-spacing: -0.05em;
     color: #000000;
+    @include respond-to('tablet-portrait-only') {
+      font-weight: 900;
+      font-size: 28px;
+      text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+    }
+    @include respond-to('mobile-portrait-only') {
+      font-weight: 900;
+      font-size: 20px;
+      text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+    }
   }
   &__btn {
+    .banner-1 & {
+      background: #5685ff;
+    }
     cursor: pointer;
     font-style: normal;
     font-weight: 900;
@@ -200,6 +231,19 @@ export default {
     background: #ff5656;
     border-radius: 8px;
     border: none;
+
+    @include respond-to('tablet-portrait-only') {
+      margin-top: 20px;
+      padding: 12px 32px;
+      font-size: 20px;
+      line-height: 19px;
+    }
+    @include respond-to('mobile-portrait-only') {
+      margin-top: 20px;
+      padding: 8px 28px;
+      font-size: 16px;
+      line-height: 19px;
+    }
   }
 }
 .content {
