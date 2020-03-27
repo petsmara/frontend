@@ -11,8 +11,23 @@
           v-for="(banner, index) in bannerList"
           :key="`${banner.title}-${index}`"
         >
-          <h2 class="banner__title">{{ banner.title }}</h2>
-          <button class="banner__btn">{{ banner.content }}</button>
+          <div class="banner__slide__content">
+            <picture class="banner__slide__bg">
+              <source
+                media="(min-width: 768px)"
+                srcset="@/assets/images/backgrounds/main_banner01-pc.png"
+              />
+              <img
+                src="@/assets/images/backgrounds/main_banner01-mobile.png"
+                alt=""
+              />
+            </picture>
+            <div class="banner__slide__text-wrap">
+              <h2 class="banner__title">{{ banner.firstText }}</h2>
+              <h2 class="banner__paragraph">{{ banner.secondText }}</h2>
+              <button class="banner__btn">{{ banner.content }}</button>
+            </div>
+          </div>
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
@@ -75,12 +90,14 @@ export default {
       products: [],
       bannerList: [
         {
-          title: '반려동물사료를 공유해보세요',
-          content: '흠냐흠냐'
+          firstText: '반려동물의',
+          secondText: '사료를 공유해보세요.',
+          content: '모든상품보기'
         },
         {
-          title: '반려동물사료를 판매해보세요',
-          content: '흠냐흠냐22'
+          firstText: '반려동물의',
+          secondText: '사료를 공유해보세요.',
+          content: '모든상품보기'
         }
       ],
       bannerSwiperOption: {
@@ -122,11 +139,12 @@ export default {
 .banner {
   width: 100%;
   &__swiper {
-    height: 700px;
+    // height: 700px;
   }
   &__slide {
-    background-color: #3d62e2;
-    height: 100%;
+    // background-color: #3d62e2;
+    border: 1px solid firebrick;
+    // height: 100%;
     text-align: center;
     font-size: 18px;
 
@@ -135,18 +153,56 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    &__content {
+      width: 100%;
+      // height: 100%;
+      position: relative;
+      // background: url(~@/assets/images/backgrounds/main_banner01-pc.png);
+    }
+    &__bg {
+      // position: absolute;
+      // top: 0;
+      // left: 0;
+      // width: 100%;
+      // height: 100%;
+      img {
+        width: 100%;
+      }
+    }
+    &__text-wrap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
   }
   &__title {
+    font-style: normal;
+    font-weight: 900;
     font-size: 40px;
+    line-height: 55px;
+    letter-spacing: -0.05em;
     color: #000000;
-    margin-bottom: 40px;
+    text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+  }
+  &__paragraph {
+    font-style: normal;
+    font-weight: 900;
+    font-size: 40px;
+    line-height: 55px;
+    letter-spacing: -0.05em;
+    color: #000000;
   }
   &__btn {
     cursor: pointer;
-    font-size: 20px;
-    color: #000000;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 26px;
+    line-height: 30px;
+    color: #ffffff;
     padding: 16px 70px;
-    background: #fd9f9f;
+    background: #ff5656;
     border-radius: 8px;
     border: none;
   }

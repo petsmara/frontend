@@ -142,11 +142,11 @@ export default {
   @include respond-to('mobile-portrait-only') {
   }
   @include respond-to('tablet-portrait-only') {
-    padding: 0 20px 0 30px;
+    // padding: 0 20px 0 30px;
   }
   position: relative;
   height: 85px;
-  padding: 0 40px 0 60px;
+  padding: 0 10px;
   width: 100%;
   display: flex;
   flex-direction: row;
