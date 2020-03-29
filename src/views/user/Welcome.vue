@@ -40,8 +40,9 @@ export default {
 
 <style lang="scss" scoped>
 .welcome {
+  padding-bottom: 30px;
   @include respond-to('tablet-portrait-only') {
-    padding: 0 16px;
+    padding: 0 16px 16px;
   }
   text-align: center;
   &__logo {

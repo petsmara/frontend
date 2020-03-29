@@ -405,6 +405,12 @@ export default {
     text-align: left;
   }
 
+  & /deep/ .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+    background-color: #8fb5ff;
+    border-color: #8fb5ff;
+    box-shadow: -1px 0 0 0 #8fb5ff;
+  }
+
   &__price {
     & /deep/ .el-form-item__content {
       text-align: left;

@@ -24,7 +24,7 @@
       <div class="products">
         <router-link
           class="products__link"
-          v-for="item in products"
+          v-for="item in productList"
           :key="item.title"
           :to="`/product/${item.id}`"
         >
@@ -49,13 +49,15 @@ import { Box } from '@/components/Box'
 import { SummaryCard } from '@/components/Cards'
 import { createNamespacedHelpers } from 'vuex'
 import NProgress from 'nprogress'
-const { mapActions } = createNamespacedHelpers('product')
+const { mapState, mapActions } = createNamespacedHelpers('product')
 
 export default {
   created() {
-    this.getProducts({ offset: 0, limit: 3 })
+    this.getProducts({ offset: this.productOffset, limit: 10 })
       .then(response => {
-        this.products = response.data.result
+        console.log(response)
+        console.log('created')
+        // this.products = response.data.result
         NProgress.done()
       })
       .catch(e => console.error(e))
@@ -65,6 +67,9 @@ export default {
     return {
       products: []
     }
+  },
+  computed: {
+    ...mapState(['productOffset', 'productList', 'hasMoreProduct'])
   },
   methods: {
     ...mapActions([
@@ -104,7 +109,23 @@ export default {
             return
           })
       }
+    },
+    onScroll() {
+      if (
+        window.scrollY + document.documentElement.clientHeight >
+        document.documentElement.scrollHeight - 300
+      ) {
+        if (this.hasMoreProduct) {
+          this.getProducts({ offset: this.productOffset, limit: 10 })
+        }
+      }
     }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.onScroll)
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.onScroll)
   }
 }
 </script>

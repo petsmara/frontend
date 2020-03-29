@@ -144,7 +144,7 @@ export default {
 <style lang="scss" scoped>
 .product {
   @include respond-to('tablet-portrait-only') {
-    padding: 20px 10px;
+    // padding: 20px 10px;
   }
   padding: 20px;
   &__swiper {
@@ -201,7 +201,9 @@ export default {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background-color: grey;
+      border: 1px solid #000000;
+      background: url('~@/assets/images/icons/user_icon.png') center / 100%
+        no-repeat;
     }
   }
   &__title {
