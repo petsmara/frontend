@@ -24,8 +24,8 @@
       <div class="products">
         <router-link
           class="products__link"
-          v-for="item in productList"
-          :key="item.title"
+          v-for="(item, index) in productList"
+          :key="`${item.title}-${index}`"
           :to="`/product/${item.id}`"
         >
           <SummaryCard
@@ -55,9 +55,6 @@ export default {
   created() {
     this.getProducts({ offset: this.productOffset, limit: 10 })
       .then(response => {
-        console.log(response)
-        console.log('created')
-        // this.products = response.data.result
         NProgress.done()
       })
       .catch(e => console.error(e))
@@ -113,9 +110,10 @@ export default {
     onScroll() {
       if (
         window.scrollY + document.documentElement.clientHeight >
-        document.documentElement.scrollHeight - 300
+        document.documentElement.scrollHeight - 500
       ) {
         if (this.hasMoreProduct) {
+          console.log('check scroll')
           this.getProducts({ offset: this.productOffset, limit: 10 })
         }
       }
