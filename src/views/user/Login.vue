@@ -170,6 +170,7 @@ export default {
     padding: 16px;
     width: 100%;
     display: block;
+    margin-top: 20px;
   }
 }
 </style>

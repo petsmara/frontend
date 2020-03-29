@@ -23,3 +23,11 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
   height: 8px;
   background: url('~@/assets/images/icons/up_arrow.png') center / 100% no-repeat;
 }
+
+.el-message {
+  min-width: 300px;
+}
+
+.el-message-box {
+  max-width: 300px;
+}
