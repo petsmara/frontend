@@ -303,7 +303,7 @@ export default {
       width: 100%;
       display: block;
       padding: 14px 20px;
-      color: #000000;
+      // color: #000000;
       font-size: 16px;
     }
   }

@@ -10,7 +10,9 @@
         v-for="(image, index) in product.images"
         :key="`${image}-${index}`"
       >
-        <img class="product__img" :src="image" alt="" />
+        <div class="product__img-wrap">
+          <img class="product__img" :src="image" alt="" />
+        </div>
       </swiper-slide>
       <div class="swiper-button-prev" slot="button-prev"></div>
       <div class="swiper-button-next" slot="button-next"></div>
@@ -28,9 +30,9 @@
         }}<span>원 (100g)</span>
       </p>
       <p class="product__content">{{ product.content }}</p>
-      <button class="product__deal">
+      <!-- <button class="product__deal">
         거래하기
-      </button>
+      </button> -->
     </div>
 
     <section class="product__list">
@@ -141,6 +143,9 @@ export default {
 
 <style lang="scss" scoped>
 .product {
+  @include respond-to('tablet-portrait-only') {
+    // padding: 20px 10px;
+  }
   padding: 20px;
   &__swiper {
     margin: 0 auto;
@@ -149,9 +154,29 @@ export default {
   }
   &__slide {
   }
-  &__img {
-    max-width: 500px;
+  &__img-wrap {
+    @include respond-to('tablet-portrait-only') {
+      max-width: 80%;
+    }
+    overflow: hidden;
+    margin: 0 auto;
     width: 100%;
+    max-width: 500px;
+    position: relative;
+    padding-bottom: 100%;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    border: 1px solid #ebeef5;
+  }
+  &__img {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 100%;
+    // max-width: 500px;
+    // width: 100%;
   }
   &__detail {
     margin: 0 auto;
@@ -176,7 +201,9 @@ export default {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background-color: grey;
+      border: 1px solid #000000;
+      background: url('~@/assets/images/icons/user_icon.png') center / 100%
+        no-repeat;
     }
   }
   &__title {
@@ -223,13 +250,13 @@ export default {
     line-height: 18px;
     margin-bottom: 44px;
   }
-  &__deal {
-    font-size: 20px;
-    color: #000000;
-    background: #fd9f9f;
-    border-radius: 8px;
-    padding: 16px 70px;
-  }
+  // &__deal {
+  //   font-size: 20px;
+  //   color: #000000;
+  //   background: #fd9f9f;
+  //   border-radius: 8px;
+  //   padding: 16px 70px;
+  // }
   &__list {
     border-top: 1px solid #c4c4c4;
     margin-top: 72px;
@@ -240,6 +267,24 @@ export default {
       text-align: center;
     }
   }
+  & /deep/ .swiper-button-next,
+  & /deep/ .swiper-button-prev {
+    width: 16px;
+    height: 30px;
+    background: url('~@/assets/images/icons/right_arrow.png') center / 100%
+      no-repeat;
+    //      @include respond-to('tablet-portrait-only') {
+    //   width: 8px;
+    //   height: 15px;
+    // }
+    @include respond-to('mobile-portrait-only') {
+      width: 8px;
+      height: 15px;
+    }
+  }
+  & /deep/ .swiper-button-prev {
+    transform: rotate(180deg);
+  }
 }
 
 .products {
@@ -247,7 +292,7 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  .card {
+  a {
     padding: 0 10px;
     flex-basis: 33.3%;
     margin-bottom: 26px;

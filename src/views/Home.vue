@@ -11,8 +11,29 @@
           v-for="(banner, index) in bannerList"
           :key="`${banner.title}-${index}`"
         >
-          <h2 class="banner__title">{{ banner.title }}</h2>
-          <button class="banner__btn">{{ banner.content }}</button>
+          <div class="banner__slide__content" :class="[`banner-${index}`]">
+            <picture class="banner__slide__bg">
+              <source
+                media="(min-width: 768px)"
+                :srcset="
+                  require(`@/assets/images/backgrounds/${banner.imgUrl}-pc.png`)
+                "
+              />
+              <img
+                :srcset="
+                  require(`@/assets/images/backgrounds/${banner.imgUrl}-mobile.png`)
+                "
+                alt=""
+              />
+            </picture>
+            <div class="banner__slide__text-wrap">
+              <h2 class="banner__title">{{ banner.firstText }}</h2>
+              <h2 class="banner__paragraph">{{ banner.secondText }}</h2>
+              <button @click="moveToProductList" class="banner__btn">
+                {{ banner.content }}
+              </button>
+            </div>
+          </div>
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
@@ -28,7 +49,7 @@
             새로운 사료를 만나보세요
           </template>
         </Box>
-        <button class="content__write">
+        <button class="content__write" @click="goToRegister">
           글쓰기
         </button>
       </div>
@@ -60,6 +81,7 @@ import { Box } from '@/components/Box'
 import { SummaryCard } from '@/components/Cards'
 import { createNamespacedHelpers } from 'vuex'
 const { mapActions } = createNamespacedHelpers('product')
+const { mapGetters } = createNamespacedHelpers('user')
 
 export default {
   created() {
@@ -75,20 +97,31 @@ export default {
       products: [],
       bannerList: [
         {
-          title: '반려동물사료를 공유해보세요',
-          content: '흠냐흠냐'
+          firstText: '반려동물의',
+          secondText: '사료를 공유해보세요.',
+          content: '모든상품보기',
+          imgUrl: 'main_banner01'
         },
         {
-          title: '반려동물사료를 판매해보세요',
-          content: '흠냐흠냐22'
+          firstText: '반려동물의',
+          secondText: '사료를 공유해보세요.',
+          content: '모든상품보기',
+          imgUrl: 'main_banner02'
         }
       ],
       bannerSwiperOption: {
+        autoplay: {
+          delay: 3000
+        },
+        loop: true,
         pagination: {
           el: '.swiper-pagination'
         }
       }
     }
+  },
+  computed: {
+    ...mapGetters(['loggedIn'])
   },
   methods: {
     ...mapActions([
@@ -111,6 +144,26 @@ export default {
         default:
           return ''
       }
+    },
+    moveToProductList() {
+      this.$router.push('/product/list')
+    },
+    goToRegister() {
+      if (this.loggedIn) {
+        this.$router.push('/product/register')
+      } else {
+        this.$confirm('회원가입 또는 로그인을 하시겠습니까?', '알림', {
+          confirmButtonText: '예',
+          cancelButtonText: '아니요',
+          type: 'info'
+        })
+          .then(() => {
+            this.$router.push('/user/login')
+          })
+          .catch(() => {
+            return
+          })
+      }
     }
   }
 }
@@ -121,12 +174,7 @@ export default {
 }
 .banner {
   width: 100%;
-  &__swiper {
-    height: 700px;
-  }
   &__slide {
-    background-color: #3d62e2;
-    height: 100%;
     text-align: center;
     font-size: 18px;
 
@@ -135,20 +183,91 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    &__content {
+      width: 100%;
+      position: relative;
+    }
+    &__bg {
+      img {
+        width: 100%;
+      }
+    }
+    &__text-wrap {
+      position: absolute;
+      top: 106px;
+      left: 52px;
+      z-index: 1;
+      @include respond-to('tablet-portrait-only') {
+        width: 100%;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
   }
   &__title {
+    font-style: normal;
+    font-weight: 900;
     font-size: 40px;
+    letter-spacing: -0.05em;
     color: #000000;
-    margin-bottom: 40px;
+    text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+    @include respond-to('tablet-portrait-only') {
+      font-weight: 900;
+      font-size: 28px;
+      text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+    }
+    @include respond-to('mobile-portrait-only') {
+      font-weight: 900;
+      font-size: 20px;
+      text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+    }
+  }
+  &__paragraph {
+    font-style: normal;
+    font-weight: 900;
+    font-size: 40px;
+    letter-spacing: -0.05em;
+    color: #000000;
+    @include respond-to('tablet-portrait-only') {
+      font-weight: 900;
+      font-size: 28px;
+      text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+    }
+    @include respond-to('mobile-portrait-only') {
+      font-weight: 900;
+      font-size: 20px;
+      text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+    }
   }
   &__btn {
+    .banner-1 & {
+      background: #5685ff;
+    }
     cursor: pointer;
-    font-size: 20px;
-    color: #000000;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 26px;
+    line-height: 30px;
+    color: #ffffff;
     padding: 16px 70px;
-    background: #fd9f9f;
+    background: #ff5656;
     border-radius: 8px;
     border: none;
+
+    @include respond-to('tablet-portrait-only') {
+      margin-top: 20px;
+      padding: 12px 32px;
+      font-size: 20px;
+      line-height: 19px;
+    }
+    @include respond-to('mobile-portrait-only') {
+      margin-top: 20px;
+      padding: 8px 28px;
+      font-size: 16px;
+      line-height: 19px;
+    }
   }
 }
 .content {
@@ -207,12 +326,9 @@ export default {
     flex-basis: 33.3%;
     margin-bottom: 26px;
     @include respond-to('mobile-portrait-only') {
-      // flex-basis: 50%;
-      // background-color: lavender;
     }
     @include respond-to('tablet-portrait-only') {
       flex-basis: 50%;
-      // background-color: red;
     }
   }
 }

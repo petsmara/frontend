@@ -6,7 +6,7 @@ import axios from 'axios'
 import ElementUI from 'element-ui'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
-import 'element-ui/lib/theme-chalk/index.css'
+import '@/assets/css/element-ui.scss'
 import 'nprogress/nprogress.css'
 
 Vue.use(ElementUI)

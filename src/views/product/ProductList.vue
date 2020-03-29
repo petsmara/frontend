@@ -17,15 +17,15 @@
             새로운 사료를 만나보세요
           </template>
         </Box>
-        <button class="content__write">
+        <button class="content__write" @click="goToRegister">
           글쓰기
         </button>
       </div>
       <div class="products">
         <router-link
           class="products__link"
-          v-for="item in products"
-          :key="item.title"
+          v-for="(item, index) in productList"
+          :key="`${item.title}-${index}`"
           :to="`/product/${item.id}`"
         >
           <SummaryCard
@@ -49,13 +49,12 @@ import { Box } from '@/components/Box'
 import { SummaryCard } from '@/components/Cards'
 import { createNamespacedHelpers } from 'vuex'
 import NProgress from 'nprogress'
-const { mapActions } = createNamespacedHelpers('product')
+const { mapState, mapActions } = createNamespacedHelpers('product')
 
 export default {
   created() {
-    this.getProducts({ offset: 0, limit: 3 })
+    this.getProducts({ offset: this.productOffset, limit: 10 })
       .then(response => {
-        this.products = response.data.result
         NProgress.done()
       })
       .catch(e => console.error(e))
@@ -65,6 +64,9 @@ export default {
     return {
       products: []
     }
+  },
+  computed: {
+    ...mapState(['productOffset', 'productList', 'hasMoreProduct'])
   },
   methods: {
     ...mapActions([
@@ -87,7 +89,41 @@ export default {
         default:
           return ''
       }
+    },
+    goToRegister() {
+      if (this.loggedIn) {
+        this.$router.push('/product/register')
+      } else {
+        this.$confirm('회원가입 또는 로그인을 하시겠습니까?', '알림', {
+          confirmButtonText: '예',
+          cancelButtonText: '아니요',
+          type: 'info'
+        })
+          .then(() => {
+            this.$router.push('/user/login')
+          })
+          .catch(() => {
+            return
+          })
+      }
+    },
+    onScroll() {
+      if (
+        window.scrollY + document.documentElement.clientHeight >
+        document.documentElement.scrollHeight - 500
+      ) {
+        if (this.hasMoreProduct) {
+          console.log('check scroll')
+          this.getProducts({ offset: this.productOffset, limit: 10 })
+        }
+      }
     }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.onScroll)
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.onScroll)
   }
 }
 </script>

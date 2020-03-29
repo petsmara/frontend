@@ -1,0 +1,25 @@
+/* theme color */
+// $--color-primary: #e9e9e9;
+// $--button-default-background-color: #e9e9e9;
+// border: $--border-base;
+// border-color: $--button-default-border-color;
+// $--button-default-font-color: #000000;
+// $--button-primary-font-color:  #000000;
+
+/* icon font path, required */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+@import "~element-ui/packages/theme-chalk/src/index";
+
+.el-backtop {
+  background: rgba(255, 220, 220, 0.8);
+  box-shadow: none;
+}
+
+.el-icon-caret-top {
+  &::before {
+    content: none !important;
+  }
+  width: 16px;
+  height: 8px;
+  background: url('~@/assets/images/icons/up_arrow.png') center / 100% no-repeat;
+}

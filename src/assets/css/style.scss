@@ -2,7 +2,6 @@
 // assets/css/style.scss
 
 @import "./abs";
-
 @import "./base/body";
 @import "./base/breakpoints";
 @import "./base/fonts";
@@ -13,9 +12,9 @@
 @import "./base/reset";
 @import "./base/typography";
 @import "./base/keyframes";
-
-// @import "./layout/layout";
 @import "./layout/grid";
 
-/* theme color */
-$--color-primary: #8FB5FF;
+button.el-button {
+  color: #000000;
+  background-color: #E9E9E9;
+}

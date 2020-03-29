@@ -1,6 +1,7 @@
 <template>
   <div class="login">
-    <h2 class="register__title">
+    <LogoCard />
+    <h2 class="login__title">
       로그인
     </h2>
     <el-form
@@ -11,10 +12,15 @@
       status-icon
     >
       <el-form-item label="이메일" prop="email">
-        <el-input type="email" v-model="logInRuleForm.email"></el-input>
+        <el-input
+          placeholder="ID"
+          type="email"
+          v-model="logInRuleForm.email"
+        ></el-input>
       </el-form-item>
       <el-form-item label="비밀번호" prop="password">
         <el-input
+          placeholder="PASSWORD"
           type="password"
           v-model="logInRuleForm.password"
           autocomplete="off"
@@ -22,6 +28,7 @@
       </el-form-item>
       <el-form-item>
         <el-button
+          class="login__btn"
           :loading="isLoading"
           type="primary"
           @click="submitForm('logInRuleForm')"
@@ -29,6 +36,9 @@
         >
       </el-form-item>
     </el-form>
+    <router-link to="/user/register"
+      >회원이 아니신가요? 회원가입 하러 가기</router-link
+    >
   </div>
 </template>
 
@@ -37,8 +47,12 @@ import axios from 'axios'
 import { createNamespacedHelpers } from 'vuex'
 const { mapActions } = createNamespacedHelpers('user')
 const { mapState } = createNamespacedHelpers('path')
+import { LogoCard } from '@/components/Cards'
 
 export default {
+  components: {
+    LogoCard
+  },
   data() {
     const validatePass = (rule, value, callback) => {
       if (value === '') {
@@ -128,9 +142,12 @@ export default {
 <style lang="scss" scoped>
 .login {
   padding: 20px;
+  margin: 0 auto;
+  max-width: 360px;
+  &__title {
+    text-align: left;
+  }
   &__form {
-    margin: 0 auto;
-    max-width: 360px;
     .el-form-item {
       margin-bottom: 10px;
     }
@@ -147,6 +164,12 @@ export default {
     & /deep/ .el-form-item__content {
       line-height: 1;
     }
+  }
+  &__btn {
+    font-size: 16px;
+    padding: 16px;
+    width: 100%;
+    display: block;
   }
 }
 </style>
