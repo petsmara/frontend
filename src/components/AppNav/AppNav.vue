@@ -7,24 +7,52 @@
       </router-link>
     </h1>
     <div class="app-nav__right app-nav__right--pc">
-      <template v-if="!loggedIn">
-        <router-link class="app-nav__link" to="/user/register">
-          <img src="@/assets/images/icons/register.png" alt="resgister" />
-          <span>회원가입</span>
-        </router-link>
-        <router-link class="app-nav__link" to="/user/login">
-          <img src="@/assets/images/icons/login.png" alt="login" />
-          <span>로그인</span>
-        </router-link>
-      </template>
-      <button v-else class="app-nav__link" @click="handlelogOut">
-        <img src="@/assets/images/icons/logout.png" alt="logout" />
-        <span>로그아웃</span>
-      </button>
-      <div class="app-nav__menu" @click="openMenu">
-        <img src="@/assets/images/icons/menu.png" alt="menu" />
-        <span>PC 메뉴</span>
-      </div>
+      <el-dropdown>
+        <div class="app-nav__menu app-nav__menu--my">
+          <img src="@/assets/images/icons/register.png" alt="my menu" />
+        </div>
+        <el-dropdown-menu>
+          <template v-if="!loggedIn">
+            <el-dropdown-item>
+              <router-link class="dropdown-link" to="/user/login"
+                >로그인</router-link
+              >
+            </el-dropdown-item>
+            <el-dropdown-item>
+              <router-link class="dropdown-link" to="/user/register"
+                >회원가입</router-link
+              >
+            </el-dropdown-item>
+          </template>
+          <template v-else>
+            <el-dropdown-item>
+              <span class="dropdown-link" @click="logOut">로그아웃</span>
+            </el-dropdown-item>
+          </template>
+          <el-dropdown-item>
+            <router-link class="dropdown-link" to="/user/mypage"
+              >마이페이지</router-link
+            >
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+      <el-dropdown>
+        <div class="app-nav__menu app-nav__menu--product">
+          <img src="@/assets/images/icons/menu.png" alt="menu" />
+        </div>
+        <el-dropdown-menu>
+          <el-dropdown-item>
+            <router-link class="dropdown-link" to="/product/list"
+              >상품게시판</router-link
+            >
+          </el-dropdown-item>
+          <el-dropdown-item>
+            <router-link class="dropdown-link" to="/product/register"
+              >글쓰기</router-link
+            >
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
     <div class="app-nav__right app-nav__right--mobile">
       <template v-if="!loggedIn">
@@ -51,6 +79,7 @@
       size="80%"
       :show-close="false"
       :withHeader="false"
+      direction="ltr"
       class="drawer"
     >
       <div class="drawer__header">
@@ -62,51 +91,66 @@
           />
         </div>
         <div class="drawer__header__center">
-          <p class="drawer__header__nickname">{{ user.nickname }}</p>
-          <p v-if="!user" class="drawer__header__paragraph">로그인해주세요.</p>
+          <template v-if="loggedIn">
+            <p class="drawer__header__nickname">{{ user.nickname }}</p>
+            <p class="drawer__header__paragraph">강아제 카테고리</p>
+          </template>
+          <template v-else>
+            <p class="drawer__header__nickname">비회원</p>
+            <p class="drawer__header__paragraph">로그인해주세요.</p>
+          </template>
         </div>
         <div class="drawer__header__right">
-          <router-link to="/user/login">
+          <template v-if="loggedIn">
             <img
+              @click="logOut"
               class="drawer__header__icon"
-              src="@/assets/images/icons/login.png"
-              alt="login"
-          /></router-link>
+              src="@/assets/images/icons/logout.png"
+              alt="logout"
+            />
+          </template>
+          <template v-else>
+            <router-link to="/user/login">
+              <img
+                class="drawer__header__icon"
+                src="@/assets/images/icons/login.png"
+                alt="login"
+            /></router-link>
+          </template>
         </div>
       </div>
       <nav class="drawer__nav">
         <ul class="drawer__list">
-          <li class="drawer__item">
-            <router-link class="drawer__link" to="/">홈</router-link>
-          </li>
           <template v-if="!loggedIn">
             <li class="drawer__item">
-              <router-link class="drawer__link" to="/user/register"
+              <router-link
+                class="drawer__link drawer__link--user"
+                to="/user/register"
                 >회원가입</router-link
               >
             </li>
+          </template>
+          <template v-else>
             <li class="drawer__item">
-              <router-link class="drawer__link" to="/user/login"
-                >로그인</router-link
+              <router-link
+                class="drawer__link drawer__link--user"
+                to="/user/mypage"
+                >마이페이지</router-link
               >
             </li>
           </template>
-          <li v-else class="drawer__item">
-            <button class="drawer__link" @click="handlelogOut">로그아웃</button>
-          </li>
           <li class="drawer__item">
-            <router-link class="drawer__link" to="/user/mypage"
-              >마이페이지</router-link
+            <router-link
+              class="drawer__link drawer__link--list"
+              to="/product/list"
+              >상품게시판</router-link
             >
           </li>
           <li class="drawer__item">
-            <router-link class="drawer__link" to="/product/register"
-              >상품판매하기</router-link
-            >
-          </li>
-          <li class="drawer__item">
-            <router-link class="drawer__link" to="/product/list"
-              >상품판매리스트</router-link
+            <router-link
+              class="drawer__link drawer__link--write"
+              to="/product/register"
+              >글쓰기</router-link
             >
           </li>
         </ul>
@@ -214,8 +258,12 @@ export default {
     }
     &--pc {
       display: flex;
+      align-items: center;
       @include respond-to('tablet-portrait-only') {
         display: none;
+      }
+      .app-nav__menu {
+        padding: 12px 36px;
       }
     }
     &--mobile {
@@ -282,8 +330,6 @@ export default {
       margin-right: 14px;
       position: relative;
     }
-    &__center {
-    }
     &__right {
       margin-left: auto;
       a {
@@ -292,6 +338,7 @@ export default {
       }
     }
     &__nickname {
+      text-align: left;
       font-weight: bold;
       font-size: 20px;
       color: #000000;
@@ -312,11 +359,6 @@ export default {
       width: 20px;
     }
   }
-
-  &__nav {
-  }
-  &__list {
-  }
   &__item {
     border-bottom: 1px solid rgba(196, 196, 196, 0.6);
   }
@@ -326,7 +368,46 @@ export default {
     font-size: 16px;
     text-align: left;
     display: block;
-    padding: 16px 16px 16px 60px;
+    padding: 16px 16px 16px 76px;
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 20px;
+      background-repeat: no-repeat;
+      background-size: 100%;
+      background-position: 0 0;
+    }
+    &--user {
+      &::before {
+        background-image: url(~@/assets/images/icons/register.png);
+      }
+    }
+    &--list {
+      &::before {
+        width: 20px;
+        height: 14px;
+        background-image: url(~@/assets/images/icons/menu.png);
+      }
+    }
+    &--write {
+      &::before {
+        width: 20px;
+        height: 14px;
+        background-image: url(~@/assets/images/icons/write.png);
+      }
+    }
   }
+}
+.el-dropdown-menu {
+  padding: 5px 0;
+}
+.el-dropdown-menu__item {
+  padding: 10px 26px;
+  line-height: 1;
 }
 </style>
