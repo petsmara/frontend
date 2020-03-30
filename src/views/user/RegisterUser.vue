@@ -16,14 +16,12 @@
         class="register-user__category"
       >
         <el-checkbox-group v-model="registerUserRuleForm.categoryList">
-          <el-checkbox
-            class="register-user__category__dog"
-            label="강아지"
-          ></el-checkbox>
-          <el-checkbox
-            class="register-user__category__cat"
-            label="고양이"
-          ></el-checkbox>
+          <el-checkbox class="register-user__category__dog" label="has_dog"
+            >강아지</el-checkbox
+          >
+          <el-checkbox class="register-user__category__cat" label="has_cat"
+            >고양이</el-checkbox
+          >
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="아이디" prop="email">
@@ -239,6 +237,14 @@ export default {
         phone: phone_number,
         categoryList
       } = this.registerUserRuleForm
+
+      const checkCategoryList = ['has_dog', 'has_cat']
+
+      const newObj = checkCategoryList.reduce((acc, cur) => {
+        categoryList.includes(cur) ? (acc[cur] = true) : (acc[cur] = false)
+        return acc
+      }, {})
+
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.registerUser({
@@ -246,7 +252,7 @@ export default {
             nickname,
             password,
             phone_number,
-            categoryList
+            ...newObj
           }).then(result => {
             // 여기서 결과값을 받아서 다시 분기처리 성공, 실패
             if (result.status === 200) {
