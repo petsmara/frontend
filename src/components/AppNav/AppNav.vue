@@ -292,7 +292,6 @@ export default {
       }
     }
     &__nickname {
-      font-family: Roboto;
       font-weight: bold;
       font-size: 20px;
       color: #000000;
