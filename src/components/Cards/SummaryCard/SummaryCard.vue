@@ -102,7 +102,6 @@ export default {
   &__price {
     margin-top: 2px;
     display: block;
-    font-family: Roboto;
     font-size: 20px;
     font-weight: 900;
     b {

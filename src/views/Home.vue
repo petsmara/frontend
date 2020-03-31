@@ -202,11 +202,13 @@ export default {
       }
     }
     &__text-wrap {
+      text-align: left;
       position: absolute;
       top: 106px;
       left: 52px;
       z-index: 1;
       @include respond-to('tablet-portrait-only') {
+        text-align: center;
         width: 100%;
         top: 10%;
         left: 50%;
@@ -215,6 +217,7 @@ export default {
     }
   }
   &__title {
+    margin-bottom: 10px;
     font-style: normal;
     font-weight: 900;
     font-size: 40px;
@@ -233,6 +236,7 @@ export default {
     }
   }
   &__paragraph {
+    margin-bottom: 30px;
     font-style: normal;
     font-weight: 900;
     font-size: 40px;
@@ -265,13 +269,13 @@ export default {
     border: none;
 
     @include respond-to('tablet-portrait-only') {
-      margin-top: 20px;
+      // margin-top: 20px;
       padding: 12px 32px;
       font-size: 20px;
       line-height: 19px;
     }
     @include respond-to('mobile-portrait-only') {
-      margin-top: 20px;
+      // margin-top: 20px;
       padding: 8px 28px;
       font-size: 16px;
       line-height: 19px;

@@ -1,11 +1,21 @@
 <template>
   <div class="product-list">
     <section class="product-list__banner">
-      <img
-        class="product-list__banner__img"
-        src="@/assets/images/backgrounds/list_bg.jpg"
-        alt="background"
-      />
+      <picture class="product-list__banner__img">
+        <source
+          media="(min-width: 768px)"
+          :srcset="
+            require(`@/assets/images/backgrounds/product_list_bg-pc.png`)
+          "
+        />
+        <img
+          :srcset="
+            require(`@/assets/images/backgrounds/product_list_bg-mobile.jpg`)
+          "
+          alt=""
+        />
+      </picture>
+      <h2 class="product-list__title">모든 상품</h2>
     </section>
     <section class="content">
       <div class="content__header">
@@ -140,11 +150,35 @@ export default {
 .product-list {
   padding: 0 0 60px;
   &__banner {
+    position: relative;
+    // background: rgba(0, 0, 0, 0.4);
     // height: 500px;
     // overflow: hidden;
+    &::before {
+      content: '';
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+    img {
+      width: 100%;
+    }
     &__img {
       width: 100%;
     }
+  }
+  &__title {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 900;
+    font-size: 20px;
+    color: #ffffff;
   }
 }
 

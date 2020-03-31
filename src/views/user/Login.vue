@@ -103,7 +103,7 @@ export default {
           this.logIn({
             ...this.logInRuleForm
           }).then(result => {
-            if (result.status === 200) {
+            if (result && result.status === 200) {
               this.isLoading = false
               this.$message({
                 message: '로그인이 완료되었습니다.!',
