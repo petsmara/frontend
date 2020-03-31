@@ -16,14 +16,12 @@
         class="register-user__category"
       >
         <el-checkbox-group v-model="registerUserRuleForm.categoryList">
-          <el-checkbox
-            class="register-user__category__dog"
-            label="강아지"
-          ></el-checkbox>
-          <el-checkbox
-            class="register-user__category__cat"
-            label="고양이"
-          ></el-checkbox>
+          <el-checkbox class="register-user__category__dog" label="1"
+            >강아지</el-checkbox
+          >
+          <el-checkbox class="register-user__category__cat" label="2"
+            >고양이</el-checkbox
+          >
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="아이디" prop="email">
