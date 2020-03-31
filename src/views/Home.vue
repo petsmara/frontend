@@ -227,12 +227,10 @@ export default {
     @include respond-to('tablet-portrait-only') {
       font-weight: 900;
       font-size: 28px;
-      text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
     }
     @include respond-to('mobile-portrait-only') {
       font-weight: 900;
       font-size: 20px;
-      text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
     }
   }
   &__paragraph {
@@ -242,15 +240,14 @@ export default {
     font-size: 40px;
     letter-spacing: -0.05em;
     color: #000000;
+    text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
     @include respond-to('tablet-portrait-only') {
       font-weight: 900;
       font-size: 28px;
-      text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
     }
     @include respond-to('mobile-portrait-only') {
       font-weight: 900;
       font-size: 20px;
-      text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
     }
   }
   &__btn {
