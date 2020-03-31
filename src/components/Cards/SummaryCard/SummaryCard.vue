@@ -62,10 +62,8 @@ export default {
     max-width: 340px;
     position: relative;
     padding-bottom: 100%;
-
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     border-radius: 4px;
-    border: 1px solid #ebeef5;
   }
 
   &__img {

@@ -39,7 +39,7 @@
           :to="`/product/${item.id}`"
         >
           <SummaryCard
-            :imgLink="item.images[0]"
+            :imgLink="item.images | getFirstImage"
             :title="item.title"
             :category="convertCategory(item.category)"
             :places="item.places"
@@ -77,6 +77,15 @@ export default {
   },
   computed: {
     ...mapState(['productOffset', 'productList', 'hasMoreProduct'])
+  },
+
+  filters: {
+    getFirstImage: function(value) {
+      if (!value) {
+        return
+      }
+      return value[0]
+    }
   },
   methods: {
     ...mapActions([
