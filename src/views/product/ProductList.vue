@@ -48,6 +48,9 @@
         </router-link>
       </div>
     </section>
+    <section v-if="isLoading" class="loading">
+      Loading...
+    </section>
     <template>
       <el-backtop></el-backtop>
     </template>
@@ -59,6 +62,7 @@ import { Box } from '@/components/Box'
 import { SummaryCard } from '@/components/Cards'
 import { createNamespacedHelpers } from 'vuex'
 import NProgress from 'nprogress'
+import throttle from 'lodash.throttle'
 const { mapState, mapActions } = createNamespacedHelpers('product')
 
 export default {
@@ -72,6 +76,7 @@ export default {
   components: { Box, SummaryCard },
   data() {
     return {
+      isLoading: false,
       products: []
     }
   },
@@ -132,11 +137,16 @@ export default {
         document.documentElement.scrollHeight - 500
       ) {
         if (this.hasMoreProduct) {
-          console.log('check scroll')
-          this.getProducts({ offset: this.productOffset, limit: 10 })
+          this.isLoading = true
+          this.dispatchGetProducts()
         }
       }
-    }
+    },
+    dispatchGetProducts: throttle(function() {
+      this.getProducts({ offset: this.productOffset, limit: 10 }).then(_ => {
+        this.isLoading = false
+      })
+    }, 2000)
   },
   mounted() {
     window.addEventListener('scroll', this.onScroll)
@@ -245,5 +255,8 @@ export default {
       // background-color: red;
     }
   }
+}
+.loading {
+  padding: 50px 0;
 }
 </style>
