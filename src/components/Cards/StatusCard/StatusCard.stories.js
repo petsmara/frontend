@@ -1,20 +1,16 @@
 import { text, number } from '@storybook/addon-knobs'
-import LogoCard from './LogoCard.vue'
+import StatusCard from './StatusCard.vue'
 
 export default {
-  title: 'Addon/Cards/LogoCard',
-  component: LogoCard
+  title: 'Addon/Cards/StatusCard',
+  component: StatusCard
 }
 
 export const Cards = () => ({
-  components: { LogoCard },
+  components: { StatusCard },
   template: `
-      <LogoCard 
-        :imgLink="imgLink"
-        :title="title"
-        :category="category"
-        :places="places"
-        :price="price"
+      <StatusCard 
+        
       />
     `,
   props: {
