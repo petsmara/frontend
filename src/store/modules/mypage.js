@@ -10,8 +10,7 @@ export const state = {
   sellingProductList: [],
   soldOutgProductList: [],
   hasMoreProduct: true,
-  productOffset: 0,
-  sellingProductListOffset: 0
+  productListOffset: 0
 }
 
 export const mutations = {
@@ -24,7 +23,7 @@ export const mutations = {
   CONCAT_USER_SELLING_PROUDCT_LIST(state, payload) {
     state.sellingProductList = state.sellingProductList.concat(payload)
     state.hasMoreProduct = payload.length === 10
-    state.sellingProductListOffset = state.sellingProductListOffset + 10
+    state.productListOffset = state.productListOffset + 10
   }
 }
 

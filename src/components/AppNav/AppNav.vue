@@ -93,7 +93,7 @@
         <div class="drawer__header__center">
           <template v-if="loggedIn">
             <p class="drawer__header__nickname">{{ user.nickname }}</p>
-            <p class="drawer__header__paragraph">강아제 카테고리</p>
+            <p class="drawer__header__paragraph">{{ selectedPet }}</p>
           </template>
           <template v-else>
             <p class="drawer__header__nickname">비회원</p>
@@ -176,7 +176,13 @@ export default {
   computed: {
     ...authComputed,
     ...mapState(['isOpenedDrawer']),
-    ...userMapState(['user'])
+    ...userMapState(['user']),
+    selectedPet() {
+      const isSelectedDog = this.user.has_dog ? '강아지' : ''
+      const isSelectedCat = this.user.has_cat ? '고양이' : ''
+      const divider = isSelectedDog && isSelectedCat ? ', ' : ''
+      return `${isSelectedDog}${divider}${isSelectedCat}`
+    }
   },
   methods: {
     ...mapActions(['openDrawer']),

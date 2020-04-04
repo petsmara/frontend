@@ -282,7 +282,6 @@ export default {
       })
     },
     onChangeImages(e) {
-      console.log(e)
       const imageFormData = new FormData()
       if (
         this.imagesLimitCount <

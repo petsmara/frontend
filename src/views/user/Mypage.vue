@@ -3,6 +3,7 @@
     <header class="mypage__header">
       <img src="@/assets/images/icons/cat.png" alt="" class="mypage__my-icon" />
       <div class="mypage__my-info">
+        <span class="mypage__email">{{ $store.state.user.user.email }}</span>
         <span class="mypage__nickname">{{ profile.nickname }}</span>
         {{ selectedPet ? '/' : '' }}
         <span class="mypage__species">{{ selectedPet }}</span>
@@ -59,16 +60,25 @@ export default {
   async created() {
     await this.getUserProfile()
     await this.getUserProductList({
-      tabId: 1,
-      offset: this.sellingProductListOffset,
+      tabId: this.tabId,
+      offset: this.productListOffset,
       limit: 10
     })
   },
   data() {
     return {
       currentTab: 0,
+      tabId: 1,
       tabs: ['판매중', '판매완료'],
       isLoading: false
+    }
+  },
+  watch: {
+    currentTab(newValue, oldValue) {
+      if (newValue === oldValue) {
+        return
+      }
+      this.tabId = oldValue
     }
   },
   computed: {
@@ -78,7 +88,7 @@ export default {
       'soldOutgProductList',
       'productOffset',
       'hasMoreProduct',
-      'sellingProductListOffset'
+      'productListOffset'
     ]),
     selectedPet() {
       const isSelectedDog = this.profile.has_dog ? '강아지' : ''
@@ -117,8 +127,8 @@ export default {
     },
     dispatchGetUserProductList: throttle(function() {
       this.getUserProductList({
-        tabId: 1,
-        offset: this.sellingProductListOffset,
+        tabId: this.tabId,
+        offset: this.productListOffset,
         limit: 10
       }).then(_ => {
         this.isLoading = false
@@ -149,6 +159,10 @@ export default {
     font-weight: 900;
     font-size: 24px;
     color: #000000;
+  }
+  &__email {
+    display: block;
+    margin-bottom: 10px;
   }
   &__nickname {
   }
@@ -186,6 +200,9 @@ export default {
     & /deep/ .status-card {
       margin-bottom: 30px;
     }
+  }
+  .loading {
+    padding: 50px 0;
   }
 }
 </style>

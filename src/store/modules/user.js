@@ -7,7 +7,9 @@ export const state = {
   user: {
     email: null,
     nickname: null,
-    accessToken: null
+    accessToken: null,
+    has_dog: null,
+    has_cat: null
   }
 }
 
@@ -16,7 +18,9 @@ export const mutations = {
     const userData = {
       email: payload.email,
       nickname: payload.nickname,
-      accessToken: payload.access_token || payload.accessToken
+      accessToken: payload.access_token || payload.accessToken,
+      has_dog: payload.has_dog,
+      has_cat: payload.has_cat
     }
     state.user = userData
     localStorage.setItem('petsmaraUser', JSON.stringify(userData))
