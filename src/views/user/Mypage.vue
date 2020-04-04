@@ -25,14 +25,23 @@
           v-if="currentTab === 0"
           class="mypage__content mypage__content--sell"
         >
-          <StatusCard />
-          <StatusCard />
+          <StatusCard
+            v-for="(item, index) in sellingProductList"
+            :key="`${item.title}-${index}`"
+            :imgLink="item.image__image_1"
+            :title="item.title"
+            :category="convertedCategory(item.category)"
+            :places="item.places"
+            :price="parseInt(item.price)"
+          />
         </div>
         <div v-else class="mypage__content mypage__content--sold-out">
           <StatusCard :soldOut="true" />
-          <StatusCard />
         </div>
       </div>
+      <section v-if="isLoading" class="loading">
+        Loading...
+      </section>
     </main>
   </div>
 </template>
@@ -40,23 +49,37 @@
 <script>
 import { StatusCard } from '@/components/Cards'
 import { createNamespacedHelpers } from 'vuex'
-
+import throttle from 'lodash.throttle'
 const { mapState, mapActions } = createNamespacedHelpers('mypage')
+
 export default {
   components: {
     StatusCard
   },
   async created() {
     await this.getUserProfile()
+    await this.getUserProductList({
+      tabId: 1,
+      offset: this.sellingProductListOffset,
+      limit: 10
+    })
   },
   data() {
     return {
       currentTab: 0,
-      tabs: ['판매중', '판매완료']
+      tabs: ['판매중', '판매완료'],
+      isLoading: false
     }
   },
   computed: {
-    ...mapState(['profile']),
+    ...mapState([
+      'profile',
+      'sellingProductList',
+      'soldOutgProductList',
+      'productOffset',
+      'hasMoreProduct',
+      'sellingProductListOffset'
+    ]),
     selectedPet() {
       const isSelectedDog = this.profile.has_dog ? '강아지' : ''
       const isSelectedCat = this.profile.has_cat ? '고양이' : ''
@@ -65,11 +88,48 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getUserProfile']),
+    ...mapActions(['getUserProfile', 'getUserProductList']),
     selectTab(index) {
       console.log(index)
       this.currentTab = index
-    }
+    },
+    convertedCategory(id) {
+      if (id === 1) {
+        return '강아지'
+      } else if (id === 2) {
+        return '고양이'
+      } else if (id === 3) {
+        return '강아지 / 고양이'
+      } else {
+        return ''
+      }
+    },
+    onScroll() {
+      if (
+        window.scrollY + document.documentElement.clientHeight >
+        document.documentElement.scrollHeight - 500
+      ) {
+        if (this.hasMoreProduct) {
+          this.isLoading = true
+          this.dispatchGetUserProductList()
+        }
+      }
+    },
+    dispatchGetUserProductList: throttle(function() {
+      this.getUserProductList({
+        tabId: 1,
+        offset: this.sellingProductListOffset,
+        limit: 10
+      }).then(_ => {
+        this.isLoading = false
+      })
+    }, 2000)
+  },
+  mounted() {
+    window.addEventListener('scroll', this.onScroll)
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.onScroll)
   }
 }
 </script>

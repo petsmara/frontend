@@ -4,12 +4,12 @@
       <div class="status-card__sold-out">
         판매 완료
       </div>
-      <img class="status-card__img" :src="imgLink" alt="" />
+      <img v-if="imgLink" class="status-card__img" :src="imgLink" alt="" />
     </div>
     <div class="status-card__content-wrap">
       <h3 class="status-card__title">{{ title }}</h3>
-      <p class="status-card__category">{{ category }}</p>
-      <p class="status-card__places">{{ places }}</p>
+      <p v-if="category" class="status-card__category">{{ category }}</p>
+      <p v-if="places" class="status-card__places">{{ places }}</p>
       <p class="status-card__price">{{ price }}<b>원 (100g)</b></p>
     </div>
     <div class="status-card__status-wrap">
@@ -138,6 +138,9 @@ export default {
     transform: translateY(-50%);
     width: 100%;
     background: #c4c4c4;
+  }
+  &__content-wrap {
+    text-align: left;
   }
   &__title {
     @include respond-to('tablet-portrait-only') {
