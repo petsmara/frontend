@@ -1,6 +1,9 @@
 <template>
-  <div class="status-card">
+  <div class="status-card" :class="[soldOut ? 'status-card--sold-out' : '']">
     <div class="status-card__img-wrap">
+      <div class="status-card__sold-out">
+        판매 완료
+      </div>
       <img class="status-card__img" :src="imgLink" alt="" />
     </div>
     <div class="status-card__content-wrap">
@@ -21,6 +24,10 @@
  */
 export default {
   props: {
+    soldOut: {
+      type: Boolean,
+      deafult: false
+    },
     imgLink: {
       type: String,
       default:
@@ -73,7 +80,40 @@ export default {
     padding: 16px 18px;
     flex-wrap: wrap;
   }
-
+  &--sold-out {
+    .status-card__img-wrap {
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(196, 196, 196, 0.8);
+        z-index: 1;
+      }
+    }
+    .status-card__sold-out {
+      width: 82px;
+      height: 82px;
+      border: 3px solid #000000;
+      border-radius: 50%;
+      display: block;
+      position: absolute;
+      z-index: 2;
+      text-align: center;
+      line-height: 82px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-weight: 900;
+      font-size: 12px;
+      color: #000000;
+    }
+    .status-card__status-btn {
+      display: none;
+    }
+  }
   &__img-wrap {
     @include respond-to('tablet-portrait-only') {
       margin-right: 18px;
@@ -87,8 +127,9 @@ export default {
     overflow: hidden;
     width: 200px;
     height: 200px;
-    // min-width: 120px;
-    // padding-bottom: 100%;
+  }
+  &__sold-out {
+    display: none;
   }
   &__img {
     position: absolute;
@@ -97,8 +138,6 @@ export default {
     transform: translateY(-50%);
     width: 100%;
     background: #c4c4c4;
-  }
-  &__content-wrap {
   }
   &__title {
     @include respond-to('tablet-portrait-only') {
@@ -155,6 +194,7 @@ export default {
     margin-left: auto;
   }
   &__status-btn {
+    cursor: pointer;
     font-weight: 500;
     font-size: 16px;
     color: #000000;

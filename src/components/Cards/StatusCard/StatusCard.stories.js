@@ -1,4 +1,4 @@
-import { text, number } from '@storybook/addon-knobs'
+import { boolean, text, number } from '@storybook/addon-knobs'
 import StatusCard from './StatusCard.vue'
 
 export default {
@@ -10,7 +10,12 @@ export const Cards = () => ({
   components: { StatusCard },
   template: `
       <StatusCard 
-        
+        :imgLink="imgLink"
+        :title="title"
+        :category="category"
+        :places="places"
+        :price="price"
+        :soldOut="soldOut"
       />
     `,
   props: {
@@ -31,6 +36,9 @@ export const Cards = () => ({
     },
     price: {
       default: number('price', 200)
+    },
+    soldOut: {
+      default: boolean('soldOut', false)
     }
   }
 })
