@@ -20,6 +20,9 @@ export const mutations = {
   REMOVE_IMAGE_PATH(state, index) {
     state.imagePaths.splice(index, 1)
   },
+  REMOVE_ALL_IMAGE_PATH(state) {
+    state.imagePaths = []
+  },
   CONCAT_PRODUCT_LIST(state, payload) {
     state.productList = state.productList.concat(payload.data.result)
     state.hasMoreProduct = payload.data.result.length === 10
@@ -43,7 +46,7 @@ export const actions = {
   registerProduct({ commit }, product) {
     return ProductService.registerProduct(product)
       .then(res => {
-        console.log(res)
+        commit('REMOVE_ALL_IMAGE_PATH')
         return res
       })
       .catch(error => {

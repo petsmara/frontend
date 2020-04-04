@@ -64,6 +64,7 @@ import { createNamespacedHelpers } from 'vuex'
 import NProgress from 'nprogress'
 import throttle from 'lodash.throttle'
 const { mapState, mapActions } = createNamespacedHelpers('product')
+const { mapGetters } = createNamespacedHelpers('user')
 
 export default {
   created() {
@@ -81,7 +82,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['productOffset', 'productList', 'hasMoreProduct'])
+    ...mapState(['productOffset', 'productList', 'hasMoreProduct']),
+    ...mapGetters(['loggedIn'])
   },
 
   filters: {

@@ -1,3 +1,4 @@
 import { SummaryCard } from './SummaryCard'
 import { LogoCard } from './LogoCard'
-export { SummaryCard, LogoCard }
+import { StatusCard } from './StatusCard'
+export { SummaryCard, LogoCard, StatusCard }
