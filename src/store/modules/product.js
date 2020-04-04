@@ -1,6 +1,4 @@
 import ProductService from '@/services/ProductService.js'
-import throttle from 'lodash.throttle'
-
 export const namespaced = true
 
 export const state = {
@@ -65,17 +63,16 @@ export const actions = {
       })
   },
 
-  getProducts: throttle(async function({ commit }, payload) {
+  getProducts({ commit }, payload) {
     return ProductService.getProducts(payload)
       .then(res => {
-        console.log('why twice')
         commit('CONCAT_PRODUCT_LIST', res)
         return res
       })
       .catch(error => {
         console.log(error)
       })
-  }, 3000)
+  }
 }
 
 export const getters = {
