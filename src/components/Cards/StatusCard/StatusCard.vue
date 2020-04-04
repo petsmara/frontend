@@ -137,7 +137,6 @@ export default {
     left: 0;
     transform: translateY(-50%);
     width: 100%;
-    background: #c4c4c4;
   }
   &__content-wrap {
     text-align: left;
@@ -201,6 +200,7 @@ export default {
     font-weight: 500;
     font-size: 16px;
     color: #000000;
+    background-color: #ffffff;
     border: 1px solid #c4c4c4;
     box-sizing: border-box;
     border-radius: 8px;

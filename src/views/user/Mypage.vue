@@ -146,6 +146,7 @@ export default {
 
 <style lang="scss" scoped>
 .mypage {
+  padding: 0 16px;
   width: 100%;
   max-width: 760px;
   margin: 0 auto;
@@ -184,6 +185,7 @@ export default {
     font-size: 20px;
     color: #000000;
     border-bottom: 4px solid transparent;
+    background-color: #ffffff;
     &--is-active {
       border-bottom: 4px solid #8fb5ff;
     }
