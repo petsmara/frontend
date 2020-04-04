@@ -33,8 +33,8 @@
           </swiper-slide>
           <swiper-slide
             class="register-product__image-wrap"
-            v-for="(p, i) in imagePaths"
-            :key="p"
+            v-for="(p, index) in imagePaths"
+            :key="`${p}-${index}`"
             style="display: inline-block"
           >
             <img
@@ -253,7 +253,7 @@ export default {
                 type: 'success',
                 onClose: () => {
                   this.isLoading = false
-                  alert('다음 경로는 어디로? 아마도 상품 상세 페이지?')
+                  this.$router.replace(`/product/${result.data.product_id}`)
                 }
               })
             } else {
@@ -264,12 +264,10 @@ export default {
                 type: 'error',
                 onClose: () => {
                   this.isLoading = false
-                  // alert('다음 경로는 어디로?')
                 }
               })
             }
           })
-          // 여기서 결과값을 받아서 다시 분기처리 성공, 실패
         } else {
           this.isLoading = false
           this.$message({
@@ -284,6 +282,7 @@ export default {
       })
     },
     onChangeImages(e) {
+      console.log(e)
       const imageFormData = new FormData()
       if (
         this.imagesLimitCount <
@@ -294,11 +293,6 @@ export default {
           duration: 3000,
           showClose: true,
           type: 'warning'
-          // onClose: () => {
-          //   alert(
-          //     '다음 경로는 어디로? 리다이렉트? 리플레이스로 방금전 URL로 가게하기'
-          //   )
-          // }
         })
         console.log('총 이미지 길이가 5개 이상입니다.')
         return false
