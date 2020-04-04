@@ -3,8 +3,9 @@
     <header class="mypage__header">
       <img src="@/assets/images/icons/cat.png" alt="" class="mypage__my-icon" />
       <div class="mypage__my-info">
-        <span class="mypage__nickname">닉네임</span> /
-        <span class="mypage__species">강아지, 고양이</span>
+        <span class="mypage__nickname">{{ profile.nickname }}</span>
+        {{ selectedPet ? '/' : '' }}
+        <span class="mypage__species">{{ selectedPet }}</span>
       </div>
     </header>
     <main class="mypage__main">
@@ -38,9 +39,15 @@
 
 <script>
 import { StatusCard } from '@/components/Cards'
+import { createNamespacedHelpers } from 'vuex'
+
+const { mapState, mapActions } = createNamespacedHelpers('mypage')
 export default {
   components: {
     StatusCard
+  },
+  async created() {
+    await this.getUserProfile()
   },
   data() {
     return {
@@ -48,7 +55,17 @@ export default {
       tabs: ['판매중', '판매완료']
     }
   },
+  computed: {
+    ...mapState(['profile']),
+    selectedPet() {
+      const isSelectedDog = this.profile.has_dog ? '강아지' : ''
+      const isSelectedCat = this.profile.has_cat ? '고양이' : ''
+      const divider = isSelectedDog && isSelectedCat ? ', ' : ''
+      return `${isSelectedDog}${divider}${isSelectedCat}`
+    }
+  },
   methods: {
+    ...mapActions(['getUserProfile']),
     selectTab(index) {
       console.log(index)
       this.currentTab = index
@@ -68,6 +85,7 @@ export default {
   &__my-icon {
   }
   &__my-info {
+    margin-top: 12px;
     font-weight: 900;
     font-size: 24px;
     color: #000000;

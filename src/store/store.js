@@ -4,6 +4,7 @@ import * as user from '@/store/modules/user.js'
 import * as product from '@/store/modules/product.js'
 import * as drawer from '@/store/modules/drawer.js'
 import * as path from '@/store/modules/path.js'
+import * as mypage from '@/store/modules/mypage.js'
 
 Vue.use(Vuex)
 
@@ -12,7 +13,8 @@ export default new Vuex.Store({
     user,
     product,
     drawer,
-    path
+    path,
+    mypage
   },
   state: {
     test: 'teaast'
