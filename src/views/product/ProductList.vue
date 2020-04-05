@@ -49,7 +49,7 @@
       </div>
     </section>
     <section v-if="isLoading" class="loading">
-      Loading...
+      <i class="el-icon-loading"></i>
     </section>
     <template>
       <el-backtop></el-backtop>
