@@ -34,11 +34,20 @@
             :category="convertedCategory(item.category)"
             :places="item.places"
             :price="parseInt(item.price)"
-            @onClickSoldOut="changeToSoldOut"
+            @onClickSoldOut="handleChangeToSoldOut(item.id)"
           />
         </div>
         <div v-else class="mypage__content mypage__content--sold-out">
-          <StatusCard :soldOut="true" />
+          <StatusCard
+            v-for="(item, index) in soldOutProductList"
+            :key="`${item.title}-${index}`"
+            :imgLink="item.image__image_1"
+            :title="item.title"
+            :category="convertedCategory(item.category)"
+            :places="item.places"
+            :price="parseInt(item.price)"
+            :soldOut="true"
+          />
         </div>
       </div>
       <section v-if="isLoading" class="loading">
@@ -92,7 +101,7 @@ export default {
     ...mapState([
       'profile',
       'sellingProductList',
-      'soldOutgProductList',
+      'soldOutProductList',
       'hasMoreProduct',
       'productListOffset'
     ]),
@@ -107,7 +116,8 @@ export default {
     ...mapActions([
       'getUserProfile',
       'getUserProductList',
-      'initMypageOptions'
+      'initMypageOptions',
+      'changeToSoldOut'
     ]),
     selectTab(index) {
       console.log(index)
@@ -144,9 +154,9 @@ export default {
         this.isLoading = false
       })
     }, 2000),
-    changeToSoldOut(id) {
+    handleChangeToSoldOut(id) {
       console.log(id)
-      this.changeToSoldOut({ id, on_sale: false })
+      this.changeToSoldOut(id)
     }
   },
   mounted() {

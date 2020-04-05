@@ -8,7 +8,7 @@ export const state = {
     has_cat: null
   },
   sellingProductList: [],
-  soldOutgProductList: [],
+  soldOutProductList: [],
   hasMoreProduct: true,
   productListOffset: 0
 }
@@ -18,7 +18,7 @@ export const mutations = {
     state.profile = { ...payload }
   },
   SET_USER_SOLDOUT_PROUDCT_LIST(state, payload) {
-    state.soldOutgProductList = state.soldOutgProductList.concat(payload)
+    state.soldOutProductList = state.soldOutProductList.concat(payload)
     state.hasMoreProduct = payload.length === 10
     state.productListOffset = state.productListOffset + 10
   },
@@ -28,12 +28,21 @@ export const mutations = {
     state.productListOffset = state.productListOffset + 10
   },
   INIT_MYPAGE_OPTIONS(state, payload) {
+    state.sellingProductList = []
+    state.soldOutProductList = []
     state.productListOffset = 0
     state.hasMoreProduct = true
   },
   CHANGE_TODO_SOLD_OUT(state, payload) {
-    const index = sellingProductList.findIndex(id => id === payload)
-    sellingProductList.splice(index, 1)
+    const index = state.sellingProductList.findIndex(({ id }) => {
+      console.log(id, 'id')
+      console.log(payload, 'payload')
+      return id === payload
+    })
+    console.log(index)
+    console.log(state.sellingProductList)
+    state.sellingProductList.splice(index, 1)
+    console.log(state.sellingProductList)
   }
 }
 
@@ -66,14 +75,13 @@ export const actions = {
       })
   },
   changeToSoldOut({ commit }, payload) {
-    commit('CHANGE_TODO_SOLD_OUT')
-    // return MypageService.changeToSoldOut(payload)
-    //   .then(res => {
-    //     console.log(res, 'changeTodoSoldOut')
-    //   })
-    //   .catch(error => {
-    //     return error.response
-    //   })
+    return MypageService.changeToSoldOut(payload)
+      .then(res => {
+        commit('CHANGE_TODO_SOLD_OUT', res.data.message.id)
+      })
+      .catch(error => {
+        return error.response
+      })
   },
   initMypageOptions({ commit }) {
     commit('INIT_MYPAGE_OPTIONS')

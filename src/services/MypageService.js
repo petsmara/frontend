@@ -9,7 +9,9 @@ export default {
       `user/account/product/${tabId}?offset=${offset}&limit=${limit}`
     )
   },
-  changeToSoldOut({ id, on_sale = false }) {
-    return axios.put(`product/${id}`)
+  changeToSoldOut(id) {
+    return axios.put(`product/${id}`, {
+      on_sale: false
+    })
   }
 }
