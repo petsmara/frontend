@@ -34,6 +34,7 @@
             :category="convertedCategory(item.category)"
             :places="item.places"
             :price="parseInt(item.price)"
+            @onClickSoldOut="changeToSoldOut"
           />
         </div>
         <div v-else class="mypage__content mypage__content--sold-out">
@@ -41,7 +42,7 @@
         </div>
       </div>
       <section v-if="isLoading" class="loading">
-        Loading...
+        <i class="el-icon-loading"></i>
       </section>
     </main>
   </div>
@@ -74,11 +75,17 @@ export default {
     }
   },
   watch: {
-    currentTab(newValue, oldValue) {
+    async currentTab(newValue, oldValue) {
       if (newValue === oldValue) {
         return
       }
       this.tabId = oldValue
+      this.initMypageOptions()
+      await this.getUserProductList({
+        tabId: this.tabId,
+        offset: this.productListOffset,
+        limit: 10
+      })
     }
   },
   computed: {
@@ -86,7 +93,6 @@ export default {
       'profile',
       'sellingProductList',
       'soldOutgProductList',
-      'productOffset',
       'hasMoreProduct',
       'productListOffset'
     ]),
@@ -98,7 +104,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getUserProfile', 'getUserProductList']),
+    ...mapActions([
+      'getUserProfile',
+      'getUserProductList',
+      'initMypageOptions'
+    ]),
     selectTab(index) {
       console.log(index)
       this.currentTab = index
@@ -133,7 +143,11 @@ export default {
       }).then(_ => {
         this.isLoading = false
       })
-    }, 2000)
+    }, 2000),
+    changeToSoldOut(id) {
+      console.log(id)
+      this.changeToSoldOut({ id, on_sale: false })
+    }
   },
   mounted() {
     window.addEventListener('scroll', this.onScroll)

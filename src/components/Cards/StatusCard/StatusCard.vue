@@ -13,7 +13,9 @@
       <p class="status-card__price">{{ price }}<b>원 (100g)</b></p>
     </div>
     <div class="status-card__status-wrap">
-      <button class="status-card__status-btn">판매 완료</button>
+      <button @click="handleClickSoldOut" class="status-card__status-btn">
+        판매 완료
+      </button>
     </div>
   </div>
 </template>
@@ -60,6 +62,11 @@ export default {
     image: {
       type: String,
       default: ''
+    }
+  },
+  methods: {
+    handleClickSoldOut() {
+      this.$emit('onClickSoldOut')
     }
   }
 }
