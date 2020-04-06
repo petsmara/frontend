@@ -35,14 +35,9 @@ export const mutations = {
   },
   CHANGE_TODO_SOLD_OUT(state, payload) {
     const index = state.sellingProductList.findIndex(({ id }) => {
-      console.log(id, 'id')
-      console.log(payload, 'payload')
       return id === payload
     })
-    console.log(index)
-    console.log(state.sellingProductList)
     state.sellingProductList.splice(index, 1)
-    console.log(state.sellingProductList)
   }
 }
 

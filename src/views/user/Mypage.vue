@@ -120,7 +120,6 @@ export default {
       'changeToSoldOut'
     ]),
     selectTab(index) {
-      console.log(index)
       this.currentTab = index
     },
     convertedCategory(id) {
@@ -155,7 +154,6 @@ export default {
       })
     }, 2000),
     handleChangeToSoldOut(id) {
-      console.log(id)
       this.changeToSoldOut(id)
     }
   },
