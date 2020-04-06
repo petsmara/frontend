@@ -7,7 +7,7 @@
     >
       <swiper-slide
         class="product__slide"
-        v-for="(image, index) in product.images"
+        v-for="(image, index) in isCheckingNull(product.images)"
         :key="`${image}-${index}`"
       >
         <div class="product__img-wrap">
@@ -23,8 +23,14 @@
     <div class="product__detail">
       <p class="product__seller">{{ product.seller }}</p>
       <p class="product__title">{{ product.title }}</p>
-      <p class="product__category">{{ convertCategory(product.category) }}</p>
-      <p class="product__places">{{ product.places || '구룡/개포동' }}</p>
+      <p class="product__category">{{ selectedCategory(product.category) }}</p>
+      <p class="product__places">
+        {{ product.places || '구룡/개포동'
+        }}<span class="product__time">{{
+          dayjs(product.modified_at).fromNow()
+        }}</span>
+      </p>
+
       <p class="product__price">
         {{ Number(parseInt(product.price)).toLocaleString()
         }}<span>원 (100g)</span>
@@ -53,9 +59,10 @@
           <SummaryCard
             :imgLink="item.images[0]"
             :title="item.title"
-            :category="convertCategory(item.category)"
+            :category="selectedCategory(item.category)"
             :places="item.places"
             :price="Number(parseInt(item.price)).toLocaleString()"
+            :time="item.modified_at"
           />
         </router-link>
       </div>
@@ -64,6 +71,7 @@
 </template>
 
 <script>
+import { CategoryMixin } from '@/mixins/CategoryMixin'
 import { Box } from '@/components/Box'
 import { SummaryCard } from '@/components/Cards'
 import { createNamespacedHelpers } from 'vuex'
@@ -79,6 +87,7 @@ const getCurrentProduct = (routeTo, next) => {
 }
 
 export default {
+  mixins: [CategoryMixin],
   components: { Box, SummaryCard },
   props: {
     product: {
@@ -119,23 +128,8 @@ export default {
   },
   methods: {
     ...mapActions(['getProduct', 'getProducts']),
-    convertCategory(value) {
-      switch (value) {
-        case 1:
-          return '강아지'
-          break
-        case 2:
-          return '고양이'
-          break
-        case 3:
-          return '공통'
-          break
-        case 4:
-          return '기타'
-          break
-        default:
-          return ''
-      }
+    isCheckingNull(items) {
+      return items.filter(item => !!item)
     }
   }
 }
@@ -214,12 +208,20 @@ export default {
     color: #000000;
     margin-bottom: 10px;
   }
+
+  &__places,
+  &__time {
+    font-size: 15px;
+    color: #6f6f6f;
+    // @include respond-to('tablet-portrait-only') {
+    //   // font-weight: 900;
+    //   font-size: 12px;
+    // }
+  }
   &__places {
     display: inline-block;
     position: relative;
-    font-size: 15px;
     margin-bottom: 9px;
-    color: #000000;
     &:after {
       content: '';
       width: 8px;
@@ -229,6 +231,21 @@ export default {
       top: 4px;
       background: url('~@/assets/images/icons/location.png') center / 100%
         no-repeat;
+    }
+  }
+  &__time {
+    padding-left: 16px;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 6px;
+      width: 5px;
+      height: 5px;
+      background-color: #6f6f6f;
+      border-radius: 50%;
     }
   }
   &__price {

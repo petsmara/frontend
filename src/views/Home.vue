@@ -63,9 +63,10 @@
           <SummaryCard
             :imgLink="item.images | getFirstImage"
             :title="item.title"
-            :category="convertCategory(item.category)"
+            :category="selectedCategory(item.category)"
             :places="item.places"
             :price="Number(parseInt(item.price)).toLocaleString()"
+            :time="item.modified_at"
           />
         </router-link>
       </div>
@@ -80,10 +81,12 @@
 import { Box } from '@/components/Box'
 import { SummaryCard } from '@/components/Cards'
 import { createNamespacedHelpers } from 'vuex'
+import { CategoryMixin } from '@/mixins/CategoryMixin'
 const { mapActions } = createNamespacedHelpers('product')
 const { mapGetters } = createNamespacedHelpers('user')
 
 export default {
+  mixins: [CategoryMixin],
   created() {
     this.getProducts({ offset: 0, limit: 9 })
       .then(response => {
@@ -92,14 +95,6 @@ export default {
       .catch(e => console.error(e))
   },
   components: { Box, SummaryCard },
-  filters: {
-    getFirstImage: function(value) {
-      if (!value) {
-        return
-      }
-      return value[0]
-    }
-  },
   data() {
     return {
       products: [],
@@ -135,24 +130,6 @@ export default {
     ...mapActions([
       'getProducts' //also supports payload `this.nameOfAction(amount)`
     ]),
-    convertCategory(value) {
-      switch (value) {
-        case 1:
-          return '강아지'
-          break
-        case 2:
-          return '고양이'
-          break
-        case 3:
-          return '공통'
-          break
-        case 4:
-          return '기타'
-          break
-        default:
-          return ''
-      }
-    },
     moveToProductList() {
       this.$router.push('/product/list')
     },

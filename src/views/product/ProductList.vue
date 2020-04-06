@@ -41,9 +41,10 @@
           <SummaryCard
             :imgLink="item.images | getFirstImage"
             :title="item.title"
-            :category="convertCategory(item.category)"
+            :category="selectedCategory(item.category)"
             :places="item.places"
             :price="Number(parseInt(item.price)).toLocaleString()"
+            :time="item.modified_at"
           />
         </router-link>
       </div>
@@ -58,6 +59,7 @@
 </template>
 
 <script>
+import { CategoryMixin } from '@/mixins/CategoryMixin'
 import { Box } from '@/components/Box'
 import { SummaryCard } from '@/components/Cards'
 import { createNamespacedHelpers } from 'vuex'
@@ -67,6 +69,7 @@ const { mapState, mapActions } = createNamespacedHelpers('product')
 const { mapGetters } = createNamespacedHelpers('user')
 
 export default {
+  mixins: [CategoryMixin],
   created() {
     this.getProducts({ offset: this.productOffset, limit: 10 })
       .then(response => {
@@ -85,37 +88,10 @@ export default {
     ...mapState(['productOffset', 'productList', 'hasMoreProduct']),
     ...mapGetters(['loggedIn'])
   },
-
-  filters: {
-    getFirstImage: function(value) {
-      if (!value) {
-        return
-      }
-      return value[0]
-    }
-  },
   methods: {
     ...mapActions([
       'getProducts' //also supports payload `this.nameOfAction(amount)`
     ]),
-    convertCategory(value) {
-      switch (value) {
-        case 1:
-          return '강아지'
-          break
-        case 2:
-          return '고양이'
-          break
-        case 3:
-          return '공통'
-          break
-        case 4:
-          return '기타'
-          break
-        default:
-          return ''
-      }
-    },
     goToRegister() {
       if (this.loggedIn) {
         this.$router.push('/product/register')
