@@ -87,11 +87,17 @@ export default {
     margin-bottom: 10px;
     font-size: 14px;
   }
-  &__places {
-    // display: block;
+  &__places,
+  &__time {
+    font-size: 15px;
+    color: #6f6f6f;
     margin-bottom: 10px;
-    font-size: 14px;
     position: relative;
+    @include respond-to('tablet-portrait-only') {
+      font-size: 12px;
+    }
+  }
+  &__places {
     &:after {
       content: '';
       width: 8px;
@@ -101,6 +107,29 @@ export default {
       top: 2px;
       background: url('~@/assets/images/icons/location.png') center / 100%
         no-repeat;
+    }
+  }
+  &__time {
+    padding-left: 16px;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 6px;
+      width: 5px;
+      height: 5px;
+      background-color: #6f6f6f;
+      border-radius: 50%;
+      @include respond-to('tablet-portrait-only') {
+        content: none;
+      }
+    }
+    @include respond-to('tablet-portrait-only') {
+      margin-top: 8px;
+      padding-left: 0;
+      display: block;
     }
   }
   &__price {

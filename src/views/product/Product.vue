@@ -24,7 +24,13 @@
       <p class="product__seller">{{ product.seller }}</p>
       <p class="product__title">{{ product.title }}</p>
       <p class="product__category">{{ convertCategory(product.category) }}</p>
-      <p class="product__places">{{ product.places || '구룡/개포동' }}</p>
+      <p class="product__places">
+        {{ product.places || '구룡/개포동'
+        }}<span class="product__time">{{
+          dayjs(product.modified_at).fromNow()
+        }}</span>
+      </p>
+
       <p class="product__price">
         {{ Number(parseInt(product.price)).toLocaleString()
         }}<span>원 (100g)</span>
@@ -215,12 +221,20 @@ export default {
     color: #000000;
     margin-bottom: 10px;
   }
+
+  &__places,
+  &__time {
+    font-size: 15px;
+    color: #6f6f6f;
+    // @include respond-to('tablet-portrait-only') {
+    //   // font-weight: 900;
+    //   font-size: 12px;
+    // }
+  }
   &__places {
     display: inline-block;
     position: relative;
-    font-size: 15px;
     margin-bottom: 9px;
-    color: #000000;
     &:after {
       content: '';
       width: 8px;
@@ -230,6 +244,21 @@ export default {
       top: 4px;
       background: url('~@/assets/images/icons/location.png') center / 100%
         no-repeat;
+    }
+  }
+  &__time {
+    padding-left: 16px;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 6px;
+      width: 5px;
+      height: 5px;
+      background-color: #6f6f6f;
+      border-radius: 50%;
     }
   }
   &__price {
