@@ -15,6 +15,7 @@ export const Cards = () => ({
         :category="category"
         :places="places"
         :price="price"
+        :time="time"
       />
     `,
   props: {
@@ -35,6 +36,9 @@ export const Cards = () => ({
     },
     price: {
       default: number('price', 200)
+    },
+    time: {
+      default: text('time', '2020-04-04T16:15:18.736Z')
     }
   }
 })

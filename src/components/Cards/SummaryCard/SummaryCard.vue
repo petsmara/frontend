@@ -5,7 +5,8 @@
     </div>
     <h3 class="card__title">{{ title }}</h3>
     <span class="card__category">{{ category }}</span>
-    <span class="card__places">{{ places }}</span>
+    <span class="card__places">{{ places }}</span
+    ><span class="card__time">{{ dayjs(time).fromNow() }}</span>
     <span class="card__price">{{ price }}<b>원 (100g)</b></span>
   </div>
 </template>
@@ -46,6 +47,10 @@ export default {
       deafult: ''
     },
     image: {
+      type: String,
+      default: ''
+    },
+    time: {
       type: String,
       default: ''
     }

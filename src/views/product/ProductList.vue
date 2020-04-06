@@ -44,6 +44,7 @@
             :category="convertCategory(item.category)"
             :places="item.places"
             :price="Number(parseInt(item.price)).toLocaleString()"
+            :time="item.modified_at"
           />
         </router-link>
       </div>
