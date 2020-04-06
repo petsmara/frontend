@@ -4,9 +4,10 @@ import Vuex from 'vuex'
 import { withA11y } from '@storybook/addon-a11y'
 import { withKnobs } from '@storybook/addon-knobs'
 import '../src/assets/css/style.scss';
-import dayjs from 'dayjs'
+import Dayjs from '@/plugin/dayjs'
 
 Vue.use(Vuex)
+Vue.use(Dayjs)
 
 // addDecorator(centered)
 addDecorator(withKnobs)
