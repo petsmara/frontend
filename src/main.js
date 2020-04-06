@@ -9,6 +9,7 @@ import 'swiper/dist/css/swiper.css'
 import '@/assets/css/element-ui.scss'
 import 'nprogress/nprogress.css'
 import Dayjs from '@/plugin/dayjs'
+import '@/helpers/filters'
 
 Vue.use(ElementUI)
 Vue.use(VueAwesomeSwiper /* { default global options } */)

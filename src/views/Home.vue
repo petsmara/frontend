@@ -93,14 +93,6 @@ export default {
       .catch(e => console.error(e))
   },
   components: { Box, SummaryCard },
-  filters: {
-    getFirstImage: function(value) {
-      if (!value) {
-        return
-      }
-      return value[0]
-    }
-  },
   data() {
     return {
       products: [],

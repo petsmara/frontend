@@ -86,15 +86,6 @@ export default {
     ...mapState(['productOffset', 'productList', 'hasMoreProduct']),
     ...mapGetters(['loggedIn'])
   },
-
-  filters: {
-    getFirstImage: function(value) {
-      if (!value) {
-        return
-      }
-      return value[0]
-    }
-  },
   methods: {
     ...mapActions([
       'getProducts' //also supports payload `this.nameOfAction(amount)`
