@@ -1,7 +1,11 @@
 <template>
   <div class="card">
     <div class="card__img-wrap">
-      <img class="card__img" :src="imgLink" :alt="title" />
+      <img
+        class="card__img"
+        :src="imgLink || require('@/assets/images/icons/default-image.png')"
+        :alt="title"
+      />
     </div>
     <h3 class="card__title">{{ title }}</h3>
     <span class="card__category">{{ category }}</span>
@@ -19,8 +23,7 @@ export default {
   props: {
     imgLink: {
       type: String,
-      default:
-        'https://serieamania.com/g2/data//member/ha/hahazz00_serieamania_1584280189.jpg'
+      default: ''
     },
     title: {
       type: String,
