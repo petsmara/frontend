@@ -35,6 +35,7 @@
             :places="item.places"
             :price="parseInt(item.price)"
             @onClickSoldOut="handleChangeToSoldOut(item.id)"
+            @onClickDelete="handleDelete(item.id)"
           />
         </div>
         <div v-else class="mypage__content mypage__content--sold-out">
@@ -117,7 +118,8 @@ export default {
       'getUserProfile',
       'getUserProductList',
       'initMypageOptions',
-      'changeToSoldOut'
+      'changeToSoldOut',
+      'deleteProduct'
     ]),
     selectTab(index) {
       this.currentTab = index
@@ -155,6 +157,9 @@ export default {
     }, 2000),
     handleChangeToSoldOut(id) {
       this.changeToSoldOut(id)
+    },
+    handleDelete(id) {
+      this.deleteProduct(id)
     }
   },
   mounted() {

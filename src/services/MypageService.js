@@ -13,5 +13,8 @@ export default {
     return axios.put(`product/${id}`, {
       on_sale: false
     })
+  },
+  deleteProduct(productId) {
+    return axios.delete(`/product/${productId}`)
   }
 }
