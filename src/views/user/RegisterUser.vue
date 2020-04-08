@@ -31,12 +31,6 @@
           v-model="registerUserRuleForm.email"
         ></el-input>
       </el-form-item>
-      <el-form-item label="닉네임" prop="nickname">
-        <el-input
-          placeholder="한글 2글자, 영문 4글자 이상. 20자리 이내 조합해주세요."
-          v-model="registerUserRuleForm.nickname"
-        ></el-input>
-      </el-form-item>
       <el-form-item label="비밀번호" prop="password">
         <el-input
           type="password"
@@ -57,6 +51,12 @@
         <el-input
           placeholder="- 없이 입력해주세요."
           v-model="registerUserRuleForm.phone"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="닉네임" prop="nickname">
+        <el-input
+          placeholder="한글 2글자, 영문 4글자 이상. 20자리 이내 조합해주세요."
+          v-model="registerUserRuleForm.nickname"
         ></el-input>
       </el-form-item>
 
