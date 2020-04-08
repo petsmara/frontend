@@ -13,6 +13,9 @@
       <p class="status-card__price">{{ price }}<b>원 (100g)</b></p>
     </div>
     <div class="status-card__status-wrap">
+      <button @click="handleClickDelete" class="status-card__status-btn">
+        삭제
+      </button>
       <button @click="handleClickSoldOut" class="status-card__status-btn">
         판매 완료
       </button>
@@ -67,6 +70,9 @@ export default {
   methods: {
     handleClickSoldOut() {
       this.$emit('onClickSoldOut')
+    },
+    handleClickDelete() {
+      this.$emit('onClickDelete')
     }
   }
 }
@@ -203,6 +209,9 @@ export default {
     margin-left: auto;
   }
   &__status-btn {
+    &:first-child {
+      margin-right: 8px;
+    }
     cursor: pointer;
     font-weight: 500;
     font-size: 16px;

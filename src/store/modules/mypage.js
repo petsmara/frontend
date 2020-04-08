@@ -38,6 +38,12 @@ export const mutations = {
       return id === payload
     })
     state.sellingProductList.splice(index, 1)
+  },
+  DELETE_PRODUCT(state, payload) {
+    const index = state.sellingProductList.findIndex(({ id }) => {
+      return id === payload
+    })
+    state.sellingProductList.splice(index, 1)
   }
 }
 
@@ -80,6 +86,15 @@ export const actions = {
   },
   initMypageOptions({ commit }) {
     commit('INIT_MYPAGE_OPTIONS')
+  },
+  deleteProduct({ commit }, id) {
+    return MypageService.deleteProduct(id)
+      .then(res => {
+        commit('DELETE_PRODUCT', id)
+      })
+      .catch(error => {
+        return error.response
+      })
   }
 }
 
