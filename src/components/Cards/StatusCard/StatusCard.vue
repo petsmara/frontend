@@ -147,9 +147,9 @@ export default {
   &__img {
     position: absolute;
     top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    width: 100%;
+    left: 50%;
+    max-width: 320px;
+    transform: translate(-50%, -50%);
   }
   &__content-wrap {
     text-align: left;
