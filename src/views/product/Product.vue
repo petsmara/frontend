@@ -7,7 +7,7 @@
     >
       <swiper-slide
         class="product__slide"
-        v-for="(image, index) in isCheckingNull(product.images)"
+        v-for="(image, index) in productImages"
         :key="`${image}-${index}`"
       >
         <div class="product__img-wrap">
@@ -126,11 +126,20 @@ export default {
       }
     }
   },
-  methods: {
-    ...mapActions(['getProduct', 'getProducts']),
-    isCheckingNull(items) {
-      return items.filter(item => !!item)
+  computed: {
+    productImages() {
+      const newProductImages = this.product.images.filter(item => !!item)
+      if (newProductImages.length === 0) {
+        newProductImages[0] = require('@/assets/images/icons/default-image.png')
+      }
+      return newProductImages
     }
+  },
+  methods: {
+    ...mapActions(['getProduct', 'getProducts'])
+    // isCheckingNull(items) {
+    //   this.productImages = items.filter(item => !!item)
+    // }
   }
 }
 </script>
