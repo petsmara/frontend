@@ -55,7 +55,7 @@
       </el-form-item>
       <el-form-item label="닉네임" prop="nickname">
         <el-input
-          placeholder="한글 2글자, 영문 4글자 이상. 20자리 이내 조합해주세요."
+          placeholder="한글 2자, 영문 4자 이상, 숫자 사용 가능(20자이내)"
           v-model="registerUserRuleForm.nickname"
         ></el-input>
       </el-form-item>
