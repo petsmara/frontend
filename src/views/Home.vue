@@ -101,13 +101,13 @@ export default {
       bannerList: [
         {
           firstText: '반려동물의',
-          secondText: '사료를 공유해보세요.',
+          secondText: '사료를 판매해보세요.',
           content: '모든상품보기',
           imgUrl: 'main_banner01'
         },
         {
           firstText: '반려동물의',
-          secondText: '사료를 공유해보세요.',
+          secondText: '사료를 판매해보세요.',
           content: '모든상품보기',
           imgUrl: 'main_banner02'
         }
