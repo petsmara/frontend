@@ -3,10 +3,28 @@
     <h1 class="app-nav__logo">
       <router-link to="/">
         <img src="@/assets/images/icons/logo.png" alt="petsmara" />
-        <span>PETS MARA</span>
+        <span>PETS BAB</span>
       </router-link>
     </h1>
     <div class="app-nav__right app-nav__right--pc">
+      <div>
+        <template v-if="!loggedIn">
+          <router-link class="app-nav__link-list" to="/user/login"
+            >로그인</router-link
+          >
+          <router-link class="app-nav__link-list" to="/user/register"
+            >회원가입</router-link
+          >
+        </template>
+        <template v-else>
+          <router-link class="app-nav__link-list" to="/" @click.native="logOut"
+            >로그아웃</router-link
+          >
+        </template>
+        <router-link class="app-nav__link-list" to="/user/mypage"
+          >마이페이지</router-link
+        >
+      </div>
       <el-dropdown>
         <div class="app-nav__menu app-nav__menu--my">
           <img src="@/assets/images/icons/register.png" alt="my menu" />
@@ -48,7 +66,7 @@
           </el-dropdown-item>
           <el-dropdown-item>
             <router-link class="dropdown-link" to="/product/register"
-              >글쓰기</router-link
+              >판매하기</router-link
             >
           </el-dropdown-item>
         </el-dropdown-menu>
@@ -226,6 +244,10 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  &__link-list {
+    font-size: 14px;
+    color: #000000;
+  }
   &__logo {
     @include respond-to('tablet-portrait-only') {
       width: 100%;

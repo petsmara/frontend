@@ -152,6 +152,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   &__bg {
     @include respond-to('tablet-portrait-only') {
       display: none;

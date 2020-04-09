@@ -11,6 +11,9 @@
       <p v-if="category" class="status-card__category">{{ category }}</p>
       <p v-if="places" class="status-card__places">{{ places }}</p>
       <p class="status-card__price">{{ price }}<b>원 (100g)</b></p>
+      <button class="status-card__status-btn" @click="handleClickCard">
+        제품 상세페이지 가기
+      </button>
     </div>
     <div class="status-card__status-wrap">
       <button @click="handleClickDelete" class="status-card__status-btn">
@@ -73,6 +76,9 @@ export default {
     },
     handleClickDelete() {
       this.$emit('onClickDelete')
+    },
+    handleClickCard() {
+      this.$emit('onClickCard')
     }
   }
 }
@@ -80,6 +86,7 @@ export default {
 
 <style lang="scss" scoped>
 .status-card {
+  cursor: pointer;
   border: 1px solid #c4c4c4;
   box-sizing: border-box;
   border-radius: 8px;
@@ -102,14 +109,14 @@ export default {
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(196, 196, 196, 0.8);
+        background: rgba(143, 181, 255, 0.8);
         z-index: 1;
       }
     }
     .status-card__sold-out {
       width: 82px;
       height: 82px;
-      border: 3px solid #000000;
+      border: 3px solid #ffffff;
       border-radius: 50%;
       display: block;
       position: absolute;
@@ -121,7 +128,7 @@ export default {
       transform: translate(-50%, -50%);
       font-weight: 900;
       font-size: 12px;
-      color: #000000;
+      color: #ffffff;
     }
     .status-card__status-btn {
       display: none;
@@ -135,6 +142,7 @@ export default {
       width: 120px;
       height: 120px;
     }
+    border: 1px solid #c4c4c4;
     margin-right: 40px;
     position: relative;
     overflow: hidden;
@@ -192,6 +200,7 @@ export default {
   }
   &__price {
     margin-top: 2px;
+    margin-bottom: 8px;
     display: block;
     font-size: 20px;
     font-weight: 900;
@@ -206,6 +215,9 @@ export default {
       text-align: right;
       flex-basis: 100%;
     }
+    @include respond-to('mobile-portrait-only') {
+      margin-top: 12px;
+    }
     margin-left: auto;
   }
   &__status-btn {
@@ -215,9 +227,9 @@ export default {
     cursor: pointer;
     font-weight: 500;
     font-size: 16px;
-    color: #000000;
-    background-color: #ffffff;
-    border: 1px solid #c4c4c4;
+    color: #ffffff;
+    background-color: #8fb5ff;
+    // border: 1px solid #c4c4c4;
     box-sizing: border-box;
     border-radius: 8px;
     padding: 8px;
