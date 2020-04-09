@@ -161,6 +161,7 @@ export default {
     @include respond-to('tablet-portrait-only') {
       max-width: 80%;
     }
+    border: 1px solid #c4c4c4;
     overflow: hidden;
     margin: 0 auto;
     width: 100%;
@@ -172,10 +173,16 @@ export default {
   &__img {
     position: absolute;
     top: 50%;
-    left: 0;
+    left: 50%;
     -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
-    width: 100%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    // position: absolute;
+    // top: 50%;
+    // left: 0;
+    // -webkit-transform: translateY(-50%);
+    // transform: translateY(-50%);
+    // width: 100%;
     // max-width: 500px;
     // width: 100%;
   }

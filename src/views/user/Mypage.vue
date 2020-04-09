@@ -53,6 +53,7 @@
             :price="parseInt(item.price)"
             @onClickSoldOut="handleChangeToSoldOut(item.id)"
             @onClickDelete="handleDelete(item.id)"
+            @onClickCard="handleMoveToDetailPage(item.id)"
           />
         </div>
         <div v-else class="mypage__content mypage__content--sold-out">
@@ -177,6 +178,9 @@ export default {
     },
     handleDelete(id) {
       this.deleteProduct(id)
+    },
+    handleMoveToDetailPage(id) {
+      this.$router.push(`/product/${id}`)
     }
   },
   mounted() {
@@ -237,10 +241,6 @@ export default {
     background-color: #ffffff;
     &--is-active {
       border-bottom: 4px solid #8fb5ff;
-    }
-    &--sell {
-    }
-    &--sold-out {
     }
   }
 

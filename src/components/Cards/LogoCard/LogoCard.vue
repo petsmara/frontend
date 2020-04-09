@@ -18,6 +18,9 @@ export default {}
 
 <style lang="scss" scoped>
 .logo-card {
+  @include respond-to('tablet-portrait-only') {
+    display: none;
+  }
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -70,7 +70,8 @@ export default {
     max-width: 340px;
     position: relative;
     padding-bottom: 100%;
-    border-radius: 4px;
+    // border-radius: 4px;
+    border: 1px solid #c4c4c4;
   }
 
   &__img {

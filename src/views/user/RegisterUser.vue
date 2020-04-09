@@ -1,5 +1,6 @@
 <template>
   <div class="register-user">
+    <LogoCard />
     <h2 class="register-user__title">
       회원가입
     </h2>
@@ -84,8 +85,12 @@
 import axios from 'axios'
 import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions } = createNamespacedHelpers('user')
+import { LogoCard } from '@/components/Cards'
 
 export default {
+  components: {
+    LogoCard
+  },
   data() {
     const validateNickname = (rule, value, callback) => {
       const checkNickname = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]/
@@ -293,6 +298,11 @@ export default {
 <style lang="scss" scoped>
 .register-user {
   padding: 20px;
+  max-width: 360px;
+  margin: 0 auto;
+  &__title {
+    text-align: left;
+  }
   &__form {
     margin: 0 auto;
     max-width: 360px;

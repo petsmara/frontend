@@ -28,7 +28,7 @@
           </template>
         </Box>
         <button class="content__write" @click="goToRegister">
-          글쓰기
+          판매하기
         </button>
       </div>
       <div class="products">
@@ -197,7 +197,7 @@ export default {
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-    background: #e9e9e9;
+    background: #8fb5ff;
     border-radius: 8px;
     border: none;
     margin: 0 10px 0 auto;

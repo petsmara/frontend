@@ -1,5 +1,6 @@
 <template>
   <div class="register-product">
+    <LogoCard />
     <h2 class="register-product__title">
       상품등록
     </h2>
@@ -113,8 +114,12 @@
 import axios from 'axios'
 import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions } = createNamespacedHelpers('product')
+import { LogoCard } from '@/components/Cards'
 
 export default {
+  components: {
+    LogoCard
+  },
   data() {
     const validateNickname = (rule, value, callback) => {
       const checkNickname = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]/
@@ -315,6 +320,12 @@ export default {
 <style lang="scss" scoped>
 .register-product {
   padding: 20px;
+  max-width: 420px;
+  margin: 0 auto;
+  &__title {
+    text-align: left;
+    margin: 12px 0;
+  }
   &__form {
     margin: 0 auto;
     max-width: 420px;
