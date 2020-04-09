@@ -1,7 +1,24 @@
 <template>
   <div class="mypage">
     <header class="mypage__header">
-      <img src="@/assets/images/icons/cat.png" alt="" class="mypage__my-icon" />
+      <img
+        v-if="profile.has_dog"
+        src="@/assets/images/icons/mypage-dog.png"
+        alt="강아지 아이콘"
+        class="mypage__my-icon"
+      />
+      <img
+        v-if="profile.has_cat"
+        src="@/assets/images/icons/mypage-cat.png"
+        alt="고양이 아이콘"
+        class="mypage__my-icon"
+      />
+      <img
+        v-else-if="!profile.has_dog && !profile.has_cat"
+        src="@/assets/images/icons/logo.png"
+        alt=""
+        class="mypage__my-icon"
+      />
       <div class="mypage__my-info">
         <span class="mypage__email">{{ $store.state.user.user.email }}</span>
         <span class="mypage__nickname">{{ profile.nickname }}</span>
@@ -181,6 +198,11 @@ export default {
     margin-bottom: 40px;
   }
   &__my-icon {
+    width: 100%;
+    max-width: 140px;
+    &:not(:first-child) {
+      margin-left: 10px;
+    }
   }
   &__my-info {
     margin-top: 12px;
