@@ -1,44 +1,52 @@
 <template>
   <div class="login">
-    <LogoCard />
-    <h2 class="login__title">
-      로그인
-    </h2>
-    <el-form
-      :model="logInRuleForm"
-      :rules="logInRules"
-      ref="logInRuleForm"
-      class="login__form"
-      status-icon
-    >
-      <el-form-item label="이메일" prop="email">
-        <el-input
-          placeholder="ID"
-          type="email"
-          v-model="logInRuleForm.email"
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="비밀번호" prop="password">
-        <el-input
-          placeholder="PASSWORD"
-          type="password"
-          v-model="logInRuleForm.password"
-          autocomplete="off"
-        ></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button
-          class="login__btn"
-          :loading="isLoading"
-          type="primary"
-          @click="submitForm('logInRuleForm')"
-          >로그인</el-button
-        >
-      </el-form-item>
-    </el-form>
-    <router-link to="/user/register"
-      >회원이 아니신가요? 회원가입 하러 가기</router-link
-    >
+    <div class="login__bg">
+      <img
+        src="@/assets/images/backgrounds/login_bg.png"
+        alt="로그인 배경이미지"
+      />
+    </div>
+    <div class="login__content">
+      <LogoCard />
+      <h2 class="login__title">
+        로그인
+      </h2>
+      <el-form
+        :model="logInRuleForm"
+        :rules="logInRules"
+        ref="logInRuleForm"
+        class="login__form"
+        status-icon
+      >
+        <el-form-item label="이메일" prop="email">
+          <el-input
+            placeholder="ID"
+            type="email"
+            v-model="logInRuleForm.email"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="비밀번호" prop="password">
+          <el-input
+            placeholder="PASSWORD"
+            type="password"
+            v-model="logInRuleForm.password"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button
+            class="login__btn"
+            :loading="isLoading"
+            type="primary"
+            @click="submitForm('logInRuleForm')"
+            >로그인</el-button
+          >
+        </el-form-item>
+      </el-form>
+      <router-link to="/user/register"
+        >회원이 아니신가요? 회원가입 하러 가기</router-link
+      >
+    </div>
   </div>
 </template>
 
@@ -141,9 +149,30 @@ export default {
 
 <style lang="scss" scoped>
 .login {
-  padding: 20px;
-  margin: 0 auto;
-  max-width: 360px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  &__bg {
+    @include respond-to('tablet-portrait-only') {
+      display: none;
+    }
+    max-width: 650px;
+    img {
+      width: 100%;
+    }
+  }
+  &__content {
+    padding: 20px;
+    min-width: 576px;
+    flex: 1;
+    @include respond-to('tablet-portrait-only') {
+      min-width: auto;
+      max-width: 480px;
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
+
   &__title {
     text-align: left;
   }
