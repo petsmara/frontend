@@ -392,7 +392,7 @@ export default {
       width: 100%;
       font-size: 20px;
       color: #000000;
-      background-color: #8fb5ff;
+      // background-color: #8fb5ff;
     }
   }
 

@@ -36,9 +36,9 @@
         }}<span>원 (100g)</span>
       </p>
       <p class="product__content">{{ product.content }}</p>
-      <!-- <button class="product__deal">
-        거래하기
-      </button> -->
+      <router-link class="product__list--btn" to="/product/list"
+        >상품목록보기</router-link
+      >
     </div>
 
     <section class="product__list">
@@ -281,18 +281,22 @@ export default {
     line-height: 18px;
     margin-bottom: 44px;
   }
-  // &__deal {
-  //   font-size: 20px;
-  //   color: #000000;
-  //   background: #fd9f9f;
-  //   border-radius: 8px;
-  //   padding: 16px 70px;
-  // }
+  &__list--btn {
+    &:hover {
+      background: #ffffff;
+      border: 1px solid #8fb5ff;
+    }
+    border: 1px solid transparent;
+    transition: 0.4s all;
+    font-size: 16px;
+    color: #ffffff;
+    background: #8fb5ff;
+    border-radius: 8px;
+    padding: 8px 16px;
+  }
   &__list {
     border-top: 1px solid #c4c4c4;
     margin-top: 72px;
-    &__content {
-    }
     &__box {
       margin: 72px auto;
       text-align: center;

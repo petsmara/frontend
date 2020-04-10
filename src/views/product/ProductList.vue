@@ -27,9 +27,9 @@
             새로운 사료를 만나보세요
           </template>
         </Box>
-        <button class="content__write" @click="goToRegister">
+        <el-button class="content__write" @click="goToRegister">
           판매하기
-        </button>
+        </el-button>
       </div>
       <div class="products">
         <router-link
@@ -197,7 +197,6 @@ export default {
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-    background: #8fb5ff;
     border-radius: 8px;
     border: none;
     margin: 0 10px 0 auto;
