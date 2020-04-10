@@ -16,8 +16,7 @@ Vue.use(VueAwesomeSwiper /* { default global options } */)
 Vue.use(Dayjs)
 
 Vue.config.productionTip = false
-
-axios.defaults.baseURL = 'http://52.78.166.10:8000'
+axios.defaults.baseURL = VUE_APP_PRODUCTION_URI
 
 new Vue({
   router,
@@ -33,7 +32,7 @@ new Vue({
       response => response,
       error => {
         if (error.response.status === 401) {
-          // this.$store.dispatch('logout')
+          this.$store.dispatch('user/logOut')
         }
         return Promise.reject(error)
       }
