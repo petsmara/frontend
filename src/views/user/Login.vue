@@ -175,7 +175,7 @@ export default {
   }
 
   &__title {
-    text-align: left;
+    text-align: center;
   }
   &__form {
     .el-form-item {

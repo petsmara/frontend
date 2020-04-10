@@ -62,6 +62,7 @@ export default {
     padding: 0 12px;
   }
   &__title {
+    text-align: center;
     @include respond-to('tablet-portrait-only') {
       font-size: 38px;
     }

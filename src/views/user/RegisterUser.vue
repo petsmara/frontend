@@ -301,7 +301,7 @@ export default {
   max-width: 360px;
   margin: 0 auto;
   &__title {
-    text-align: left;
+    text-align: center;
   }
   &__form {
     margin: 0 auto;

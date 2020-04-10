@@ -323,7 +323,7 @@ export default {
   max-width: 420px;
   margin: 0 auto;
   &__title {
-    text-align: left;
+    text-align: center;
     margin: 12px 0;
   }
   &__form {
