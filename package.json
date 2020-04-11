@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "deploy": "yarn build && aws s3 sync ./dist s3://petsmara-front --delete --profile petsmara",
+    "deploy": "yarn build && aws s3 sync ./dist s3://petsbab.com --delete --profile petsmara",
     "lint": "vue-cli-service lint",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"

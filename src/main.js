@@ -16,7 +16,7 @@ Vue.use(VueAwesomeSwiper /* { default global options } */)
 Vue.use(Dayjs)
 
 Vue.config.productionTip = false
-axios.defaults.baseURL = VUE_APP_PRODUCTION_URI
+axios.defaults.baseURL = process.env.VUE_APP_PRODUCTION_URI
 
 new Vue({
   router,
