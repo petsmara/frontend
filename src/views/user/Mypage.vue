@@ -2,19 +2,25 @@
   <div class="mypage">
     <header class="mypage__header">
       <img
-        v-if="profile.has_dog"
+        v-if="profile.has_dog && profile.has_cat"
+        src="@/assets/images/icons/mypage-all.png"
+        alt="강아지, 고양이 아이콘"
+        class="mypage__my-icon"
+      />
+      <img
+        v-else-if="profile.has_dog && !profile.has_cat"
         src="@/assets/images/icons/mypage-dog.png"
         alt="강아지 아이콘"
         class="mypage__my-icon"
       />
       <img
-        v-if="profile.has_cat"
+        v-else-if="!profile.has_dog && profile.has_cat"
         src="@/assets/images/icons/mypage-cat.png"
         alt="고양이 아이콘"
         class="mypage__my-icon"
       />
       <img
-        v-else-if="!profile.has_dog && !profile.has_cat"
+        v-else
         src="@/assets/images/icons/logo.png"
         alt=""
         class="mypage__my-icon"
@@ -43,6 +49,13 @@
           v-if="currentTab === 0"
           class="mypage__content mypage__content--sell"
         >
+          <template v-if="sellingProductList.length === 0">
+            <div class="empty">
+              <p class="empty__paragraph">
+                판매중인 상품이 없습니다.
+              </p>
+            </div>
+          </template>
           <StatusCard
             v-for="(item, index) in sellingProductList"
             :key="`${item.title}-${index}`"
@@ -57,6 +70,13 @@
           />
         </div>
         <div v-else class="mypage__content mypage__content--sold-out">
+          <template v-if="soldOutProductList.length === 0">
+            <div class="empty">
+              <p class="empty__paragraph">
+                판매완료된 상품이 없습니다.
+              </p>
+            </div>
+          </template>
           <StatusCard
             v-for="(item, index) in soldOutProductList"
             :key="`${item.title}-${index}`"
@@ -254,6 +274,13 @@ export default {
   }
   .loading {
     padding: 50px 0;
+  }
+}
+
+.empty {
+  padding: 30px 0;
+  color: #8fb5ff;
+  &__paragraph {
   }
 }
 </style>

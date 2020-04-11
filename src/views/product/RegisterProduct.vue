@@ -77,7 +77,7 @@
       </el-form-item>
 
       <el-form-item
-        label="가격(100g 당)"
+        label="가격(100g 당) / 원"
         prop="price"
         class="register-product__price"
       >
