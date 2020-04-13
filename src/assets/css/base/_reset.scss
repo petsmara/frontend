@@ -38,6 +38,12 @@ button {
 	outline: none;
 	border: none;
 	font-family: $fontFamily;
+	background-color: #8fb5ff;
+	color: #fff;
+	&:hover {
+		background-color: #8fb5ff;
+		color: #fff;
+	}
 }
 
 img {

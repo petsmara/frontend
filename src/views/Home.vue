@@ -49,9 +49,9 @@
             새로운 사료를 만나보세요
           </template>
         </Box>
-        <button class="content__write" @click="goToRegister">
+        <el-button class="content__write" @click="goToRegister">
           판매하기
-        </button>
+        </el-button>
       </div>
       <div class="products">
         <router-link
@@ -266,6 +266,10 @@ export default {
     text-align: center;
   }
   &__write {
+    &:hover {
+      background-color: #8fb5ff;
+      color: #fff;
+    }
     @include respond-to('tablet-portrait-only') {
       z-index: 5;
       position: fixed;
@@ -276,13 +280,12 @@ export default {
     }
     cursor: pointer;
     font-size: 16px;
-    color: #000000;
+    color: #ffffff;
     padding: 10px 40px 10px 66px;
     position: absolute;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-    background: #8fb5ff;
     border-radius: 8px;
     border: none;
     margin: 0 10px 0 auto;

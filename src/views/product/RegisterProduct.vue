@@ -77,7 +77,7 @@
       </el-form-item>
 
       <el-form-item
-        label="가격(100g 당)"
+        label="가격(100g - 종이컵 1컵 당) / 원"
         prop="price"
         class="register-product__price"
       >
@@ -323,7 +323,7 @@ export default {
   max-width: 420px;
   margin: 0 auto;
   &__title {
-    text-align: left;
+    text-align: center;
     margin: 12px 0;
   }
   &__form {
@@ -344,6 +344,9 @@ export default {
     border-radius: 8px;
     background: url('~@/assets/images/icons/camera.png') center / 30px no-repeat;
     position: relative;
+    &:hover {
+      background-color: transparent;
+    }
     span {
       position: absolute;
       left: 50%;
@@ -391,8 +394,10 @@ export default {
       display: block;
       width: 100%;
       font-size: 20px;
-      color: #000000;
-      background-color: #8fb5ff;
+      color: #ffffff;
+      // background-color: #8fb5ff;
+      &:hover {
+      }
     }
   }
 

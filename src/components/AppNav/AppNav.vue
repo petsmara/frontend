@@ -24,53 +24,13 @@
         <router-link class="app-nav__link-list" to="/user/mypage"
           >마이페이지</router-link
         >
+        <router-link class="app-nav__link-list" to="/product/register"
+          >판매하기</router-link
+        >
+        <router-link class="app-nav__link-list" to="/product/list"
+          >상품게시판</router-link
+        >
       </div>
-      <el-dropdown>
-        <div class="app-nav__menu app-nav__menu--my">
-          <img src="@/assets/images/icons/register.png" alt="my menu" />
-        </div>
-        <el-dropdown-menu>
-          <template v-if="!loggedIn">
-            <el-dropdown-item>
-              <router-link class="dropdown-link" to="/user/login"
-                >로그인</router-link
-              >
-            </el-dropdown-item>
-            <el-dropdown-item>
-              <router-link class="dropdown-link" to="/user/register"
-                >회원가입</router-link
-              >
-            </el-dropdown-item>
-          </template>
-          <template v-else>
-            <el-dropdown-item>
-              <span class="dropdown-link" @click="logOut">로그아웃</span>
-            </el-dropdown-item>
-          </template>
-          <el-dropdown-item>
-            <router-link class="dropdown-link" to="/user/mypage"
-              >마이페이지</router-link
-            >
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-      <el-dropdown>
-        <div class="app-nav__menu app-nav__menu--product">
-          <img src="@/assets/images/icons/menu.png" alt="menu" />
-        </div>
-        <el-dropdown-menu>
-          <el-dropdown-item>
-            <router-link class="dropdown-link" to="/product/list"
-              >상품게시판</router-link
-            >
-          </el-dropdown-item>
-          <el-dropdown-item>
-            <router-link class="dropdown-link" to="/product/register"
-              >판매하기</router-link
-            >
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
     </div>
     <div class="app-nav__right app-nav__right--mobile">
       <template v-if="!loggedIn">
@@ -426,7 +386,7 @@ export default {
       &::before {
         width: 20px;
         height: 14px;
-        background-image: url(~@/assets/images/icons/write.png);
+        background-image: url(~@/assets/images/icons/write--black.png);
       }
     }
   }
