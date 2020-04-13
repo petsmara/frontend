@@ -386,7 +386,7 @@ export default {
       &::before {
         width: 20px;
         height: 14px;
-        background-image: url(~@/assets/images/icons/write.png);
+        background-image: url(~@/assets/images/icons/write--black.png);
       }
     }
   }

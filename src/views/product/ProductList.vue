@@ -179,7 +179,9 @@ export default {
     text-align: center;
   }
   &__write {
-    @include respond-to('mobile-portrait-only') {
+    &:hover {
+      background-color: #8fb5ff;
+      color: #fff;
     }
     @include respond-to('tablet-portrait-only') {
       z-index: 5;
@@ -191,7 +193,7 @@ export default {
     }
     cursor: pointer;
     font-size: 16px;
-    color: #000000;
+    color: #ffffff;
     padding: 10px 40px 10px 66px;
     position: absolute;
     right: 0;

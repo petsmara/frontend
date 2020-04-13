@@ -283,13 +283,14 @@ export default {
   }
   &__list--btn {
     &:hover {
-      background: #ffffff;
-      border: 1px solid #8fb5ff;
+      // background: #ffffff;
+      // border: 1px solid #8fb5ff;
     }
     border: 1px solid transparent;
     transition: 0.4s all;
     font-size: 16px;
     color: #ffffff;
+    font-weight: normal;
     background: #8fb5ff;
     border-radius: 8px;
     padding: 8px 16px;

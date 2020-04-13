@@ -344,6 +344,9 @@ export default {
     border-radius: 8px;
     background: url('~@/assets/images/icons/camera.png') center / 30px no-repeat;
     position: relative;
+    &:hover {
+      background-color: transparent;
+    }
     span {
       position: absolute;
       left: 50%;
@@ -393,6 +396,8 @@ export default {
       font-size: 20px;
       color: #000000;
       // background-color: #8fb5ff;
+      &:hover {
+      }
     }
   }
 
