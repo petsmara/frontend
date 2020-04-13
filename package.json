@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "cp ./.env.dev ./.env && vue-cli-service serve",
-    "build": "cp ./.env.dev ./.env && vue-cli-service build",
+    "build": "cp ./.env.prod ./.env && vue-cli-service build",
     "deploy": "cp ./.env.prod ./.env && yarn build && aws s3 sync ./dist s3://petsbab.com --delete --profile petsmara",
     "lint": "vue-cli-service lint",
     "storybook": "start-storybook -p 6006",
