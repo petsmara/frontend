@@ -124,12 +124,21 @@ export default {
               })
             } else {
               this.isLoading = false
+              const h = this.$createElement
               this.$message({
-                message: `로그인이 실패했습니다..! 다시 시도해주세요. ${result.data.message}`,
+                message: h(
+                  'p',
+                  { style: { color: '#f56c6c', fontSize: '12px' } },
+                  [
+                    h('p', null, '로그인이 실패했습니다.'),
+                    h('p', null, `${result.data.message}`)
+                  ]
+                ),
                 duration: 3000,
                 showClose: true,
                 type: 'error'
               })
+              return false
             }
           })
         } else {
