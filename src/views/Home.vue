@@ -229,6 +229,12 @@ export default {
     .banner-1 & {
       background: #5685ff;
     }
+    .banner-0 & {
+      &:hover {
+        background: #ff5656;
+      }
+    }
+
     cursor: pointer;
     font-style: normal;
     font-weight: 900;
