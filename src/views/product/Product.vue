@@ -187,6 +187,7 @@ export default {
     // width: 100%;
   }
   &__detail {
+    padding: 0 40px;
     margin: 0 auto;
     max-width: 500px;
     width: 100%;
@@ -280,12 +281,9 @@ export default {
     color: #000000;
     line-height: 18px;
     margin-bottom: 44px;
+    white-space: pre;
   }
   &__list--btn {
-    &:hover {
-      // background: #ffffff;
-      // border: 1px solid #8fb5ff;
-    }
     border: 1px solid transparent;
     transition: 0.4s all;
     font-size: 16px;

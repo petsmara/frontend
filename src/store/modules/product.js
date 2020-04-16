@@ -7,6 +7,7 @@ export const state = {
   id: null,
   hasMoreProduct: true,
   productList: [],
+  mainProducts: [],
   productOffset: 0
 }
 
@@ -27,6 +28,9 @@ export const mutations = {
     state.productList = state.productList.concat(payload.data.result)
     state.hasMoreProduct = payload.data.result.length === 10
     state.productOffset = state.productOffset + 10
+  },
+  SET_MAIN_LIST(state, payload) {
+    state.mainProducts = payload.data.result
   }
 }
 
@@ -70,6 +74,16 @@ export const actions = {
     return ProductService.getProducts(payload)
       .then(res => {
         commit('CONCAT_PRODUCT_LIST', res)
+        return res
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  getMainProducts({ commit }, payload) {
+    return ProductService.getProducts(payload)
+      .then(res => {
+        commit('SET_MAIN_LIST', res)
         return res
       })
       .catch(error => {
