@@ -250,6 +250,10 @@ export default {
     justify-content: space-around;
   }
   &__tab {
+    &:hover {
+      color: #000000;
+      background-color: #ffffff;
+    }
     margin-bottom: 10px;
     padding-bottom: 8px;
     cursor: pointer;
