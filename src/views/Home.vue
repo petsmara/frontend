@@ -88,7 +88,7 @@ const { mapGetters } = createNamespacedHelpers('user')
 export default {
   mixins: [CategoryMixin],
   created() {
-    this.getMainProducts({ offset: 0, limit: 9 })
+    this.getProducts({ offset: 0, limit: 9, type: 'main' })
       .then(response => {
         this.products = response.data.result
       })
@@ -127,7 +127,7 @@ export default {
     ...mapGetters(['loggedIn'])
   },
   methods: {
-    ...mapActions(['getMainProducts']),
+    ...mapActions(['getProducts']),
     moveToProductList() {
       this.$router.push('/product/list')
     },

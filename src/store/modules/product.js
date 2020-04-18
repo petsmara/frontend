@@ -76,20 +76,14 @@ export const actions = {
     }
   },
 
-  getProducts({ commit }, payload) {
-    return ProductService.getProducts(payload)
+  getProducts({ commit }, { offset, limit, type }) {
+    return ProductService.getProducts({ offset, limit })
       .then(res => {
-        commit('CONCAT_PRODUCT_LIST', res)
-        return res
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  },
-  getMainProducts({ commit }, payload) {
-    return ProductService.getProducts(payload)
-      .then(res => {
-        commit('SET_MAIN_LIST', res)
+        if (type === 'main') {
+          commit('SET_MAIN_LIST', res)
+        } else {
+          commit('CONCAT_PRODUCT_LIST', res)
+        }
         return res
       })
       .catch(error => {
