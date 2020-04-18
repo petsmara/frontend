@@ -70,10 +70,14 @@ const { mapGetters } = createNamespacedHelpers('user')
 
 export default {
   mixins: [CategoryMixin],
-  created() {
-    this.getProducts({ offset: this.productOffset, limit: 10 })
+  async mounted() {
+    await this.initProudctList('init')
+    this.getProducts({ offset: 0, limit: 10, type: 'list' })
       .then(response => {
         NProgress.done()
+        this.$nextTick(() => {
+          window.addEventListener('scroll', this.onScroll)
+        })
       })
       .catch(e => console.error(e))
   },
@@ -89,9 +93,7 @@ export default {
     ...mapGetters(['loggedIn'])
   },
   methods: {
-    ...mapActions([
-      'getProducts' //also supports payload `this.nameOfAction(amount)`
-    ]),
+    ...mapActions(['getProducts', 'initProudctList']),
     goToRegister() {
       if (this.loggedIn) {
         this.$router.push('/product/register')
@@ -126,9 +128,6 @@ export default {
       })
     }, 2000)
   },
-  mounted() {
-    window.addEventListener('scroll', this.onScroll)
-  },
   destroyed() {
     window.removeEventListener('scroll', this.onScroll)
   }
@@ -139,9 +138,6 @@ export default {
   padding: 0 0 60px;
   &__banner {
     position: relative;
-    // background: rgba(0, 0, 0, 0.4);
-    // height: 500px;
-    // overflow: hidden;
     &::before {
       content: '';
       width: 100%;
@@ -175,7 +171,7 @@ export default {
     position: relative;
   }
   &__box {
-    margin: 72px auto;
+    margin: 36px auto;
     text-align: center;
   }
   &__write {

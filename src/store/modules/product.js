@@ -8,6 +8,7 @@ export const state = {
   hasMoreProduct: true,
   productList: [],
   mainProducts: [],
+  newProductsList: [],
   productOffset: 0
 }
 
@@ -31,6 +32,14 @@ export const mutations = {
   },
   SET_MAIN_LIST(state, payload) {
     state.mainProducts = payload.data.result
+  },
+  SET_NEW_LIST(state, payload) {
+    state.newProductsList = payload.data.result
+  },
+  INIT_PRODUCT_LIST(state) {
+    state.productList = []
+    state.hasMoreProduct = true
+    state.productOffset = 0
   }
 }
 
@@ -58,42 +67,57 @@ export const actions = {
         return error.response
       })
   },
-  getProduct({ commit }, id) {
-    return ProductService.getProduct(id)
+  getProduct({ commit, getters }, id) {
+    const product = getters.getProductById(id)
+
+    if (product) {
+      commit('SET_PRODUCT', product)
+    } else {
+      return ProductService.getProduct(id)
+        .then(res => {
+          commit('SET_PRODUCT', res.data.result)
+          return res.data.result
+        })
+        .catch(error => {
+          console.log(error.response)
+          return error.response
+        })
+    }
+  },
+
+  getProducts({ commit }, { offset, limit, type, product_id }) {
+    return ProductService.getProducts({ offset, limit, id: product_id })
       .then(res => {
-        commit('SET_PRODUCT', res.data.result)
-        return res.data.result
+        if (type === 'main') {
+          commit('SET_MAIN_LIST', res)
+        } else if (type === 'new') {
+          commit('SET_NEW_LIST', res)
+        } else {
+          commit('CONCAT_PRODUCT_LIST', res)
+        }
+        return res
       })
       .catch(error => {
-        console.log(error.response)
-        return error.response
+        console.log(error)
       })
   },
 
-  getProducts({ commit }, payload) {
-    return ProductService.getProducts(payload)
-      .then(res => {
-        commit('CONCAT_PRODUCT_LIST', res)
-        return res
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  },
-  getMainProducts({ commit }, payload) {
-    return ProductService.getProducts(payload)
-      .then(res => {
-        commit('SET_MAIN_LIST', res)
-        return res
-      })
-      .catch(error => {
-        console.log(error)
-      })
+  initProudctList({ commit }, payload) {
+    // return new Promise(function(resolve, reject) {
+    //   $.get('url 주소/products/1', function(response) {
+    //     // 데이터를 받으면 resolve() 호출
+    //     resolve(response);
+    //   });
+    // });
+    return new Promise((resolve, reject) => {
+      commit('INIT_PRODUCT_LIST')
+      resolve()
+    })
   }
 }
 
 export const getters = {
-  // loggedIn(state) {
-  //   return !!state.user
-  // }
+  getProductById: state => id => {
+    return state.productList.find(product => product.id === id)
+  }
 }

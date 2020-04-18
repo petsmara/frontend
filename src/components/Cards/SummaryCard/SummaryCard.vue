@@ -11,7 +11,7 @@
     <span class="card__category">{{ category }}</span>
     <span class="card__places">{{ places }}</span
     ><span class="card__time">{{ dayjs(time).fromNow() }}</span>
-    <span class="card__price">{{ price }}<b>원 (100g)</b></span>
+    <span class="card__price">{{ price }}<b>원 (65-70g - 종이컵 1컵)</b></span>
   </div>
 </template>
 

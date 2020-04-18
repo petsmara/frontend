@@ -33,7 +33,7 @@
 
       <p class="product__price">
         {{ Number(parseInt(product.price)).toLocaleString()
-        }}<span>원 (100g)</span>
+        }}<span>원 (65-70g - 종이컵 1컵)</span>
       </p>
       <p class="product__content">{{ product.content }}</p>
       <router-link class="product__list--btn" to="/product/list"
@@ -52,7 +52,7 @@
       </Box>
       <div class="products">
         <router-link
-          v-for="item in products"
+          v-for="item in newProductsList"
           :key="item.title"
           :to="`/product/${item.id}`"
         >
@@ -78,10 +78,15 @@ import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions } = createNamespacedHelpers('product')
 import store from '@/store/store'
 
-const getCurrentProduct = (routeTo, next) => {
+const getCurrentProduct = async (routeTo, next) => {
   const currentId = parseInt(routeTo.params.id) || 1
-  store.dispatch('product/getProduct', currentId).then(product => {
-    routeTo.params.product = product
+  await store.dispatch('product/getProducts', {
+    offset: 0,
+    limit: 3,
+    type: 'new',
+    product_id: currentId
+  })
+  store.dispatch('product/getProduct', currentId).then(() => {
     next()
   })
 }
@@ -89,32 +94,22 @@ const getCurrentProduct = (routeTo, next) => {
 export default {
   mixins: [CategoryMixin],
   components: { Box, SummaryCard },
-  props: {
-    product: {
-      type: Object,
-      required: true
-    }
-  },
   beforeRouteEnter(routeTo, routeFrom, next) {
     getCurrentProduct(routeTo, next)
   },
   beforeRouteUpdate(routeTo, routeFrom, next) {
     getCurrentProduct(routeTo, next)
   },
-  async created() {
-    // const getProducts = await this.getProducts({
-    //   offset: 0,
-    //   limit: 3
-    // })
-    this.getProducts({ offset: 0, limit: 3 })
-      .then(response => {
-        this.products = response.data.result
-      })
-      .catch(e => console.error(e))
+  async mounted() {
+    this.getProducts({
+      offset: 0,
+      limit: 3,
+      type: 'new',
+      product_id: this.$route.params.id
+    })
   },
   data() {
     return {
-      products: [],
       productSwiperOption: {
         navigation: {
           nextEl: '.swiper-button-next',
@@ -127,6 +122,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['newProductsList', 'product']),
     productImages() {
       const newProductImages = this.product.images.filter(item => !!item)
       if (newProductImages.length === 0) {
@@ -137,9 +133,6 @@ export default {
   },
   methods: {
     ...mapActions(['getProduct', 'getProducts'])
-    // isCheckingNull(items) {
-    //   this.productImages = items.filter(item => !!item)
-    // }
   }
 }
 </script>
@@ -147,7 +140,6 @@ export default {
 <style lang="scss" scoped>
 .product {
   @include respond-to('tablet-portrait-only') {
-    // padding: 20px 10px;
   }
   padding: 20px;
   &__swiper {
@@ -187,13 +179,14 @@ export default {
     // width: 100%;
   }
   &__detail {
-    padding: 0 40px;
+    padding: 0 20px;
     margin: 0 auto;
     max-width: 500px;
     width: 100%;
     text-align: center;
   }
   &__seller {
+    margin-bottom: 12px;
     position: relative;
     margin-top: 14px;
     padding-left: 46px;
@@ -276,12 +269,14 @@ export default {
     }
   }
   &__content {
-    margin-bottom: 54px;
     font-size: 15px;
     color: #000000;
-    line-height: 18px;
     margin-bottom: 44px;
-    white-space: pre;
+    white-space: pre-wrap;
+    line-height: 1.4;
+    // border-top: 1px solid #cecece;
+    padding-top: 10px;
+    text-align: left;
   }
   &__list--btn {
     border: 1px solid transparent;
@@ -295,9 +290,9 @@ export default {
   }
   &__list {
     border-top: 1px solid #c4c4c4;
-    margin-top: 72px;
+    margin-top: 36px;
     &__box {
-      margin: 72px auto;
+      margin: 36px auto;
       text-align: center;
     }
   }

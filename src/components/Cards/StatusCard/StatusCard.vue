@@ -10,7 +10,9 @@
       <h3 class="status-card__title">{{ title }}</h3>
       <p v-if="category" class="status-card__category">{{ category }}</p>
       <p v-if="places" class="status-card__places">{{ places }}</p>
-      <p class="status-card__price">{{ price }}<b>원 (100g)</b></p>
+      <p class="status-card__price">
+        {{ price }}<b>원 (65-70g - 종이컵 1컵)</b>
+      </p>
       <button class="status-card__status-btn" @click="handleClickCard">
         제품 상세페이지 가기
       </button>

@@ -88,7 +88,7 @@ const { mapGetters } = createNamespacedHelpers('user')
 export default {
   mixins: [CategoryMixin],
   created() {
-    this.getMainProducts({ offset: 0, limit: 9 })
+    this.getProducts({ offset: 0, limit: 9, type: 'main' })
       .then(response => {
         this.products = response.data.result
       })
@@ -127,7 +127,7 @@ export default {
     ...mapGetters(['loggedIn'])
   },
   methods: {
-    ...mapActions(['getMainProducts']),
+    ...mapActions(['getProducts']),
     moveToProductList() {
       this.$router.push('/product/list')
     },
@@ -247,13 +247,11 @@ export default {
     border: none;
 
     @include respond-to('tablet-portrait-only') {
-      // margin-top: 20px;
       padding: 12px 32px;
       font-size: 20px;
       line-height: 19px;
     }
     @include respond-to('mobile-portrait-only') {
-      // margin-top: 20px;
       padding: 8px 28px;
       font-size: 16px;
       line-height: 19px;
@@ -266,7 +264,7 @@ export default {
     position: relative;
   }
   &__box {
-    margin: 72px auto;
+    margin: 36px auto;
     text-align: center;
   }
   &__write {
