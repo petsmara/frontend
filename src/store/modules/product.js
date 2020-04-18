@@ -8,6 +8,7 @@ export const state = {
   hasMoreProduct: true,
   productList: [],
   mainProducts: [],
+  newProductsList: [],
   productOffset: 0
 }
 
@@ -31,6 +32,14 @@ export const mutations = {
   },
   SET_MAIN_LIST(state, payload) {
     state.mainProducts = payload.data.result
+  },
+  SET_NEW_LIST(state, payload) {
+    state.newProductsList = payload.data.result
+  },
+  INIT_PRODUCT_LIST(state) {
+    state.productList = []
+    state.hasMoreProduct = true
+    state.productOffset = 0
   }
 }
 
@@ -76,11 +85,13 @@ export const actions = {
     }
   },
 
-  getProducts({ commit }, { offset, limit, type }) {
-    return ProductService.getProducts({ offset, limit })
+  getProducts({ commit }, { offset, limit, type, product_id }) {
+    return ProductService.getProducts({ offset, limit, id: product_id })
       .then(res => {
         if (type === 'main') {
           commit('SET_MAIN_LIST', res)
+        } else if (type === 'new') {
+          commit('SET_NEW_LIST', res)
         } else {
           commit('CONCAT_PRODUCT_LIST', res)
         }
@@ -89,6 +100,19 @@ export const actions = {
       .catch(error => {
         console.log(error)
       })
+  },
+
+  initProudctList({ commit }, payload) {
+    // return new Promise(function(resolve, reject) {
+    //   $.get('url 주소/products/1', function(response) {
+    //     // 데이터를 받으면 resolve() 호출
+    //     resolve(response);
+    //   });
+    // });
+    return new Promise((resolve, reject) => {
+      commit('INIT_PRODUCT_LIST')
+      resolve()
+    })
   }
 }
 

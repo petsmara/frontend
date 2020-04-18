@@ -52,7 +52,7 @@
       </Box>
       <div class="products">
         <router-link
-          v-for="item in products"
+          v-for="item in newProductsList"
           :key="item.title"
           :to="`/product/${item.id}`"
         >
@@ -78,8 +78,14 @@ import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions } = createNamespacedHelpers('product')
 import store from '@/store/store'
 
-const getCurrentProduct = (routeTo, next) => {
+const getCurrentProduct = async (routeTo, next) => {
   const currentId = parseInt(routeTo.params.id) || 1
+  await store.dispatch('product/getProducts', {
+    offset: 0,
+    limit: 3,
+    type: 'new',
+    product_id: currentId
+  })
   store.dispatch('product/getProduct', currentId).then(() => {
     next()
   })
@@ -94,16 +100,16 @@ export default {
   beforeRouteUpdate(routeTo, routeFrom, next) {
     getCurrentProduct(routeTo, next)
   },
-  async created() {
-    this.getProducts({ offset: 0, limit: 3 })
-      .then(response => {
-        this.products = response.data.result
-      })
-      .catch(e => console.error(e))
+  async mounted() {
+    this.getProducts({
+      offset: 0,
+      limit: 3,
+      type: 'new',
+      product_id: this.$route.params.id
+    })
   },
   data() {
     return {
-      products: [],
       productSwiperOption: {
         navigation: {
           nextEl: '.swiper-button-next',
@@ -116,7 +122,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['product']),
+    ...mapState(['newProductsList', 'product']),
     productImages() {
       const newProductImages = this.product.images.filter(item => !!item)
       if (newProductImages.length === 0) {
