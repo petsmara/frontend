@@ -80,8 +80,7 @@ import store from '@/store/store'
 
 const getCurrentProduct = (routeTo, next) => {
   const currentId = parseInt(routeTo.params.id) || 1
-  store.dispatch('product/getProduct', currentId).then(product => {
-    routeTo.params.product = product
+  store.dispatch('product/getProduct', currentId).then(() => {
     next()
   })
 }
@@ -89,12 +88,6 @@ const getCurrentProduct = (routeTo, next) => {
 export default {
   mixins: [CategoryMixin],
   components: { Box, SummaryCard },
-  props: {
-    product: {
-      type: Object,
-      required: true
-    }
-  },
   beforeRouteEnter(routeTo, routeFrom, next) {
     getCurrentProduct(routeTo, next)
   },
@@ -102,10 +95,6 @@ export default {
     getCurrentProduct(routeTo, next)
   },
   async created() {
-    // const getProducts = await this.getProducts({
-    //   offset: 0,
-    //   limit: 3
-    // })
     this.getProducts({ offset: 0, limit: 3 })
       .then(response => {
         this.products = response.data.result
@@ -127,6 +116,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['product']),
     productImages() {
       const newProductImages = this.product.images.filter(item => !!item)
       if (newProductImages.length === 0) {
@@ -137,9 +127,6 @@ export default {
   },
   methods: {
     ...mapActions(['getProduct', 'getProducts'])
-    // isCheckingNull(items) {
-    //   this.productImages = items.filter(item => !!item)
-    // }
   }
 }
 </script>
@@ -147,7 +134,6 @@ export default {
 <style lang="scss" scoped>
 .product {
   @include respond-to('tablet-portrait-only') {
-    // padding: 20px 10px;
   }
   padding: 20px;
   &__swiper {

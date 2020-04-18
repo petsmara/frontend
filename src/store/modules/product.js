@@ -58,16 +58,22 @@ export const actions = {
         return error.response
       })
   },
-  getProduct({ commit }, id) {
-    return ProductService.getProduct(id)
-      .then(res => {
-        commit('SET_PRODUCT', res.data.result)
-        return res.data.result
-      })
-      .catch(error => {
-        console.log(error.response)
-        return error.response
-      })
+  getProduct({ commit, getters }, id) {
+    const product = getters.getProductById(id)
+
+    if (product) {
+      commit('SET_PRODUCT', product)
+    } else {
+      return ProductService.getProduct(id)
+        .then(res => {
+          commit('SET_PRODUCT', res.data.result)
+          return res.data.result
+        })
+        .catch(error => {
+          console.log(error.response)
+          return error.response
+        })
+    }
   },
 
   getProducts({ commit }, payload) {
@@ -93,7 +99,7 @@ export const actions = {
 }
 
 export const getters = {
-  // loggedIn(state) {
-  //   return !!state.user
-  // }
+  getProductById: state => id => {
+    return state.productList.find(product => product.id === id)
+  }
 }
