@@ -33,7 +33,7 @@
 
       <p class="product__price">
         {{ Number(parseInt(product.price)).toLocaleString()
-        }}<span>원 (100g)</span>
+        }}<span>원 (65-70g - 종이컵 1컵)</span>
       </p>
       <p class="product__content">{{ product.content }}</p>
       <router-link class="product__list--btn" to="/product/list"
@@ -173,13 +173,14 @@ export default {
     // width: 100%;
   }
   &__detail {
-    padding: 0 40px;
+    padding: 0 20px;
     margin: 0 auto;
     max-width: 500px;
     width: 100%;
     text-align: center;
   }
   &__seller {
+    margin-bottom: 12px;
     position: relative;
     margin-top: 14px;
     padding-left: 46px;
@@ -262,12 +263,14 @@ export default {
     }
   }
   &__content {
-    margin-bottom: 54px;
     font-size: 15px;
     color: #000000;
-    line-height: 18px;
     margin-bottom: 44px;
-    white-space: pre;
+    white-space: pre-wrap;
+    line-height: 1.4;
+    // border-top: 1px solid #cecece;
+    padding-top: 10px;
+    text-align: left;
   }
   &__list--btn {
     border: 1px solid transparent;
@@ -281,9 +284,9 @@ export default {
   }
   &__list {
     border-top: 1px solid #c4c4c4;
-    margin-top: 72px;
+    margin-top: 36px;
     &__box {
-      margin: 72px auto;
+      margin: 36px auto;
       text-align: center;
     }
   }

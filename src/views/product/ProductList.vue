@@ -175,7 +175,7 @@ export default {
     position: relative;
   }
   &__box {
-    margin: 72px auto;
+    margin: 36px auto;
     text-align: center;
   }
   &__write {

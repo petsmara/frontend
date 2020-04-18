@@ -77,7 +77,7 @@
       </el-form-item>
 
       <el-form-item
-        label="가격(100g - 종이컵 1컵 당) / 원"
+        label="가격(65-70g - 종이컵 1컵) / 원"
         prop="price"
         class="register-product__price"
       >
