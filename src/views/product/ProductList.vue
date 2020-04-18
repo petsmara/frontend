@@ -71,7 +71,7 @@ const { mapGetters } = createNamespacedHelpers('user')
 export default {
   mixins: [CategoryMixin],
   created() {
-    this.getProducts({ offset: this.productOffset, limit: 10 })
+    this.getProducts({ offset: this.productOffset, limit: 10, type: 'list' })
       .then(response => {
         NProgress.done()
       })
