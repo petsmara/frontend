@@ -25,7 +25,7 @@
       <p class="product__title">{{ product.title }}</p>
       <p class="product__category">{{ selectedCategory(product.category) }}</p>
       <p class="product__places">
-        {{ product.places || '구룡/개포동'
+        {{ product.places || '장소 협의'
         }}<span class="product__time">{{
           dayjs(product.modified_at).fromNow()
         }}</span>

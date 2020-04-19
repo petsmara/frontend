@@ -9,7 +9,9 @@
     <div class="status-card__content-wrap">
       <h3 class="status-card__title">{{ title }}</h3>
       <p v-if="category" class="status-card__category">{{ category }}</p>
-      <p v-if="places" class="status-card__places">{{ places }}</p>
+      <p class="status-card__places">
+        {{ places || '장소 협의' }}
+      </p>
       <p class="status-card__price">
         {{ price }}<b>원 (65-70g - 종이컵 1컵)</b>
       </p>
@@ -18,7 +20,10 @@
       </button>
     </div>
     <div class="status-card__status-wrap">
-      <button @click="handleClickDelete" class="status-card__status-btn">
+      <button
+        @click="handleClickDelete"
+        class="status-card__status-btn status-card__status-btn--delete "
+      >
         삭제
       </button>
       <button @click="handleClickSoldOut" class="status-card__status-btn">
@@ -88,7 +93,7 @@ export default {
 
 <style lang="scss" scoped>
 .status-card {
-  cursor: pointer;
+  // cursor: pointer;
   border: 1px solid #c4c4c4;
   box-sizing: border-box;
   border-radius: 8px;
@@ -223,8 +228,18 @@ export default {
     margin-left: auto;
   }
   &__status-btn {
+    &--delete {
+      border: 1px solid #dcdfe6;
+      color: #606266;
+      background-color: #ffffff;
+    }
     &:first-child {
       margin-right: 8px;
+    }
+    &:hover {
+      color: #409eff;
+      border-color: #c6e2ff;
+      background-color: #ecf5ff;
     }
     cursor: pointer;
     font-weight: 500;
