@@ -107,12 +107,16 @@ export default {
   components: {
     StatusCard
   },
-  async created() {
+  async mounted() {
     // await this.getUserProfile()
     await this.getUserProductList({
       tabId: this.tabId,
       offset: this.productListOffset,
       limit: 10
+    })
+
+    this.$nextTick(() => {
+      window.addEventListener('scroll', this.onScroll)
     })
   },
   data() {
@@ -222,9 +226,9 @@ export default {
       this.$router.push(`/product/${id}`)
     }
   },
-  mounted() {
-    window.addEventListener('scroll', this.onScroll)
-  },
+  // mounted() {
+  //   window.addEventListener('scroll', this.onScroll)
+  // },
   destroyed() {
     window.removeEventListener('scroll', this.onScroll)
   }
