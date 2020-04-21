@@ -45,3 +45,7 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
     }
   }
 }
+
+.el-radio-button:focus:not(.is-focus):not(:active):not(.is-disabled)  {
+  box-shadow: none;
+}
