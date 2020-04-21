@@ -89,9 +89,10 @@
 
       <el-form-item label="내용" prop="content">
         <el-input
+          class="register-product__content"
           type="textarea"
-          :autosize="{ minRows: 5 }"
-          maxlength="600"
+          :autosize="{ minRows: 10 }"
+          maxlength="1000"
           show-word-limit
           v-model="registerProductRuleForm.content"
           placeholder="내용을 입력해주세요"
@@ -325,6 +326,14 @@ export default {
   &__title {
     text-align: center;
     margin: 12px 0;
+  }
+  &__content {
+    & /deep/ .el-textarea__inner {
+      padding-bottom: 30px;
+    }
+    & /deep/ .el-input__count {
+      line-height: 1.4;
+    }
   }
   &__form {
     margin: 0 auto;
