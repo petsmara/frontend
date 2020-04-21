@@ -2,11 +2,11 @@ import MypageService from '@/services/MypageService.js'
 export const namespaced = true
 
 export const state = {
-  profile: {
-    nickname: null,
-    has_dog: null,
-    has_cat: null
-  },
+  // profile: {
+  //   nickname: null,
+  //   has_dog: null,
+  //   has_cat: null
+  // },
   sellingProductList: [],
   soldOutProductList: [],
   hasMoreProduct: true,
@@ -14,9 +14,9 @@ export const state = {
 }
 
 export const mutations = {
-  SET_USER_PROFILE(state, payload) {
-    state.profile = { ...payload }
-  },
+  // SET_USER_PROFILE(state, payload) {
+  //   state.profile = { ...payload }
+  // },
   SET_USER_SOLDOUT_PROUDCT_LIST(state, payload) {
     state.soldOutProductList = state.soldOutProductList.concat(payload)
     state.hasMoreProduct = payload.length === 10
@@ -48,15 +48,15 @@ export const mutations = {
 }
 
 export const actions = {
-  getUserProfile({ commit }) {
-    return MypageService.getUserProfile()
-      .then(res => {
-        commit('SET_USER_PROFILE', res.data.result)
-      })
-      .catch(error => {
-        return error.response
-      })
-  },
+  // getUserProfile({ commit }) {
+  //   return MypageService.getUserProfile()
+  //     .then(res => {
+  //       commit('SET_USER_PROFILE', res.data.result)
+  //     })
+  //     .catch(error => {
+  //       return error.response
+  //     })
+  // },
   getUserProductList({ commit }, payload) {
     return MypageService.getUserProductList(payload)
       .then(res => {

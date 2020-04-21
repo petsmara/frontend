@@ -35,4 +35,13 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 .el-button {
   background-color: #8fb5ff;
+  &--default {
+    color: #606266;
+    background-color: #ffffff;
+    &:hover {
+      color: #409eff;
+      border-color: #c6e2ff;
+      background-color: #ecf5ff;
+    }
+  }
 }

@@ -2,19 +2,19 @@
   <div class="mypage">
     <header class="mypage__header">
       <img
-        v-if="profile.has_dog && profile.has_cat"
+        v-if="user.has_dog && user.has_cat"
         src="@/assets/images/icons/mypage-all.png"
         alt="강아지, 고양이 아이콘"
         class="mypage__my-icon"
       />
       <img
-        v-else-if="profile.has_dog && !profile.has_cat"
+        v-else-if="user.has_dog && !user.has_cat"
         src="@/assets/images/icons/mypage-dog.png"
         alt="강아지 아이콘"
         class="mypage__my-icon"
       />
       <img
-        v-else-if="!profile.has_dog && profile.has_cat"
+        v-else-if="!user.has_dog && user.has_cat"
         src="@/assets/images/icons/mypage-cat.png"
         alt="고양이 아이콘"
         class="mypage__my-icon"
@@ -27,7 +27,7 @@
       />
       <div class="mypage__my-info">
         <span class="mypage__email">{{ $store.state.user.user.email }}</span>
-        <span class="mypage__nickname">{{ profile.nickname }}</span>
+        <span class="mypage__nickname">{{ user.nickname }}</span>
         {{ selectedPet ? '/' : '' }}
         <span class="mypage__species">{{ selectedPet }}</span>
       </div>
@@ -101,17 +101,22 @@ import { StatusCard } from '@/components/Cards'
 import { createNamespacedHelpers } from 'vuex'
 import throttle from 'lodash.throttle'
 const { mapState, mapActions } = createNamespacedHelpers('mypage')
+const { mapState: userMapState } = createNamespacedHelpers('user')
 
 export default {
   components: {
     StatusCard
   },
-  async created() {
-    await this.getUserProfile()
+  async mounted() {
+    // await this.getUserProfile()
     await this.getUserProductList({
       tabId: this.tabId,
       offset: this.productListOffset,
       limit: 10
+    })
+
+    this.$nextTick(() => {
+      window.addEventListener('scroll', this.onScroll)
     })
   },
   data() {
@@ -144,9 +149,10 @@ export default {
       'hasMoreProduct',
       'productListOffset'
     ]),
+    ...userMapState(['user']),
     selectedPet() {
-      const isSelectedDog = this.profile.has_dog ? '강아지' : ''
-      const isSelectedCat = this.profile.has_cat ? '고양이' : ''
+      const isSelectedDog = this.user.has_dog ? '강아지' : ''
+      const isSelectedCat = this.user.has_cat ? '고양이' : ''
       const divider = isSelectedDog && isSelectedCat ? ', ' : ''
       return `${isSelectedDog}${divider}${isSelectedCat}`
     }
@@ -197,15 +203,32 @@ export default {
       this.changeToSoldOut(id)
     },
     handleDelete(id) {
-      this.deleteProduct(id)
+      this.$confirm('게시물을 삭제하시겠습니까?', '경고', {
+        confirmButtonText: '네',
+        cancelButtonText: '아니요',
+        type: 'warning'
+      })
+        .then(async () => {
+          await this.deleteProduct(id)
+          this.$message({
+            type: 'success',
+            message: '삭제되었습니다.'
+          })
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '취소되었습니다.'
+          })
+        })
     },
     handleMoveToDetailPage(id) {
       this.$router.push(`/product/${id}`)
     }
   },
-  mounted() {
-    window.addEventListener('scroll', this.onScroll)
-  },
+  // mounted() {
+  //   window.addEventListener('scroll', this.onScroll)
+  // },
   destroyed() {
     window.removeEventListener('scroll', this.onScroll)
   }

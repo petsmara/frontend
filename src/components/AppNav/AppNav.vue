@@ -62,11 +62,27 @@
     >
       <div class="drawer__header">
         <div class="drawer__header__left">
-          <img
+          <!-- <img
             class="drawer__header__avatar"
             src="@/assets/images/icons/logo.png"
             alt="petsmara"
+          /> -->
+          <img
+            v-if="user.has_dog && user.has_cat"
+            src="@/assets/images/icons/mypage-all.png"
+            alt="강아지, 고양이 아이콘"
           />
+          <img
+            v-else-if="user.has_dog && !user.has_cat"
+            src="@/assets/images/icons/mypage-dog.png"
+            alt="강아지 아이콘"
+          />
+          <img
+            v-else-if="!user.has_dog && user.has_cat"
+            src="@/assets/images/icons/mypage-cat.png"
+            alt="고양이 아이콘"
+          />
+          <img v-else src="@/assets/images/icons/logo.png" alt="" />
         </div>
         <div class="drawer__header__center">
           <template v-if="loggedIn">
@@ -317,6 +333,13 @@ export default {
       border-radius: 50%;
       margin-right: 14px;
       position: relative;
+      img {
+        width: 100%;
+        max-width: 140px;
+        &:not(:first-child) {
+          margin-left: 10px;
+        }
+      }
     }
     &__right {
       margin-left: auto;
