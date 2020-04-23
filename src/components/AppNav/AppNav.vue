@@ -82,7 +82,12 @@
             src="@/assets/images/icons/mypage-cat.png"
             alt="고양이 아이콘"
           />
-          <img v-else src="@/assets/images/icons/logo.png" alt="" />
+          <img
+            v-else
+            class="default-logo"
+            src="@/assets/images/icons/logo.png"
+            alt=""
+          />
         </div>
         <div class="drawer__header__center">
           <template v-if="loggedIn">
@@ -339,6 +344,13 @@ export default {
         &:not(:first-child) {
           margin-left: 10px;
         }
+      }
+      .default-logo {
+        width: 30px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
       }
     }
     &__right {
