@@ -59,6 +59,9 @@ export const actions = {
     commit('REMOVE_USER_DATA')
     return true
   }
+  // findMyPassword({ commit }, user) {
+  //   return
+  // }
 }
 
 export const getters = {
