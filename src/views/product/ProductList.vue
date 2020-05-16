@@ -183,7 +183,7 @@ export default {
       z-index: 5;
       position: fixed;
       top: auto;
-      bottom: 40px;
+      bottom: 120px;
       left: 50%;
       transform: translateX(-50%);
     }

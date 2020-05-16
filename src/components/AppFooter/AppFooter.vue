@@ -2,7 +2,7 @@
   <div class="app-footer">
     <h1 class="app-footer__logo">
       <router-link to="/">
-        <img src="@/assets/images/icons/logo.png" alt="petsmara" />
+        <img src="@/assets/images/icons/logo_footer.png" alt="petsbab" />
         <span>PETS BAB</span>
       </router-link>
     </h1>
@@ -22,12 +22,17 @@ export default {}
   width: 100%;
   padding: 12px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #e9e9e9;
+  flex-direction: column;
+  // align-items: center;
+  // justify-content: space-between;
+  justify-content: center;
+  background-color: #6f6f6f;
   &__logo {
+    margin-bottom: 8px;
+    text-align: center;
     a {
       display: flex;
+      flex-direction: column;
       align-items: center;
       img {
         margin-right: 6px;
@@ -36,13 +41,16 @@ export default {}
       span {
         font-weight: 900;
         font-size: 20px;
-        color: #000000;
+        line-height: 23px;
+        color: #ffffff;
       }
     }
   }
   &__mail {
-    font-size: 14px;
-    color: #000000;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    color: #ffffff;
   }
 }
 </style>

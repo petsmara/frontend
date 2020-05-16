@@ -27,7 +27,7 @@ new Vue({
   store,
   render: h => h(App),
   created() {
-    const userString = localStorage.getItem('petsmaraUser')
+    const userString = localStorage.getItem('petsbabUser')
     if (userString) {
       const userData = JSON.parse(userString)
       this.$store.commit('user/SET_USER_DATA', userData)
