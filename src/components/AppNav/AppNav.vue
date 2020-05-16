@@ -213,8 +213,9 @@ export default {
     display: block;
   }
   position: relative;
-  height: 85px;
-  padding: 0 10px;
+  // height: 85px;
+  padding: 20px 10px;
+  // padding: 0 10px;
   width: 100%;
   display: flex;
   flex-direction: row;
