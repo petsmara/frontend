@@ -69,6 +69,17 @@ export const actions = {
       .catch(error => {
         return error.response
       })
+  },
+  resetPassword({ commit }, user) {
+    return UserService.resetPassword(user)
+      .then(res => {
+        console.log(res, 'res')
+        // commit('SET_IS_RECOVERY', res.data)
+        return res
+      })
+      .catch(error => {
+        return error.response
+      })
   }
   // findMyPassword({ commit }, user) {
   //   return

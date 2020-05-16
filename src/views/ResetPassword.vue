@@ -44,14 +44,16 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex'
+const { mapActions } = createNamespacedHelpers('user')
 export default {
   data() {
     const validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('비밀번호를 입력해주세요.'))
       } else {
-        if (this.registerUserRuleForm.checkPassword !== '') {
-          this.$refs.registerUserRuleForm.validateField('checkPassword')
+        if (this.resetPasswordRuleForm.checkPassword !== '') {
+          this.$refs.resetPasswordRuleForm.validateField('checkPassword')
         }
         callback()
       }
@@ -59,7 +61,7 @@ export default {
     const validatePass2 = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('한번 더 비밀번호를 입력해주세요.'))
-      } else if (value !== this.registerUserRuleForm.password) {
+      } else if (value !== this.resetPasswordRuleForm.password) {
         callback(new Error('비밀번호가 일치하지 않습니다.'))
       } else {
         callback()
@@ -98,15 +100,18 @@ export default {
     }
   },
   methods: {
-    // ...mapActions(['resetPassword']),
+    ...mapActions(['resetPassword']),
     submitForm(formName) {
       this.isLoading = true
-      const { email } = this.resetPasswordRuleForm
+      const { password } = this.resetPasswordRuleForm
 
       this.$refs[formName].validate(valid => {
         if (valid) {
+          const { uid, token } = this.$route.query
           this.resetPassword({
-            password
+            password,
+            uid,
+            token
           }).then(result => {
             // 여기서 결과값을 받아서 다시 분기처리 성공, 실패
             if (result.status === 200) {
@@ -116,7 +121,7 @@ export default {
                 showClose: true,
                 type: 'success',
                 onClose: () => {
-                  // this.$router.replace('/user/welcome')
+                  this.$router.replace('/user/login')
                 }
               })
             } else {
@@ -127,6 +132,7 @@ export default {
                 type: 'error'
               })
             }
+            this.isLoading = false
           })
         } else {
           this.$message({
@@ -137,7 +143,6 @@ export default {
             type: 'error'
           })
         }
-        this.isLoading = false
       })
     }
   }
