@@ -82,7 +82,7 @@ router.beforeEach((routeTo, routeFrom, next) => {
   NProgress.start()
   store.dispatch('path/setRedirectPath', routeFrom.fullPath)
   store.dispatch('drawer/closeDrawer', false)
-  const loggedIn = localStorage.getItem('petsmaraUser')
+  const loggedIn = localStorage.getItem('petsbabUser')
   if (routeTo.matched.some(record => record.meta.requiresAuth)) {
     // 이 라우트는 인증이 필요하며 로그인 한 경우 확인하십시오.
     // 그렇지 않은 경우 로그인 페이지로 리디렉션하십시오.

@@ -2,7 +2,7 @@
   <div class="app-nav">
     <h1 class="app-nav__logo">
       <router-link to="/">
-        <img src="@/assets/images/icons/logo.png" alt="petsmara" />
+        <img src="@/assets/images/icons/logo.png" alt="petsbab" />
         <span>PETS BAB</span>
       </router-link>
     </h1>
@@ -62,11 +62,6 @@
     >
       <div class="drawer__header">
         <div class="drawer__header__left">
-          <!-- <img
-            class="drawer__header__avatar"
-            src="@/assets/images/icons/logo.png"
-            alt="petsmara"
-          /> -->
           <img
             v-if="user.has_dog && user.has_cat"
             src="@/assets/images/icons/mypage-all.png"

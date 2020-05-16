@@ -2,7 +2,7 @@
   <div class="app-footer">
     <h1 class="app-footer__logo">
       <router-link to="/">
-        <img src="@/assets/images/icons/logo.png" alt="petsmara" />
+        <img src="@/assets/images/icons/logo_footer.png" alt="petsbab" />
         <span>PETS BAB</span>
       </router-link>
     </h1>

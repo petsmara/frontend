@@ -23,11 +23,11 @@ export const mutations = {
       has_cat: payload.has_cat
     }
     state.user = userData
-    localStorage.setItem('petsmaraUser', JSON.stringify(userData))
+    localStorage.setItem('petsbabUser', JSON.stringify(userData))
     axios.defaults.headers.common['Authorization'] = userData.accessToken
   },
   REMOVE_USER_DATA(state) {
-    localStorage.removeItem('petsmaraUser')
+    localStorage.removeItem('petsbabUser')
     location.reload()
     // state.user = null
     // axios.defaults.headers.common['Authorization'] = null

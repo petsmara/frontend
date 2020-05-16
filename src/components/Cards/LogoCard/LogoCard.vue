@@ -7,7 +7,7 @@
     <img
       class="logo-card__img"
       src="@/assets/images/icons/logo.png"
-      alt="petsmara"
+      alt="petsbab"
     />
   </div>
 </template>
