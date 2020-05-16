@@ -6,5 +6,11 @@ export default {
   },
   logIn(user) {
     return axios.post('/user/account/login', user)
+  },
+  recoveryPassword(user) {
+    return axios.post('/user/account/password', user)
+  },
+  resetPassword(user) {
+    return axios.patch('/user/account/password', user)
   }
 }
