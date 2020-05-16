@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex'
+const { mapActions } = createNamespacedHelpers('user')
 export default {
   data() {
     return {
@@ -63,14 +65,14 @@ export default {
     }
   },
   methods: {
-    // ...mapActions(['findPassword']),
+    ...mapActions(['recoveryPassword']),
     submitForm(formName) {
       this.isLoading = true
       const { email } = this.findPasswordRuleForm
 
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.findPassword({
+          this.recoveryPassword({
             email
           }).then(result => {
             // 여기서 결과값을 받아서 다시 분기처리 성공, 실패
@@ -81,7 +83,7 @@ export default {
                 showClose: true,
                 type: 'success',
                 onClose: () => {
-                  // this.$router.replace('/user/welcome')
+                  this.$router.replace('/user/login')
                 }
               })
             } else {
@@ -92,6 +94,7 @@ export default {
                 type: 'error'
               })
             }
+            this.isLoading = false
           })
         } else {
           this.$message({
@@ -102,7 +105,6 @@ export default {
             type: 'error'
           })
         }
-        this.isLoading = false
       })
     }
   }

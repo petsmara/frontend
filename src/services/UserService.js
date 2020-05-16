@@ -6,5 +6,8 @@ export default {
   },
   logIn(user) {
     return axios.post('/user/account/login', user)
+  },
+  recoveryPassword(user) {
+    return axios.post('/user/account/recovery', user)
   }
 }

@@ -58,6 +58,17 @@ export const actions = {
   logOut({ commit }) {
     commit('REMOVE_USER_DATA')
     return true
+  },
+  recoveryPassword({ commit }, user) {
+    return UserService.recoveryPassword(user)
+      .then(res => {
+        console.log(res, 'res')
+        // commit('SET_IS_RECOVERY', res.data)
+        return res
+      })
+      .catch(error => {
+        return error.response
+      })
   }
   // findMyPassword({ commit }, user) {
   //   return
