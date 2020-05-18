@@ -43,9 +43,14 @@
           >
         </el-form-item>
       </el-form>
-      <router-link to="/user/register"
-        >회원이 아니신가요? 회원가입 하러 가기</router-link
-      >
+      <div class="login__link-wrap">
+        <router-link class="login__link" to="/findpassword"
+          >비밀번호 찾기</router-link
+        >
+        <router-link class="login__link" to="/user/register"
+          >회원가입</router-link
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -203,6 +208,23 @@ export default {
     & /deep/ .el-form-item__content {
       line-height: 1;
     }
+  }
+  &__link-wrap {
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+  &__link {
+    &:last-child {
+      position: absolute;
+      right: 0;
+    }
+    display: inline-block;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000000;
   }
   &__btn {
     font-size: 16px;

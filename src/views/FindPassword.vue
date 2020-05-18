@@ -67,11 +67,11 @@ export default {
   methods: {
     ...mapActions(['recoveryPassword']),
     submitForm(formName) {
-      this.isLoading = true
       const { email } = this.findPasswordRuleForm
 
       this.$refs[formName].validate(valid => {
         if (valid) {
+          this.isLoading = true
           this.recoveryPassword({
             email
           }).then(result => {

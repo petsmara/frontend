@@ -10,7 +10,7 @@
         />
         <img
           :srcset="
-            require(`@/assets/images/backgrounds/product_list_bg-mobile.jpg`)
+            require(`@/assets/images/backgrounds/product_list_bg-mobile.png`)
           "
           alt=""
         />
@@ -220,7 +220,7 @@ export default {
   }
 }
 .products {
-  padding: 16px;
+  padding: 60px 10px 16px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
