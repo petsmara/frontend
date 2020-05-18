@@ -10,7 +10,7 @@ export default {
     )
   },
   changeToSoldOut(id) {
-    return axios.put(`product/${id}`, {
+    return axios.patch(`product/${id}`, {
       on_sale: false
     })
   },

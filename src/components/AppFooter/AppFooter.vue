@@ -19,11 +19,7 @@ export default {}
 <style lang="scss" scoped>
 .app-footer {
   width: 100%;
-  // height: 100%;
   padding: 12px;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
   background-color: #6f6f6f;
   &__logo {
     margin-bottom: 8px;
