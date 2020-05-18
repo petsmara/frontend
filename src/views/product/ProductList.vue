@@ -15,10 +15,7 @@
           alt=""
         />
       </picture>
-      <h2 class="product-list__title">모든 상품</h2>
-    </section>
-    <section class="content">
-      <div class="content__header">
+      <h2 class="product-list__title">
         <Box class="content__box">
           <template #title>
             NEW ITEM
@@ -27,6 +24,10 @@
             새로운 사료를 만나보세요
           </template>
         </Box>
+      </h2>
+    </section>
+    <section class="content">
+      <div class="content__header">
         <el-button class="content__write" @click="goToRegister">
           판매하기
         </el-button>
@@ -173,6 +174,10 @@ export default {
   &__box {
     margin: 36px auto;
     text-align: center;
+    &::v-deep h3,
+    &::v-deep p {
+      color: #ffffff;
+    }
   }
   &__write {
     &:hover {
@@ -187,28 +192,31 @@ export default {
       left: 50%;
       transform: translateX(-50%);
     }
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    background: #ffffff;
+    border: 2px solid #e9e9e9;
     cursor: pointer;
     font-size: 16px;
     color: #ffffff;
-    padding: 10px 40px 10px 66px;
+    padding: 10px 40px 10px 40px;
     position: absolute;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
     border-radius: 8px;
-    border: none;
     margin: 0 10px 0 auto;
-    &::after {
-      content: '';
-      position: absolute;
-      left: 30px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 26px;
-      height: 20px;
-      background: url('~@/assets/images/icons/write.png') center / 100%
-        no-repeat;
-    }
+    color: #000000;
+    // &::after {
+    //   content: '';
+    //   position: absolute;
+    //   left: 30px;
+    //   top: 50%;
+    //   transform: translateY(-50%);
+    //   width: 28px;
+    //   height: 20px;
+    //   background: url('~@/assets/images/icons/write.png') center / 100%
+    //     no-repeat;
+    // }
   }
 }
 .products {

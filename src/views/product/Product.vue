@@ -33,7 +33,7 @@
 
       <p class="product__price">
         {{ Number(parseInt(product.price)).toLocaleString()
-        }}<span>원 (65-70g - 종이컵 1컵)</span>
+        }}<span>원 (종이컵 1컵)</span>
       </p>
       <p class="product__content">{{ product.content }}</p>
       <router-link class="product__list--btn" to="/product/list"

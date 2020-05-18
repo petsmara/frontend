@@ -280,38 +280,41 @@ export default {
       left: 50%;
       transform: translateX(-50%);
     }
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    background: #ffffff;
+    border: 2px solid #e9e9e9;
     cursor: pointer;
     font-size: 16px;
     color: #ffffff;
-    padding: 10px 40px 10px 66px;
+    padding: 10px 40px 10px 40px;
     position: absolute;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
     border-radius: 8px;
-    border: none;
     margin: 0 10px 0 auto;
-    &::after {
-      content: '';
-      position: absolute;
-      left: 30px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 28px;
-      height: 20px;
-      background: url('~@/assets/images/icons/write.png') center / 100%
-        no-repeat;
-    }
+    color: #000000;
+    // &::after {
+    //   content: '';
+    //   position: absolute;
+    //   left: 30px;
+    //   top: 50%;
+    //   transform: translateY(-50%);
+    //   width: 28px;
+    //   height: 20px;
+    //   background: url('~@/assets/images/icons/write.png') center / 100%
+    //     no-repeat;
+    // }
   }
 }
 .products {
-  padding: 16px;
+  padding: 16px 8px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
   &__link {
-    padding: 0 10px;
+    padding: 0 8px;
     flex-basis: 33.3%;
     margin-bottom: 26px;
     @include respond-to('mobile-portrait-only') {

@@ -11,17 +11,19 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 @import "~element-ui/packages/theme-chalk/src/index";
 
 .el-backtop {
-  background: rgba(255, 220, 220, 0.8);
-  box-shadow: none;
+  // background: rgba(255, 220, 220, 0.8);
+  box-shadow: none !important;
+  background: none !important;
+  border: none !important;
 }
 
 .el-icon-caret-top {
   &::before {
     content: none !important;
   }
-  width: 16px;
-  height: 8px;
-  background: url('~@/assets/images/icons/up_arrow.png') center / 100% no-repeat;
+  width: 40px;
+  height: 40px;
+  background: url('~@/assets/images/icons/back-top.png') center / 100% no-repeat;
 }
 
 .el-message {

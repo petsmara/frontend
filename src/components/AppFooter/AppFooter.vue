@@ -18,6 +18,7 @@ export default {}
 
 <style lang="scss" scoped>
 .app-footer {
+  margin-top: auto;
   width: 100%;
   padding: 12px;
   background-color: #6f6f6f;
