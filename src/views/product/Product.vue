@@ -29,25 +29,26 @@
         }}<span class="product__time">{{
           dayjs(product.modified_at).fromNow()
         }}</span>
+        <span class="product__view-count">조회 {{ product.view_count }}</span>
       </p>
 
       <p class="product__price">
         {{ Number(parseInt(product.price)).toLocaleString()
-        }}<span>원 (65-70g - 종이컵 1컵)</span>
+        }}<span>원 (종이컵 1컵)</span>
       </p>
       <p class="product__content">{{ product.content }}</p>
-      <router-link class="product__list--btn" to="/product/list"
+      <!-- <router-link class="product__list--btn" to="/product/list"
         >상품목록보기</router-link
-      >
+      > -->
     </div>
 
     <section class="product__list">
       <Box class="product__list__box">
         <template #title>
-          NEW ITEM
+          ITEM
         </template>
         <template #content>
-          새로운 사료를 만나보세요
+          비슷한 사료를 만나보세요
         </template>
       </Box>
       <div class="products">
@@ -142,88 +143,84 @@ export default {
 .product {
   @include respond-to('tablet-portrait-only') {
   }
-  padding: 20px;
+  padding: 0 20px 20px;
   &__swiper {
     margin: 0 auto;
     max-width: 600px;
     width: 100%;
   }
-  &__slide {
-  }
   &__img-wrap {
     @include respond-to('tablet-portrait-only') {
-      max-width: 80%;
+      max-width: 90%;
     }
-    border: 1px solid #c4c4c4;
+    // border: 1px solid #c4c4c4;
     overflow: hidden;
     margin: 0 auto;
     width: 100%;
     max-width: 500px;
     position: relative;
     padding-bottom: 100%;
-    border-radius: 4px;
   }
   &__img {
+    border-radius: 12px;
     position: absolute;
     top: 50%;
     left: 50%;
     -webkit-transform: translateY(-50%);
     transform: translate(-50%, -50%);
     max-width: 100%;
-    // position: absolute;
-    // top: 50%;
-    // left: 0;
-    // -webkit-transform: translateY(-50%);
-    // transform: translateY(-50%);
-    // width: 100%;
-    // max-width: 500px;
-    // width: 100%;
   }
   &__detail {
     padding: 0 20px;
     margin: 0 auto;
     max-width: 500px;
     width: 100%;
-    text-align: center;
+    text-align: left;
   }
   &__seller {
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     position: relative;
-    margin-top: 14px;
-    padding-left: 46px;
-    height: 40px;
-    line-height: 40px;
-    font-size: 15px;
+    padding: 6px 30px;
     color: #000000;
-    text-align: left;
+    font-size: 14px;
+    line-height: 16px;
     &:before {
       content: '';
       position: absolute;
       left: 0;
       top: 0;
-      width: 40px;
-      height: 40px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
-      border: 1px solid #000000;
       background: url('~@/assets/images/icons/user_icon.png') center / 100%
         no-repeat;
     }
   }
   &__title {
-    margin-bottom: 12px;
-    font-size: 20px;
-    color: #000000;
-  }
-  &__category {
-    font-size: 17px;
+    font-weight: 900;
+    font-size: 18px;
+    line-height: 21px;
     color: #000000;
     margin-bottom: 10px;
   }
+  &__category {
+    display: block;
+    margin-bottom: 4px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    color: #000000;
+  }
 
   &__places,
-  &__time {
-    font-size: 15px;
-    color: #6f6f6f;
+  &__time,
+  &__view-count {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    color: #979797;
     // @include respond-to('tablet-portrait-only') {
     //   // font-weight: 900;
     //   font-size: 12px;
@@ -233,18 +230,19 @@ export default {
     display: inline-block;
     position: relative;
     margin-bottom: 9px;
-    &:after {
-      content: '';
-      width: 8px;
-      height: 12px;
-      position: absolute;
-      left: -12px;
-      top: 4px;
-      background: url('~@/assets/images/icons/location.png') center / 100%
-        no-repeat;
-    }
+    // &:after {
+    //   content: '';
+    //   width: 8px;
+    //   height: 12px;
+    //   position: absolute;
+    //   left: -12px;
+    //   top: 4px;
+    //   background: url('~@/assets/images/icons/location.png') center / 100%
+    //     no-repeat;
+    // }
   }
-  &__time {
+  &__time,
+  &__view-count {
     padding-left: 16px;
     position: relative;
     &::after {
@@ -270,13 +268,15 @@ export default {
     }
   }
   &__content {
-    font-size: 15px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
     color: #000000;
     margin-bottom: 44px;
     white-space: pre-wrap;
-    line-height: 1.4;
     // border-top: 1px solid #cecece;
-    padding-top: 10px;
+    // padding-top: 10px;
     text-align: left;
   }
   &__list--btn {
@@ -297,6 +297,15 @@ export default {
       text-align: center;
     }
   }
+  &::v-deep .swiper-pagination-bullets {
+    bottom: 8%;
+  }
+  & /deep/ .swiper-button-next {
+    right: 0;
+  }
+  & /deep/ .swiper-button-prev {
+    left: 0;
+  }
   & /deep/ .swiper-button-next,
   & /deep/ .swiper-button-prev {
     width: 16px;
@@ -314,6 +323,11 @@ export default {
   }
   & /deep/ .swiper-button-prev {
     transform: rotate(180deg);
+  }
+  & /deep/ .swiper-pagination-bullet {
+    width: 5px;
+    height: 5px;
+    margin: 0 2px;
   }
 }
 

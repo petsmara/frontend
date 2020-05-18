@@ -11,7 +11,7 @@
     <span class="card__category">{{ category }}</span>
     <span class="card__places">{{ places || '장소 협의' }}</span
     ><span class="card__time">{{ dayjs(time).fromNow() }}</span>
-    <span class="card__price">{{ price }}<b>원 (65-70g - 종이컵 1컵)</b></span>
+    <span class="card__price">{{ price }}<b>원 (종이컵 1컵)</b></span>
   </div>
 </template>
 
@@ -63,15 +63,14 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-  text-align: center;
+  text-align: left;
   &__img-wrap {
     overflow: hidden;
     width: 100%;
     max-width: 340px;
     position: relative;
     padding-bottom: 100%;
-    // border-radius: 4px;
-    border: 1px solid #c4c4c4;
+    border-radius: 6px;
   }
 
   &__img {
@@ -84,37 +83,49 @@ export default {
 
   &__title {
     font-size: 16px;
-    margin: 10px 0;
+    margin: 14px 0 4px;
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
   &__category {
     display: block;
-    margin-bottom: 10px;
-    font-size: 14px;
+    // margin-bottom: 4px;
+    font-family: Roboto;
+    font-size: 12px;
+    line-height: 14px;
+    color: #000000;
   }
   &__places,
   &__time {
-    font-size: 15px;
+    font-size: 12px;
+    font-family: Roboto;
     color: #6f6f6f;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
     position: relative;
-    @include respond-to('tablet-portrait-only') {
-      font-size: 12px;
-    }
+    // @include respond-to('tablet-portrait-only') {
+    //   font-size: 12px;
+    // }
   }
-  &__places {
-    &:after {
-      content: '';
-      width: 8px;
-      height: 12px;
-      position: absolute;
-      left: -12px;
-      top: 2px;
-      background: url('~@/assets/images/icons/location.png') center / 100%
-        no-repeat;
-    }
-  }
+  // &__places {
+  // &:after {
+  //   content: '';
+  //   width: 8px;
+  //   height: 12px;
+  //   position: absolute;
+  //   left: -12px;
+  //   top: 2px;
+  //   background: url('~@/assets/images/icons/location.png') center / 100%
+  //     no-repeat;
+  // }
+  // }
   &__time {
+    display: inline-block;
     padding-left: 16px;
+    margin-top: 4px;
     position: relative;
     &::after {
       content: '';
@@ -131,7 +142,7 @@ export default {
       }
     }
     @include respond-to('tablet-portrait-only') {
-      margin-top: 8px;
+      // margin-top: 8px;
       padding-left: 0;
       display: block;
     }
@@ -139,10 +150,13 @@ export default {
   &__price {
     margin-top: 2px;
     display: block;
-    font-size: 20px;
+    font-family: Roboto;
+    font-style: normal;
     font-weight: 900;
+    font-size: 14px;
+    line-height: 16px;
     b {
-      font-size: 12px;
+      font-size: 14px;
       font-style: normal;
       font-weight: normal;
     }

@@ -21,11 +21,6 @@ export default {}
   margin-top: auto;
   width: 100%;
   padding: 12px;
-  display: flex;
-  flex-direction: column;
-  // align-items: center;
-  // justify-content: space-between;
-  justify-content: center;
   background-color: #6f6f6f;
   &__logo {
     margin-bottom: 8px;
@@ -47,6 +42,7 @@ export default {}
     }
   }
   &__mail {
+    display: block;
     font-weight: normal;
     font-size: 12px;
     line-height: 14px;

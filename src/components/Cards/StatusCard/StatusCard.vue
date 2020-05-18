@@ -12,9 +12,7 @@
       <p class="status-card__places">
         {{ places || '장소 협의' }}
       </p>
-      <p class="status-card__price">
-        {{ price }}<b>원 (65-70g - 종이컵 1컵)</b>
-      </p>
+      <p class="status-card__price">{{ price }}<b>원 (종이컵 1컵)</b></p>
       <button class="status-card__status-btn" @click="handleClickCard">
         제품 상세페이지 가기
       </button>

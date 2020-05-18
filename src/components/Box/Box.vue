@@ -25,7 +25,7 @@ export default {}
     color: #000000;
   }
   &__content {
-    font-size: 16px;
+    font-size: 14px;
     color: #000000;
   }
 }
