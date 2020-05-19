@@ -305,7 +305,7 @@ export default {
     flex-direction: column;
     align-items: center;
     img {
-      width: 30px;
+      width: 24px;
     }
     span {
       @include respond-to('tablet-portrait-only') {
@@ -330,7 +330,7 @@ export default {
     &__left {
       width: 60px;
       height: 60px;
-      border: 1px solid #000000;
+      // border: 1px solid #000000;
       border-radius: 50%;
       margin-right: 14px;
       position: relative;
@@ -410,7 +410,7 @@ export default {
       &::before {
         width: 20px;
         height: 14px;
-        background-image: url(~@/assets/images/icons/menu.png);
+        background-image: url(~@/assets/images/icons/menu-1.png);
       }
     }
     &--write {
