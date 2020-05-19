@@ -65,6 +65,11 @@ const routes = [
     path: '/reset-your-password',
     name: 'ResetPassword',
     component: () => import('../views/ResetPassword.vue')
+  },
+  {
+    path: '/event',
+    name: 'Event',
+    component: () => import('../views/Event.vue')
   }
 ]
 
