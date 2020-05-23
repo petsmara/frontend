@@ -85,7 +85,7 @@ export default {
     font-size: 16px;
     margin: 14px 0 4px;
     width: 100%;
-    height: 40px;
+    // height: 44px;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;

@@ -48,7 +48,7 @@
         <span>로그아웃</span>
       </button>
       <div class="app-nav__menu" @click="openMenu">
-        <img src="@/assets/images/icons/menu.png" alt="menu" />
+        <img src="@/assets/images/icons/new_menu.png" alt="menu" />
         <span>메뉴</span>
       </div>
     </div>
@@ -305,7 +305,8 @@ export default {
     flex-direction: column;
     align-items: center;
     img {
-      width: 30px;
+      // width: 30px;
+      width: 24px;
     }
     span {
       @include respond-to('tablet-portrait-only') {
@@ -330,7 +331,7 @@ export default {
     &__left {
       width: 60px;
       height: 60px;
-      border: 1px solid #000000;
+      // border: 1px solid #000000;
       border-radius: 50%;
       margin-right: 14px;
       position: relative;
