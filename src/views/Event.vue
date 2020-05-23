@@ -12,23 +12,11 @@
       <div class="event-header__content">
         <h2>#펫츠밥 #사료직거래<br />#동네사료거래</h2>
         <div class="event-header__box-wrap">
-          <div class="event-header__box">
-            <img
-              class="event-header__img-coffee"
-              src="@/assets/images/backgrounds/event_sb01.png"
-              alt="스타벅스 아메리카노"
-            />
-            <div class="event-header__tooltip">회원가입<br />SNS 공유</div>
+          <div class="event-header__tooltip event-header__tooltip--coffee">
+            회원가입<br />SNS 공유
           </div>
-          <div class="event-header__box">
-            <img
-              class="event-header__img-cake"
-              src="@/assets/images/backgrounds/event_sb02.png"
-              alt="스타벅스 아메리카노과 케익"
-            />
-            <div class="event-header__tooltip">
-              회원가입<br />SNS 공유<br />+게시글
-            </div>
+          <div class="event-header__tooltip event-header__tooltip--cake">
+            회원가입<br />SNS 공유<br />+게시글
           </div>
         </div>
         <p>참여고객 중 추첨을 통해 스타벅스 아메리카노를 드립니다.</p>
@@ -81,18 +69,35 @@ export default {}
     padding: 16px;
     background: #ffffff;
     border-radius: 16px;
+    p {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 9px;
+      line-height: 11px;
+      letter-spacing: -0.679682px;
+      color: #000000;
+    }
   }
   &__box-wrap {
-  }
-  &__box {
-  }
-  &__img-coffee {
-    width: 118px;
-  }
-  &__img-cake {
-    width: 218px;
+    width: 278px;
+    height: 224px;
+    position: relative;
+    margin: 0 auto;
+    background: url('url(~@/assets/images/backgrounds/event_sb03.png') center /
+      100% no-repeat;
   }
   &__tooltip {
+    &--coffee {
+      left: 75px;
+    }
+    &--cake {
+      right: 0;
+    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 24px;
     width: 52px;
     height: 52px;
     border-radius: 50%;
