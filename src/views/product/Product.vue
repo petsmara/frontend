@@ -178,6 +178,7 @@ export default {
     text-align: left;
   }
   &__seller {
+    margin-top: 8px;
     margin-bottom: 8px;
     position: relative;
     padding: 6px 30px;
