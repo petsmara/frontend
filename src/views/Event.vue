@@ -7,10 +7,15 @@
         시원한 스타벅스 마시자!
       </h1>
       <p class="event-intro__date">
-        2020.05.25 - 2020.06.08
+        이벤트 참여기간 : 2020.05.25 - 2020.06.08
       </p>
       <div class="event-intro__content">
-        <h2>#펫츠밥 #사료직거래<br />#동네사료거래</h2>
+        <a
+          class="event__link"
+          target="_blank"
+          href="https://docs.google.com/forms/d/e/1FAIpQLSftUZJQu22KbdcQdqkZNo5uRbc-5M062UHqTIBEs0C7PfD3BQ/viewform"
+          >신청하러가기!</a
+        >
         <div class="event-intro__box-wrap">
           <div class="event-intro__tooltip event-intro__tooltip--coffee">
             회원가입<br />SNS 공유
@@ -19,7 +24,10 @@
             회원가입<br />SNS 공유<br />+게시글
           </div>
         </div>
-        <p>참여고객 중 추첨을 통해 스타벅스 아메리카노를 드립니다.</p>
+        <p>
+          참여고객 중 추첨을 통해<br />스타벅스 아메리카노 또는 달콤 싱글 디저트
+          세트 기프티콘 1매 증정
+        </p>
       </div>
     </section>
 
@@ -86,6 +94,40 @@
             #사료직거래
           </div>
         </div>
+        <div class="event-sns__step event-sns__step--04">
+          <div class="event-sns__step__top">
+            <span class="event-sns__step__order">4</span>
+            <div class="event-sns__step__tooltip">
+              <span class="event-sns__step__text">SNS<br />캡쳐!</span>
+            </div>
+          </div>
+          <div class="event-sns__step__bottom">
+            인증캡쳐하는거<br />잊지마세요~!
+          </div>
+        </div>
+        <div class="event-sns__step event-sns__step--05">
+          <div class="event-sns__step__top">
+            <span class="event-sns__step__order">5</span>
+            <div class="event-sns__step__tooltip">
+              <span class="event-sns__step__text">신청하러<br />가기!</span>
+            </div>
+          </div>
+          <div class="event-sns__step__bottom">
+            신청하러가기<br />
+            버튼 클릭!
+          </div>
+        </div>
+        <div class="event-sns__step event-sns__step--06">
+          <div class="event-sns__step__top">
+            <span class="event-sns__step__order">6</span>
+            <div class="event-sns__step__tooltip">
+              <span class="event-sns__step__text">6월14일</span>
+            </div>
+          </div>
+          <div class="event-sns__step__bottom">
+            시원한 당첨확인!
+          </div>
+        </div>
       </div>
       <div class="event-sns__content event-intro__content">
         <div class="event-sns__box-wrap event-intro__box-wrap">
@@ -97,18 +139,15 @@
         </div>
         <p>스타벅스 아메리카노 (Tall size) 기프티콘 1매 증정</p>
       </div>
-      <div class="event-sns__form">
-        구글 폼 링크
-      </div>
     </section>
     <section class="event-write">
       <header class="event__header">
-        <span class="event__header__order">#01</span>
+        <span class="event__header__order">#02</span>
         <h2 class="event__header__title">
-          <el-divider>회원가입 SNS 공유</el-divider>
+          <el-divider>상품판매 글쓰기</el-divider>
         </h2>
         <h2 class="event__header__paragraph">
-          대상 SNS : 인스타그램, 페이스북
+          대상 : #01을 진행한 고객
         </h2>
       </header>
       <div class="event-write__content">
@@ -143,10 +182,20 @@
           >
             3명<br />추첨 증정
           </div>
+          <h3 class="event-write__gift__title">
+            캡쳐 후<br />신청하러가기<br />잊지마세요~
+          </h3>
         </div>
         <p>달콤 싱글 디저트 세트 기프티콘 1매 증정</p>
       </div>
+      <a
+        class="event__link"
+        target="_blank"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSftUZJQu22KbdcQdqkZNo5uRbc-5M062UHqTIBEs0C7PfD3BQ/viewform"
+        >신청하러가기!</a
+      >
     </section>
+    <section class="event-summary"></section>
   </div>
 </template>
 
@@ -191,6 +240,18 @@ export default {}
       color: #000000;
     }
   }
+  &__link {
+    display: inline-block;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 16px;
+    line-height: 19px;
+    color: #ffffff;
+    background: #144d3b;
+    border: 1px solid #ffffff;
+    border-radius: 8px;
+    padding: 8px 24px;
+  }
 }
 .event-intro {
   padding: 20px 16px 12px;
@@ -205,6 +266,7 @@ export default {}
     color: #ffffff;
     margin-bottom: 14px;
   }
+
   &__title {
     font-style: normal;
     font-weight: 900;
@@ -279,15 +341,18 @@ export default {}
     margin-top: 36px;
     margin-bottom: 6px;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     align-items: center;
     justify-content: center;
   }
   &__step {
-    &:not(:first-child) {
-      margin-left: 28px;
-    }
-    width: 100px;
+    margin-bottom: 24px;
+    width: 33%;
+    // &:not(:first-child) {
+    //   margin-left: 26px;
+    // }
+    // width: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -401,6 +466,7 @@ export default {}
       color: #ffffff;
     }
   }
+  .event__header__order,
   .event__header__paragraph {
     color: #ffffff;
   }
@@ -439,6 +505,7 @@ export default {}
     }
   }
   &__gift {
+    margin-bottom: 24px;
     margin-top: 56px;
     padding: 16px;
     background: #ffffff;
@@ -447,6 +514,18 @@ export default {}
       width: 218px;
       background: url('url(~@/assets/images/backgrounds/event_sb02.png') center /
         100% no-repeat;
+    }
+    &__title {
+      text-align: left;
+      position: absolute;
+      top: 0;
+      left: -40px;
+      font-style: normal;
+      font-weight: 900;
+      font-size: 26px;
+      line-height: 30px;
+      letter-spacing: -0.679682px;
+      color: #144d3b;
     }
     p {
       margin-top: 24px;
