@@ -9,6 +9,9 @@
       <p class="event-intro__date">
         이벤트 참여기간 : 2020.05.25 - 2020.06.08
       </p>
+      <p class="event-intro__tag">
+        #펫츠밥 #사료직거래#동네사료거래
+      </p>
       <div class="event-intro__content">
         <a
           class="event__link"
@@ -314,6 +317,16 @@ export default {}
     letter-spacing: -0.679682px;
     color: #ffffff;
     margin-bottom: 16px;
+  }
+  &__tag {
+    margin-bottom: 14px;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: -0.679682px;
+    color: #ffffff;
   }
   &__content {
     padding: 16px;
