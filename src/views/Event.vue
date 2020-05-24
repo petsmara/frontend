@@ -195,7 +195,35 @@
         >신청하러가기!</a
       >
     </section>
-    <section class="event-summary"></section>
+    <section class="event-summary">
+      <div class="event-summary__box">
+        <span class="event-summary__box__title">이벤트 참여기간</span>
+        <span class="event-summary__box__desc">2020.05.25 ~ 2020.06.08</span>
+      </div>
+      <div class="event-summary__box event-summary__box--multiple">
+        <span class="event-summary__box__title">참여방법</span>
+        <span class="event-summary__box__desc"
+          >1) 회원가입후 SNS 홍보<br />2) 판매 게시글 올린 후 인증샷 제출</span
+        >
+      </div>
+      <div class="event-summary__box event-summary__box--multiple">
+        <span class="event-summary__box__title">사은품</span>
+        <span class="event-summary__box__desc"
+          >각 이벤트 별 추첨을 통한 1인 1매 증정<br />1) 스타벅스
+          아이스아메리카노 톨 사이즈<br />2) 달콤 싱글 디저트 세트
+          기프티콘</span
+        >
+      </div>
+      <div class="event-summary__box">
+        <span class="event-summary__box__title">사은품 발송일</span>
+        <span class="event-summary__box__desc"
+          >2020년 6월 14일 이메일 발송</span
+        >
+      </div>
+      <p class="event-summary__paragraph">
+        * 이벤트는 펫츠밥 가입 고객에 한하여 참여 가능합니다.
+      </p>
+    </section>
   </div>
 </template>
 
@@ -550,6 +578,54 @@ export default {}
       text-align: center;
       letter-spacing: -0.679682px;
     }
+  }
+}
+
+.event-summary {
+  padding: 20px 10px;
+  &__box {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    &--multiple {
+      .event-summary__box__desc {
+        padding-top: 6px;
+      }
+    }
+    &__title {
+      margin-right: 10px;
+      flex-basis: 104px;
+      display: inline-block;
+      background: #144d3b;
+      border-radius: 8px;
+      padding: 5px 14px;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 14px;
+      letter-spacing: -0.679682px;
+      color: #ffffff;
+    }
+    &__desc {
+      align-self: center;
+      text-align: left;
+      display: inline-block;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 14px;
+      letter-spacing: -0.679682px;
+      color: #000000;
+    }
+  }
+  &__paragraph {
+    text-align: left;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: -0.679682px;
+    color: #000000;
   }
 }
 </style>
