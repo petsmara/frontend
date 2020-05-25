@@ -147,6 +147,11 @@
               >글쓰기</router-link
             >
           </li>
+          <li class="drawer__item">
+            <router-link class="drawer__link drawer__link--event" to="/event"
+              >이벤트</router-link
+            >
+          </li>
         </ul>
       </nav>
     </el-drawer>
@@ -419,6 +424,13 @@ export default {
         width: 20px;
         height: 14px;
         background-image: url(~@/assets/images/icons/write--black.png);
+      }
+    }
+    &--event {
+      &::before {
+        width: 20px;
+        height: 20px;
+        background-image: url(~@/assets/images/icons/event.png);
       }
     }
   }
