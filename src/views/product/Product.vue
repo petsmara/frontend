@@ -27,7 +27,7 @@
       <p class="product__places">
         {{ product.places || '장소 협의'
         }}<span class="product__time">{{
-          dayjs(product.modified_at).fromNow()
+          dayjs(product.created_at).fromNow()
         }}</span>
         <span class="product__view-count">조회 {{ product.view_count }}</span>
       </p>
@@ -178,6 +178,7 @@ export default {
     text-align: left;
   }
   &__seller {
+    margin-top: 8px;
     margin-bottom: 8px;
     position: relative;
     padding: 6px 30px;

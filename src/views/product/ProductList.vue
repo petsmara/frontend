@@ -54,7 +54,7 @@
       <i class="el-icon-loading"></i>
     </section>
     <template>
-      <el-backtop></el-backtop>
+      <el-backtop :bottom="112" :right="16"></el-backtop>
     </template>
   </div>
 </template>

@@ -6,6 +6,34 @@
         :options="bannerSwiperOption"
         class="banner__swiper"
       >
+        <swiper-slide class="banner__slide">
+          <section class="event-intro">
+            <h1 class="event-intro__title">
+              펫츠밥 회원가입하고<br />
+              시원한 스타벅스 마시자!
+            </h1>
+            <p class="event-intro__date">
+              이벤트 참여기간 : 2020.05.25 - 2020.06.08
+            </p>
+            <router-link class="event-intro__link" to="/event"
+              >이벤트 바로가기!</router-link
+            >
+            <div class="event-intro__content">
+              <div class="event-intro__box-wrap">
+                <div class="event-intro__tooltip event-intro__tooltip--coffee">
+                  회원가입<br />SNS 공유
+                </div>
+                <div class="event-intro__tooltip event-intro__tooltip--cake">
+                  회원가입<br />SNS 공유<br />+게시글
+                </div>
+              </div>
+              <p>
+                참여고객 중 추첨을 통해<br />스타벅스 아메리카노 또는 달콤 싱글
+                디저트 세트 기프티콘 1매 증정
+              </p>
+            </div>
+          </section>
+        </swiper-slide>
         <swiper-slide
           class="banner__slide"
           v-for="(banner, index) in bannerList"
@@ -35,6 +63,7 @@
             </div>
           </div>
         </swiper-slide>
+
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
     </section>
@@ -72,7 +101,7 @@
       </div>
     </section>
     <template>
-      <el-backtop></el-backtop>
+      <el-backtop :bottom="112" :right="16"></el-backtop>
     </template>
   </div>
 </template>
@@ -322,6 +351,110 @@ export default {
     @include respond-to('tablet-portrait-only') {
       flex-basis: 50%;
     }
+  }
+}
+.event-intro {
+  width: 100%;
+  max-width: 720px;
+  padding: 20px 16px 12px;
+  background: #144d3b;
+  &__paragraph {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    letter-spacing: -0.679682px;
+    color: #ffffff;
+    margin-bottom: 14px;
+  }
+
+  &__title {
+    font-style: normal;
+    font-weight: 900;
+    font-size: 26px;
+    line-height: 30px;
+    text-align: center;
+    letter-spacing: -0.679682px;
+    color: #ffffff;
+    margin-bottom: 10px;
+  }
+  &__date {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    letter-spacing: -0.679682px;
+    color: #ffffff;
+    margin-bottom: 16px;
+  }
+  &__link {
+    display: inline-block;
+    margin-bottom: 12px;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 16px;
+    line-height: 19px;
+    border: 1px solid #ffffff;
+    border-radius: 8px;
+    color: #ffffff;
+    padding: 8px 16px;
+  }
+  &__tag {
+    margin-bottom: 14px;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: -0.679682px;
+    color: #ffffff;
+  }
+  &__content {
+    padding: 16px;
+    background: #ffffff;
+    border-radius: 16px;
+    p {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 9px;
+      line-height: 11px;
+      letter-spacing: -0.679682px;
+      color: #000000;
+    }
+  }
+  &__box-wrap {
+    width: 278px;
+    height: 224px;
+    position: relative;
+    margin: 0 auto;
+    background: url('url(~@/assets/images/backgrounds/event_sb03.png') center /
+      100% no-repeat;
+  }
+  &__tooltip {
+    &--coffee {
+      left: 75px;
+    }
+    &--cake {
+      right: 0;
+    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 24px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #144d3b;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 8px;
+    line-height: 12px;
+    text-align: center;
+    letter-spacing: -0.679682px;
+    color: #ffffff;
   }
 }
 </style>
