@@ -63,7 +63,6 @@ export const actions = {
         return res
       })
       .catch(error => {
-        console.log(error.response)
         return error.response
       })
   },
@@ -79,7 +78,6 @@ export const actions = {
           return res.data.result
         })
         .catch(error => {
-          console.log(error.response)
           return error.response
         })
     }
@@ -98,7 +96,7 @@ export const actions = {
         return res
       })
       .catch(error => {
-        console.log(error)
+        console.error(error)
       })
   },
 

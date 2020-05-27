@@ -62,19 +62,16 @@ export const actions = {
   recoveryPassword({ commit }, user) {
     return UserService.recoveryPassword(user)
       .then(res => {
-        console.log(res, 'res')
         // commit('SET_IS_RECOVERY', res.data)
         return res
       })
       .catch(error => {
-        console.log(error, 'store error')
         return error.response
       })
   },
   resetPassword({ commit }, user) {
     return UserService.resetPassword(user)
       .then(res => {
-        console.log(res, 'res')
         // commit('SET_IS_RECOVERY', res.data)
         return res
       })

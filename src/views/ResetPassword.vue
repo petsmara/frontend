@@ -113,7 +113,6 @@ export default {
             uid,
             token
           }).then(result => {
-            console.log(result, 'success')
             // 여기서 결과값을 받아서 다시 분기처리 성공, 실패
             if (result.status === 200 || result.status === 201) {
               this.$message({
@@ -126,7 +125,6 @@ export default {
                 }
               })
             } else {
-              console.log(result, 'error result')
               this.$message({
                 message: `에러가 발생했습니다. 다시 시도해주세요 ${result.data.message}`,
                 duration: 3000,
@@ -134,7 +132,6 @@ export default {
                 type: 'error'
               })
             }
-            console.log(result, 'final result')
             this.isLoading = false
           })
         } else {
