@@ -298,8 +298,9 @@ export default {
 <style lang="scss" scoped>
 .register-user {
   padding: 20px;
-  max-width: 360px;
+  max-width: 720px;
   margin: 0 auto;
+  width: 100%;
   &__title {
     text-align: center;
   }

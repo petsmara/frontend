@@ -238,7 +238,6 @@ export default {
         price,
         places
       } = this.registerProductRuleForm
-      console.log(price)
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.isLoading = true
@@ -250,7 +249,6 @@ export default {
             places,
             images: this.imagePaths
           }).then(result => {
-            console.log(result)
             if (result.status === 200 || result.status === 201) {
               this.$message({
                 message: '상품등록이 완료되었습니다.!',
@@ -299,7 +297,6 @@ export default {
           showClose: true,
           type: 'warning'
         })
-        console.log('총 이미지 길이가 5개 이상입니다.')
         return false
       }
       Array.from(e.target.files).forEach(f => {
@@ -311,7 +308,6 @@ export default {
       this.$refs.imageInput.click()
     },
     onRemoveImage(index) {
-      console.log(this.imagePaths)
       this.removeImagePath('posts/removeImagePath', index)
     }
   }
@@ -321,8 +317,9 @@ export default {
 <style lang="scss" scoped>
 .register-product {
   padding: 20px;
-  max-width: 420px;
+  max-width: 720px;
   margin: 0 auto;
+  width: 100%;
   &__title {
     text-align: center;
     margin: 12px 0;
