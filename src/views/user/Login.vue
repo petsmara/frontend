@@ -116,7 +116,7 @@ export default {
           this.logIn({
             ...this.logInRuleForm
           }).then(result => {
-            if (result && result.status === 200) {
+            if ((result && result.status === 200) || result.status === 201) {
               this.isLoading = false
               this.$message({
                 message: '로그인이 완료되었습니다.!',
@@ -124,7 +124,8 @@ export default {
                 showClose: true,
                 type: 'success',
                 onClose: () => {
-                  this.$router.replace(this.redirectPath)
+                  this.$router.replace('/')
+                  // this.$router.replace(this.redirectPath)
                 }
               })
             } else {
