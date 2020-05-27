@@ -251,7 +251,7 @@ export default {
             images: this.imagePaths
           }).then(result => {
             console.log(result)
-            if (result.status === 200) {
+            if (result.status === 200 || result.status === 201) {
               this.$message({
                 message: '상품등록이 완료되었습니다.!',
                 duration: 1000,

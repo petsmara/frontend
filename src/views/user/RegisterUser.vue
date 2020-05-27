@@ -260,7 +260,7 @@ export default {
             ...newObj
           }).then(result => {
             // 여기서 결과값을 받아서 다시 분기처리 성공, 실패
-            if (result.status === 200) {
+            if (result.status === 200 || result.status === 201) {
               this.$message({
                 message: '회원가입이 완료되었습니다.!',
                 duration: 1000,

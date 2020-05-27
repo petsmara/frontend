@@ -67,6 +67,7 @@ export const actions = {
         return res
       })
       .catch(error => {
+        console.log(error, 'store error')
         return error.response
       })
   },
