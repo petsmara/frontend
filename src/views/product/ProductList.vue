@@ -201,8 +201,8 @@ export default {
     padding: 10px 40px 10px 40px;
     position: absolute;
     right: 0;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 10px;
+    // transform: translateY(-50%);
     border-radius: 8px;
     margin: 0 10px 0 auto;
     color: #000000;
